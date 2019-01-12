@@ -1517,9 +1517,13 @@ else {
         }
         zweiKartenZiehen();
       }
+
     } else {
       zählerListe[8] = 0;
       while (zählerListe[8] < 3) {
+        if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
+          VorAngriff();
+        } else {
         if (MitteSpieler2[zählerListe[8]][0] == "z" == false) {
           if (MitteSpieler1[zählerListe[8]][0] == "z" || MitteSpieler2[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
             SiegpunktePlus();
@@ -1530,11 +1534,14 @@ else {
             MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
           }
         }
-
+      }
         zählerListe[8]++;
       }
       zählerListe[6] = 0;
       while (zählerListe[8] < 5) {
+        if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
+          VorAngriff();
+        } else {
         if (MitteSpieler2[zählerListe[8]][0] == "z" == false) {
           if (MitteSpieler1[zählerListe[8]][0] == "z" || MitteSpieler2[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
             //  if (SteineMitte.length > 1) {
@@ -1557,10 +1564,12 @@ else {
             MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
           }
         }
-
+      }
         zählerListe[8]++;
       }
-
+      if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
+        VorAngriff();
+      } else {
       if (MitteSpieler2[zählerListe[8]][0] == "z" == false) {
         if (MitteSpieler1[zählerListe[8]][0] == "z" || MitteSpieler2[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
           zweiKartenZiehen();
@@ -1573,6 +1582,7 @@ else {
       }
       zweiKartenZiehen();
     }
+  }
     /*  setTimeout(function () {
         if (AblageListe[4] == "beendet") {
           Spielerwechsel();
@@ -1586,6 +1596,8 @@ else {
       zählerListe[8] = 6;
       if (NameBleibt[0] == name) {
         if (MitteSpieler1[zählerListe[9]][5] == "") {
+
+        } else if (MitteSpieler1[zählerListe[9]][5] == "") {
 
         }
       }
