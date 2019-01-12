@@ -1413,6 +1413,10 @@ else {
       zählerListe[8] = 0;
       zählerListe[6] = 0;
       AblageListe[2] = "Angriff";
+      NameSpieler[2] = NameSpieler[0];
+      NameSpieler[0] = NameSpieler[1];
+      NameSpieler[1] = NameSpieler[2];
+      NameSpieler.pop();
       angreifen();
     }
     if (AblageListe[4] == "wartenFarbauswahlSpieler2") {
@@ -1457,7 +1461,6 @@ else {
 
   function angreifen() {
     console.log("Angreifen");
-
     if (NameBleibt[0] == name) {
       while (zählerListe[8] < 3) {
         if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
@@ -1820,19 +1823,6 @@ else {
     Sperren[3] = false;
     Zustand[Zustand.length] = "Spielerwechsel"
     SpielerwechselSet();
-    setTimeout(function() {
-      SpielerwechselSet();
-      setTimeout(function() {
-        SpielerwechselSet();
-        setTimeout(function() {
-          SpielerwechselSet();
-        }, 2500);
-      }, 500);
-    }, 1500);
-    NameSpieler[2] = NameSpieler[0];
-    NameSpieler[0] = NameSpieler[1];
-    NameSpieler[1] = NameSpieler[2];
-    NameSpieler.pop();
   }
 
   function SpielerwechselSet() {
@@ -1866,7 +1856,7 @@ else {
           AblageListe[2].pop();
           zählerListe[7] = 0
           while (zählerListe[7] < MitteSpieler1.length) {
-            if (MitteSpieler1[zählerListe[7]][4] == undefined == false && AblageListe[2].toString().split('?')[zählerListe[7]][4] == undefined == false) {
+            if (result == "NOPE" == false && MitteSpieler1[zählerListe[7]][4] == undefined == false && AblageListe[2].toString().split('?')[zählerListe[7]][4] == undefined == false) {
 
               if (MitteSpieler1[zählerListe[7]][4] == AblageListe[2].toString().split('?')[zählerListe[7]][4] == false || MitteSpieler1[zählerListe[7]][3] == AblageListe[2].toString().split('?')[zählerListe[7]][3] == false) {
                 zählerListe[1]++;
@@ -1878,23 +1868,28 @@ else {
             zählerListe[7]++;
           }
           zählerListe[7] = 0;
-
+          if (result == "NOPE") {
+            zählerListe[1]++;
+          }
           dbGet("Olymp", "MitteSpieler2" + NameBleibt[0] + NameBleibt[1], function(result) {
             AblageListe[2] = result.toString().split(';')
             AblageListe[2].pop();
             zählerListe[7] = 0
             while (zählerListe[7] < MitteSpieler2.length) {
-              if (MitteSpieler2[zählerListe[7]][4] == undefined == false && AblageListe[2].toString().split('?')[zählerListe[7]][4] == undefined == false) {
+              if (result == "NOPE" == false && MitteSpieler2[zählerListe[7]][4] == undefined == false && AblageListe[2].toString().split('?')[zählerListe[7]][4] == undefined == false) {
                 if (MitteSpieler2[zählerListe[7]][4] == AblageListe[2].toString().split('?')[zählerListe[7]][4] == false || MitteSpieler2[zählerListe[7]][3] == AblageListe[2].toString().split('?')[zählerListe[7]][3] == false) {
                   zählerListe[1]++;
                 }
               }
-              if (MitteSpieler2[zählerListe[7]][4] == undefined == false && AblageListe[2][zählerListe[7]].toString().split('?')[4] == undefined) {
+              if (result == "NOPE" == false && MitteSpieler2[zählerListe[7]][4] == undefined == false && AblageListe[2][zählerListe[7]].toString().split('?')[4] == undefined) {
                 zählerListe[1]++;
               }
               zählerListe[7]++;
             }
             zählerListe[7] = 0;
+            if (result == "NOPE") {
+              zählerListe[1]++;
+            }
             if (zählerListe[1] > 0 && zählerListe[8] < 1000) {
               console.log(zählerListe[8]);
               zählerListe[1] = 0;
