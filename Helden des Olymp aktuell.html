@@ -1,0 +1,1953 @@
+<meta charset="utf-8">
+<script src="http://adi.nicolaiweitkemper.de/Database/js.js"></script>
+<button id="B6" onclick="mitspielerSuchen()">Mitspieler suchen</button>
+<canvas id="textur" width="2570" height="800"></canvas>
+<script>
+var textur = document.getElementById('textur');
+var canvas = textur.getContext('2d');//Dimension
+var Punktestand = 0;
+var gerät = "";
+var KoordinatenCheck;
+var Zustand = ["NOPE"];
+var SpielerCheck = [false, true, true];
+var zählerListe = [0,0, 0];
+var Koordinaten = [];
+var AblageListe = [];
+    AblageListe[4] = "beendet";
+    AblageListe[2] = "beendet";
+var Sperren = [true, false, false];
+var indices = [];
+var KartenAusgewählt = [];
+var farbenGebraucht = [];
+var farbenVorhanden = [];
+var textButton = "Meine Karten";
+var AnfrageCheck;
+var xMaus = 0, yMaus;
+var SpielerAnfrage = [];
+var nameGegner = "";
+var Siegpunkte = [0, ""];
+var spielerCheck = setInterval(spielerCheck, 600)
+var name = prompt("Wie heißen sie? Diese Information ist nötig, um (online) spielen zu können.")
+var NameBleibt = [];
+var NameSpieler = [];
+var kartenSpieler1 = [];
+var kartenSpieler2 = [];
+var kartenZiehen = [
+  [1, ["red"], "red", 1, 2, "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ", "Held/-in"],
+  [2, ["blue", "green"], "blue", 1, 3, "Im- mer wenn die Me- le- a- gros ge- gen- über- lie- gen- de Ein- heit ab- ge- legt wird, zie- he 1 Karte. ", "Held/-in" ],
+  [2, ["yellow", "yellow"], "yellow", 1, 2, "Im- mer wenn du Eu- ry- di- ke wegen ih- rer Scha- dens- mar- ker ab- le- gen müs- stest, kannst du 1 Hand- karte ab- wer- fen, um alle Marker von ihr zu ent- fernen und sie auf einen freien Platz zu ver- schie- ben. " , "Held/-in"],
+  [2, ["blue", "blue"], "blue", 1, 3, "Wenn Hylas ins Spiel kommt, ziehe 2 Karten. ", "Held/-in" ],
+  [2, ["green", "green"], "green", 1, 3, "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. ", "Held/-in"],
+  [1, ["yellow"], "yellow", 2, 2, "Wenn Alkemene ins Spiel kommt, zieht dein Gegner 1 Karte. ", "Held/-in"],
+  [2, ["red", "blue"], "red", 0, 3, "1 Ein- heit auf ei- nem zu Kyknos be- nach- bar- ten Platz kann bis zu 2X pro Runde an- grei- fen. ", "Held/-in"],
+  [2, ["blue", "yellow"], "blue", 2, 1, "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. ", "Held/-in"],
+  [0, [], "yellow", 0, 2, "keine besonderheit. ", "Soldat/-in"],
+  [3, ["red", "green", "blue"], "red", 1, 4, "Wenn Kassandra ins Spiel kommt, fügt sie al- len Ein- hei- ten 1 Scha- den zu (auch ei- ge- nen). ", "Held/-in"],
+  [1, ["red"], "red", 1, 0, "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. ", "Ausrüstung"],
+  [0, [], "green", 0, 2, "keine besonderheit. ", "Soldat/-in"],
+
+  [3, ["blue", "green", "yellow"], "yellow", 1, 3, "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ", "Held/-in"],
+];
+// Kosten.length/Kosten/Farbe/Angriff/Verteidigung/Fähigkeit/Einheit
+var zähler = kartenZiehen.length, j, Ablage;
+var MitteSpieler1 = [["z", 0, ""],  ["z", 0, ""], ["z", 0, ""], ["z", 0, ""], ["z", 0, ""], ["z", 0, ""]];
+var MitteSpieler2 = [["z", 0, ""],  ["z", 0, ""], ["z", 0, ""], ["z", 0, ""], ["z", 0, ""], ["z", 0, ""]];
+var SteineMitte = [];
+var SteineIch = [];
+while(--zähler > 0) {//console.log(0);
+  j = Math.floor(Math.random() * (zähler+1));
+  Ablage = kartenZiehen[j];
+  kartenZiehen[j] = kartenZiehen[zähler];
+  kartenZiehen[zähler] = Ablage;
+}
+zähler = 0;
+while (zähler < 20 && kartenZiehen.length > 70) {//console.log(01);
+  kartenZiehen.pop();
+  zähler++;
+}
+zähler = 0;
+/*
+kartenSpieler2[0] = kartenZiehen[0];
+kartenSpieler2[1] = kartenZiehen[1];
+kartenSpieler2[2] = kartenZiehen[2];
+kartenSpieler2[3] = kartenZiehen[3];
+kartenSpieler2[4] = kartenZiehen[4];
+kartenSpieler2[5] = kartenZiehen[5];
+kartenZiehen.shift();
+kartenZiehen.shift();
+kartenZiehen.shift();
+kartenZiehen.shift();
+kartenZiehen.shift();
+kartenZiehen.shift();
+*/
+NameSpieler[0] = "null";
+kartenSpieler1.sort();
+kartenSpieler2.sort();
+SteineMitte[0] = "red";
+SteineMitte[1] = "green";
+SteineMitte[2] = "yellow";
+SteineMitte[3] = "blue";
+kartenSpieler2["red"] = false;
+kartenSpieler2["green"] = false;
+kartenSpieler2["yellow"] = false;
+kartenSpieler2["blue"] = false;
+
+kartenSpieler1["red"] = false;
+kartenSpieler1["green"] = false;
+kartenSpieler1["yellow"] = false;
+kartenSpieler1["blue"] = false;
+
+//Kommunikation Server Beginn
+function mitspielerSuchen() {
+  SpielerCheck[0] = false;
+
+  dbGet("Olymp", "SpielerAnfrage", function(result) {
+    if (result == "NOPE" == false) {
+    SpielerAnfrage = result.toString().split(',');
+  }
+    nameGegner = prompt("Wie heißt dein Gegner, gegen den du spielen willst?.")
+    SpielerAnfrage[SpielerAnfrage.length] = nameGegner;
+    dbSet("Olymp", "SpielerAnfrage", SpielerAnfrage);
+    setTimeout(function () {
+
+      SpielerCheck[0] = true;
+      SpielerAnfrage = setInterval(SpielerAnfrage, 600)
+  }, 700);
+  });
+}
+
+function SpielerAnfrage() {
+  dbGet("Olymp", "SpielerAnfrage", function(result) {
+  if (result.toString().split(',') == SpielerAnfrage == false) {
+    zählerListe[7] = 0;
+    while (zählerListe[7] <  result.toString().split(',').length) {
+      if (SpielerAnfrage[zähler] == result.toString().split(',')[zähler]) {
+        zählerListe[7]++;
+      }
+    }
+      console.log(zähler == SpielerAnfrage.length);
+      if (zähler == SpielerAnfrage.length) {
+        zählerListe[7] = 0;
+        clearInterval(SpielerAnfrage);
+      }
+      else {
+        dbSet("Olymp", "SpielerAnfrage", SpielerAnfrage);
+      }
+  }
+});
+}
+
+function spielerCheck() {
+
+  if (SpielerCheck[0] == true && SpielerCheck[1] == true && SpielerCheck[2] == true) {
+    dbGet("Olymp", "SpielerAnfrage", function(result) {
+      if (result == "NOPE" == false) {
+        SpielerAnfrage = result.toString().split(',');
+      }
+          for (i = 0; i < SpielerAnfrage.length; i++) {
+            if (SpielerAnfrage[i] === name) indices.push(i)
+          }
+          if (indices.length > 0) {
+              if (SpielerCheck[0] == true && SpielerCheck[1] == true && SpielerCheck[2] == true) {
+                SpielerCheck[1] = false;
+                Ablage = false;
+                  Sperren[2] = false;
+                Namenklärung();
+                DranCheck = setInterval(DranCheck, 450)
+              }
+          }
+      });
+  }
+  }
+
+  function DranCheck () {
+//    dbGet("Olymp", "NameSpieler", function(result) {
+          dbGet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], function(result) {
+            result = result.toString().split(',');
+            if(Sperren[2] == true) {
+            if(result.length > Zustand.length) {
+              console.log("Bin dran!!!");
+            NameSpieler[2] = NameSpieler[0];
+            NameSpieler[0] = NameSpieler[1];
+            NameSpieler[1] = NameSpieler[2];
+            NameSpieler.pop();
+            Sperren[2] = false;
+            Zustand = [result];
+            Zustand = Zustand.toString().split(',');
+          //     zähler = 1;
+                 kartenErhalten();
+               Sperren[2] = false;
+               AblageListe[2] = "beendet"
+               AblageListe[4] = "beendet"
+               //dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], "NOPE");
+
+
+          }
+         }
+            });
+      //  });
+      }
+
+
+  function Namenklärung() {
+      SpielerCheck[0] = false;
+      Sperren[2] = false;
+    console.log("Gefunden!!!")
+    if (Math.floor(Math.random()*1000) < 500) {
+      NameSpieler[0] = name;
+      NameSpieler[1] = nameGegner;
+      NameBleibt = [name, nameGegner];
+    }
+    else {
+    NameSpieler[1] = name;
+    NameSpieler[0] = nameGegner;
+    NameBleibt = [nameGegner, name];
+    }
+
+    dbGet("Olymp", "NameBleibt", function(result) {
+      if (result == "NOPE") {
+          dbSet("Olymp", "NameBleibt", NameBleibt);
+      }
+      else {
+        NameBleibt = [result]
+        NameBleibt = NameBleibt.toString().split(',');
+      }
+      if (NameBleibt[0] == name == false) {
+        setTimeout(function () {
+          dbGet("Olymp", "NameSpieler", function(result) {
+            if (result == "NOPE") {
+                dbSet("Olymp", "NameSpieler", NameSpieler);
+            }
+            else {
+              NameSpieler = [result]
+              NameSpieler = NameSpieler.toString().split(',');
+            }
+            Sperren[2] = true;
+    Kartenerteilung();
+        });
+      },1053);
+    }
+    else {
+      dbGet("Olymp", "NameSpieler", function(result) {
+        if (result == "NOPE") {
+            dbSet("Olymp", "NameSpieler", NameSpieler);
+        }
+        else {
+          NameSpieler = [result]
+          NameSpieler = NameSpieler.toString().split(',');
+        }
+        Sperren[2] = true;
+  Kartenerteilung();
+  });
+    }
+    });
+  }
+
+  function Kartenerteilung() {
+    console.log("Kartenerteilung");
+    zählerListe[7] = 0;
+    if (NameBleibt[0] == name) {
+      setTimeout(function () {
+        kartenErhalten();
+        setTimeout(function () {
+          while (zählerListe[7] < 6) {
+            kartenSpieler1[kartenSpieler1.length] = kartenZiehen[0];
+            kartenZiehen.shift();
+            zählerListe[7]++;
+          }
+        }, 1737);
+      }, 3000);
+    }
+    else {
+      while (zählerListe[7] < 6) {
+        kartenSpieler2[kartenSpieler2.length] = kartenZiehen[0];
+        kartenZiehen.shift();
+        zählerListe[7]++;
+      }
+      zuVarKartenZiehen();
+      dbSet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
+      AblageListe[0] = "";
+    }
+    }
+
+    function kartenErhalten() {
+      console.log("kartenErhalten");
+      dbGet("Olymp", "Siegpunkte" + NameBleibt[0] + NameBleibt[1], function(result) {
+        if (result == "NOPE" == false) {
+          Siegpunkte = result.toString().split(',');
+        }
+        dbGet("Olymp", "SteineMitte" + NameBleibt[0] + NameBleibt[1], function(result) {
+          if (result == "NOPE" == false) {
+            SteineMitte = result.toString().split(',');
+            zählerListe[7] = 0;
+            while (zählerListe[7] < 4) {
+              if (SteineMitte[zählerListe[7]] == "") {
+                SteineMitte[zählerListe[7]] = "#FF8000";
+              }
+              zählerListe[7]++;
+            }
+          }
+      dbGet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], function(result) {
+        zählerListe[7] = 0;
+        if(result == "NOPE") {
+          zuVarKartenZiehen();
+          dbSet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
+          AblageListe[0] = "";
+        }
+
+        else {
+          kartenZiehen = result.toString().split(';');
+          zählerListe[7] = 0;
+      //      kartenZiehen[zähler] = kartenZiehen[zähler].toString().split('?');
+            while (zählerListe[7] < kartenZiehen.length) {
+            if (kartenZiehen[zählerListe[7]][0] == "z" == false) {
+
+            if (kartenZiehen[zählerListe[7]] == "") {
+              kartenZiehen.pop();
+            }
+            else {
+              kartenZiehen[zählerListe[7]] = kartenZiehen[zählerListe[7]].toString().split('?');
+              kartenZiehen[zählerListe[7]][1] = kartenZiehen[zählerListe[7]][1].toString().split(',');
+            }
+          }
+            zählerListe[7]++;
+          }
+          zählerListe[7] = 0;
+        }
+        dbGet("Olymp", "MitteSpieler1" + NameBleibt[0] + NameBleibt[1], function(result) {
+        if (result == "NOPE") {
+          ZuVarMitteSpieler1();
+          dbSet("Olymp", "MitteSpieler1" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
+          AblageListe[0] = "";
+        }
+        else {
+          MitteSpieler1 = result.toString().split(';');
+          zählerListe[7] = 0;
+        //    MitteSpieler1[zählerListe[7]] = MitteSpieler1[zähler].toString().split('?');
+            while (zählerListe[7] < MitteSpieler1.length) {
+            if (MitteSpieler1[zählerListe[7]][0] == "z" == false) {
+            if (MitteSpieler1[zählerListe[7]] == "") {
+              MitteSpieler1.pop();
+            }
+            else {
+              MitteSpieler1[zählerListe[7]] = MitteSpieler1[zählerListe[7]].toString().split('?');
+              MitteSpieler1[zählerListe[7]][1] = MitteSpieler1[zählerListe[7]][1].toString().split(',');
+              MitteSpieler1[zählerListe[7]][4] =  JSON.parse(MitteSpieler1[zählerListe[7]][4]);
+              MitteSpieler1[zählerListe[7]][3] =  JSON.parse(MitteSpieler1[zählerListe[7]][3]);
+
+            }
+          }
+          else if (MitteSpieler1[zählerListe[7]][1] == "?") {
+            MitteSpieler1[zählerListe[7]] = MitteSpieler1[zählerListe[7]].toString().split('?');
+          }
+            zählerListe[7]++;
+          }
+          zählerListe[7] = 0;
+        }
+        dbGet("Olymp", "MitteSpieler2" + NameBleibt[0] + NameBleibt[1], function(result) {
+          if (result == "NOPE") {
+            ZuVarMitteSpieler2();
+            dbSet("Olymp", "MitteSpieler2" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
+            AblageListe[0] = "";
+            zählerListe[7] = 0;
+          }
+          else {
+            MitteSpieler2 = result.toString().split(';');
+              zählerListe[7] = 0;
+            //    MitteSpieler2[zähler] = MitteSpieler2[zähler].toString().split('?');
+                while (zählerListe[7] < MitteSpieler2.length) {
+                if (MitteSpieler2[zählerListe[7]][0] == "z" == false) {
+                if (MitteSpieler2[zählerListe[7]] == "") {
+                  MitteSpieler2.pop();
+                }
+                else {
+                  MitteSpieler2[zählerListe[7]] = MitteSpieler2[zählerListe[7]].toString().split('?');
+                  MitteSpieler2[zählerListe[7]][1] = MitteSpieler2[zählerListe[7]][1].toString().split(',');
+                  MitteSpieler2[zählerListe[7]][4] = JSON.parse(MitteSpieler2[zählerListe[7]][4]);
+                  MitteSpieler2[zählerListe[7]][3] = JSON.parse(MitteSpieler2[zählerListe[7]][3]);
+                }
+              }
+              else if (MitteSpieler2[zählerListe[7]][1] == "?") {
+                MitteSpieler2[zählerListe[7]] = MitteSpieler2[zählerListe[7]].toString().split('?');
+              }
+                zählerListe[7]++;
+              }
+              zählerListe[7] = 0;
+          }
+        });
+        });
+        });
+      });
+      });
+        MitteSpieler1.sort();
+        MitteSpieler2.sort();
+        }
+
+        function ZuVarMitteSpieler1() {
+          zählerListe[7] = 0;
+          zählerListe[0] = 0;
+          zählerListe[1] = -1;
+          AblageListe[0] = "";
+          while (zählerListe[0] < 6) {
+          zählerListe[1]++;
+          if (MitteSpieler1[zählerListe[0]][0] == "z" == false && zählerListe[1] == 7 == false) {
+          AblageListe[0] +=  MitteSpieler1[zählerListe[0]][zählerListe[1]];
+        }
+        else if(zählerListe[1] == 6) {
+          AblageListe[0] += "z??"
+        }
+          if (zählerListe[1] == 7) {
+            zählerListe[0]++;
+            AblageListe[0] += ";"
+            zählerListe[1] = - 1;
+          }
+          else if (MitteSpieler1[zählerListe[0]][0] == "z" == false) {
+            AblageListe[0] += "?"
+          }
+          zählerListe[7]++;
+
+          }
+          zählerListe[0] = [0,0]
+          }
+
+          function ZuVarMitteSpieler2() {
+            zählerListe[7] = 0;
+            zählerListe[0] = 0;
+            zählerListe[1] = -1;
+            AblageListe[0] = "";
+            while (zählerListe[0] <  6) {
+            zählerListe[1]++;
+            if (MitteSpieler2[zählerListe[0]][0] == "z" == false && zählerListe[1] == 7 == false) {
+            AblageListe[0] +=  MitteSpieler2[zählerListe[0]][zählerListe[1]];
+          }
+          else if(zählerListe[1] == 7) {
+            AblageListe[0] += "z??"
+          }
+            if (zählerListe[1] == 7) {
+              zählerListe[0]++;
+              AblageListe[0] += ";"
+              zählerListe[1] = - 1;
+            }
+            else if (MitteSpieler2[zählerListe[0]][0] == "z" == false) {
+              AblageListe[0] += "?"
+            }
+            zählerListe[7]++;
+
+            }
+            zählerListe[0] = [0,0]
+        }
+
+        function zuVarKartenZiehen() {
+          zählerListe[7] = 0;
+          zählerListe[0] = 0;
+          zählerListe[1] = -1;
+          AblageListe[0] = "";
+          while (zählerListe[0] <  kartenZiehen.length) {
+          zählerListe[1]++;
+          if (kartenZiehen[zählerListe[0]] == undefined == false && zählerListe[1] == 7 == false) {
+          AblageListe[0] +=  kartenZiehen[zählerListe[0]][zählerListe[1]];
+        }
+        else if(zählerListe[1] == 7 && AblageListe[0][AblageListe[0].length - 1] == "?" == false) {
+          AblageListe[0] += "z"
+        }
+          if (zählerListe[1] == 7) {
+            zählerListe[0]++;
+            AblageListe[0] += ";"
+            zählerListe[1] = - 1;
+          }
+          else if (kartenZiehen[zählerListe[0]] == undefined == false) {
+            AblageListe[0] += "?"
+          }
+          zählerListe[7]++;
+
+          }
+          zählerListe[0] = [0,0]
+        }
+//Kommunikation Server zu Ende
+
+
+function LayoutMitte() {
+//  canvas.fillStyle = "white"
+  //canvas.fillRect(0,470,2000, 800);
+   canvas.fillStyle = "#FF8000";//Farbe
+    canvas.fillRect(0,190 + 88,1585,184)
+
+    canvas.fillStyle = "white"
+    canvas.font = "50px Georgia";
+    if (Siegpunkte[1] == NameBleibt[0] && Siegpunkte[0] == 0 == false) {
+      canvas.fillText(Siegpunkte[0] + "↓", 17 ,289  + 88);
+    }
+    else if (Siegpunkte[0] == 0 == false) {
+      canvas.fillText(Siegpunkte[0] + "↑", 17 ,289  + 88);
+    }
+    else {
+      canvas.fillText(Siegpunkte[0], 17 ,289  + 88);
+    }
+
+    Koordinaten[0] = 95;
+    //Mitte Ich
+    while (zähler < 6) {//console.log(012);
+      canvas.fillStyle = "#FF8000";//Farbe
+      canvas.fillRect(Koordinaten[0],390 + 88,180,250)
+  //    if (NameBleibt[0] == name) {
+        if (MitteSpieler1[zähler][4] < 1) {
+          MitteSpieler1[zähler] = ["z", "", ""];
+        }
+        if (MitteSpieler1[zähler][0] == "z") {
+          canvas.fillStyle = "white";//Farbe
+        }
+        else {
+          canvas.fillStyle = MitteSpieler1[zähler][2];//Farbe
+        }
+  /*    }
+      else if (MitteSpieler2[zähler][0] == "z") {
+        canvas.fillStyle = "white";//Farbe
+      }
+      else {
+        canvas.fillStyle = MitteSpieler2[zähler][2];//Farbe
+      }
+      */
+      canvas.fillRect(Koordinaten[0] + 20,410 + 88,140,207)
+      // Werte Karte ich (Angriff/Verteidigung/Einheit)
+      canvas.fillStyle = "white";
+      canvas.font = "37px Georgia";
+  /*    if (NameBleibt[0] == name == false) {
+        if (MitteSpieler2[zähler][0] == "z" == false) {
+
+          canvas.fillText("         " + MitteSpieler2[zähler][4] + "💀", 120 + 250*zähler ,665);
+          canvas.fillText(MitteSpieler2[zähler][3] + "🔫" , 120 + 250*zähler ,665);
+          canvas.font = "29px Georgia";
+          canvas.fillText(MitteSpieler2[zähler][6], 120 + 250*zähler ,695);
+          // KostenLayoutIch:
+          zählerListe[4] = 0;
+          Koordinaten[2] = 0;
+          Koordinaten[1] = 0;
+          while (zählerListe[4] < MitteSpieler2[zähler][1].length) {//console.log(0123);
+            if (MitteSpieler2[zähler][1] == "" == false) {
+            canvas.fillStyle = "white";
+            canvas.fillRect(120 + 250*zähler + Koordinaten[1] ,590 - Koordinaten[2], 23, 39)
+            canvas.fillStyle = MitteSpieler2[zähler][1][zählerListe[4]]
+            canvas.fillRect(125 + 250*zähler + Koordinaten[1] ,595 - Koordinaten[2], 13, 29)
+            zählerListe[4]++;
+            Koordinaten[2] += 44;
+            if (zählerListe[4] == 3) {
+              Koordinaten[2] = 0;
+              Koordinaten[1] = 30;
+            }
+          }
+          else {
+            zählerListe[4]++;
+          }
+          }
+        }
+    } */
+      if (MitteSpieler1[zähler][0] == "z" == false) {
+      canvas.fillText("         " + MitteSpieler1[zähler][4] + "💀" , 120 + 250*zähler ,665);
+      canvas.fillText(MitteSpieler1[zähler][3] + "🔫" , 120 + 250*zähler ,665);
+      canvas.font = "29px Georgia";
+      canvas.fillText(MitteSpieler1[zähler][6], 120 + 250*zähler ,695);
+      // KostenLayoutIch:
+      zählerListe[4] = 0;
+      Koordinaten[2] = 0;
+      Koordinaten[1] = 0;
+      while (zählerListe[4] < MitteSpieler1[zähler][1].length) {//console.log(01234);
+        if (MitteSpieler1[zähler][1] == "" == false) {
+        canvas.fillStyle = "white";
+        canvas.fillRect(120 + 250*zähler + Koordinaten[1] ,590 - Koordinaten[2], 23, 39)
+        canvas.fillStyle = MitteSpieler1[zähler][1][zählerListe[4]]
+        canvas.fillRect(125 + 250*zähler + Koordinaten[1] ,595 - Koordinaten[2], 13, 29)
+        zählerListe[4]++;
+        Koordinaten[2] += 44;
+        if (zählerListe[4] == 3) {
+          Koordinaten[2] = 0;
+          Koordinaten[1] = 30;
+        }
+      }
+      else {
+        zählerListe[4]++;
+      }
+      }
+    }
+
+
+      zähler++;
+      Koordinaten[0] += 250
+    }
+    zähler = 0;
+    Koordinaten[0] = 95;
+    //Mitte Gegner
+    while (zähler < 6) {//console.log(012345);
+      canvas.fillStyle = "#FF8000";//Farbe
+      canvas.fillRect(Koordinaten[0],390 - 385,180,250)
+    //  if (NameBleibt[0] == name == false) {
+    if (MitteSpieler2[zähler][4] < 1) {
+      MitteSpieler2[zähler] = ["z", "", ""];
+    }
+        if (MitteSpieler2[zähler][0] == "z") {
+          canvas.fillStyle = "white";//Farbe
+        }
+        else {
+          canvas.fillStyle = MitteSpieler2[zähler][2];//Farbe
+        }
+    //  }
+    /*  else if (MitteSpieler2[zähler][0] == "z") {
+        canvas.fillStyle = "white";//Farbe
+      }
+      else {
+        canvas.fillStyle = MitteSpieler2[zähler][2];//Farbe
+      }
+      */
+      canvas.fillRect(Koordinaten[0] + 20,410 - 385,140,207)
+        canvas.fillStyle = "white";
+        canvas.font = "37px Georgia";
+      // Werte Karte Gegner (Angriff/Verteidigung/Einheit)
+//      if (NameBleibt[0] == name == false) {
+        if (MitteSpieler2[zähler][0] == "z" == false) {
+
+          canvas.fillText("         " + MitteSpieler2[zähler][4] + "💀", 120 + 250*zähler ,195);
+          canvas.fillText(MitteSpieler2[zähler][3] + "🔫" , 120 + 250*zähler ,195);
+          canvas.font = "29px Georgia";
+          canvas.fillText(MitteSpieler2[zähler][6], 120 + 250*zähler ,223);
+          // KostenLayoutGegner
+          zählerListe[4] = 0;
+          Koordinaten[2] = 0;
+          Koordinaten[1] = 0;
+          while (zählerListe[4] < MitteSpieler2[zähler][1].length) {
+            if (MitteSpieler2[zähler][1] == "" == false) {
+            canvas.fillStyle = "white";
+            canvas.fillRect(120 + 250*zähler + Koordinaten[1] ,120 - Koordinaten[2], 23, 39)
+            canvas.fillStyle = MitteSpieler2[zähler][1][zählerListe[4]]
+            canvas.fillRect(125 + 250*zähler + Koordinaten[1] ,125 - Koordinaten[2], 13, 29)
+            zählerListe[4]++;
+            Koordinaten[2] += 44;
+            if (zählerListe[4] == 3) {
+              Koordinaten[2] = 0;
+              Koordinaten[1] = 30;
+            }
+          }
+          else {
+            zählerListe[4]++;
+          }
+          }
+        }
+  //  }
+  /*  else if (MitteSpieler2[zähler][0] == "z" == false) {
+      canvas.fillText("         " + MitteSpieler2[zähler][4] + "💀" , 120 + 250*zähler ,195);
+      canvas.fillText(MitteSpieler2[zähler][3] + "🔫" , 120 + 250*zähler ,190);
+      canvas.font = "29px Georgia";
+      canvas.fillText(MitteSpieler2[zähler][6], 120 + 250*zähler ,225);
+      // KostenLayoutGegner
+      zählerListe[4] = 0;
+      Koordinaten[2] = 0;
+      Koordinaten[1] = 0;
+      while (zählerListe[4] < MitteSpieler2[zähler][1].length) {
+        if (MitteSpieler2[zähler][1] == "" == false) {
+        canvas.fillStyle = "white";
+        canvas.fillRect(120 + 250*zähler + Koordinaten[1] ,120 - Koordinaten[2], 23, 39)
+        canvas.fillStyle = MitteSpieler2[zähler][1][zählerListe[4]]
+        canvas.fillRect(125 + 250*zähler + Koordinaten[1] ,125 - Koordinaten[2], 13, 29)
+        zählerListe[4]++;
+        Koordinaten[2] += 44;
+        if (zählerListe[4] == 3) {
+          Koordinaten[2] = 0;
+          Koordinaten[1] = 30;
+        }
+      }
+else {
+  zählerListe[4]++;
+}
+      }
+    } */
+    Koordinaten[0] += 250
+    zähler++;
+  }
+    zähler = 0;
+ canvas.fillStyle = "white"
+ canvas.fillRect(1370,390,200,60);
+ canvas.fillStyle = "blue"
+ canvas.fillRect(1377,397,185,45);
+ canvas.fillStyle = "white"
+ canvas.font = "32px Georgia";
+ canvas.fillText(textButton , 1380 ,430);
+if (NameSpieler[0] == name && AblageListe[2] == "Angriff" == false) {
+   canvas.fillStyle = "white"
+   canvas.fillRect(1370 - 175,390,160,60);
+   canvas.fillStyle = "blue"
+   canvas.fillRect(1377 - 175,397,145,45);
+   canvas.font = "32px Georgia";
+   canvas.fillStyle = "white"
+   canvas.fillText("Angreifen" , 1380 - 170,430);
+ }
+}
+
+
+function TextAktuell() {
+  canvas.font = "50px Georgia";
+  if (Siegpunkte[1] == NameBleibt[0] && Siegpunkte[0] == 0 == false) {
+    canvas.fillText(Siegpunkte[0] + "↓", 17 ,289  + 88);
+  }
+  else if (Siegpunkte[0] == 0 == false) {
+    canvas.fillText(Siegpunkte[0] + "↑", 17 ,289  + 88);
+  }
+  else {
+    canvas.fillText(Siegpunkte[0], 17 ,289  + 88);
+  }
+
+  zählerListe[0] = 0;
+  zählerListe[3] = 0;
+  Koordinaten[2] = 323;
+  if (AblageListe[0][zähler][0] == "z" == false) {
+//  console.log(AblageListe[0] == kartenSpieler2);
+  fertigerText = AblageListe[0][zähler][5][0];
+
+  while (AblageListe[0][zähler][5].length - 2 > zählerListe[0]) {//console.log(0123456);
+    zählerListe[0]++;
+    zählerListe[3]++;
+  /*  AblageListe[0] = zählerListe[0] / 68
+    AblageListe[0] = "''" + AblageListe[0] + "''"
+    */
+    zählerListe[1] = zählerListe[0];
+    if (AblageListe[0][zähler][5][zählerListe[0]] == " " || AblageListe[0][zähler][5][zählerListe[0]] == " ") {
+      while (AblageListe[0][zähler][5][zählerListe[1]] == " " == false || zählerListe[1] == zählerListe[0]) {//console.log(01234567);
+        zählerListe[1]++;
+  //      console.log(AblageListe[0][zähler][5][zählerListe[1]]);
+      }
+      zählerListe[1]++;
+
+    }
+
+  //  console.log(zählerListe[0] < zählerListe[1] - zählerListe[0] - 1);
+    if (74 - zählerListe[3] < zählerListe[1] - zählerListe[0] || 74 - zählerListe[3] == zählerListe[1] - zählerListe[0]) {
+      Koordinaten[2] += 45;
+      fertigerText = "";
+      zählerListe[3] = 0;
+      if (AblageListe[0][zähler][5][zählerListe[0]] == " " && AblageListe[0][zähler][5][zählerListe[0] - 1] == "-" == false) {
+        zählerListe[0]++;
+      }
+    }
+    if (AblageListe[0][zähler][5][zählerListe[0]] == " " && AblageListe[0][zähler][5][zählerListe[0] - 1] == "-") {
+      zählerListe[0]++;
+    }
+    if (AblageListe[0][zähler][5][zählerListe[0]] + AblageListe[0][zähler][5][zählerListe[0] + 1] == "- " == false) {
+      fertigerText += AblageListe[0][zähler][5][zählerListe[0]];
+    }
+
+    canvas.fillStyle = "white"
+    canvas.font = "50px Georgia";
+    if (AblageListe[0][zähler][5].length > zählerListe[0]) {
+          canvas.fillText(fertigerText, 77 ,Koordinaten[2]);
+    }
+  }
+  fertigerText = "";
+  Koordinaten[2] = 95
+
+}
+else if(Sperren[1] == false) {
+  FarbsteineMitte();
+}
+else {
+  FarbsteineIch();
+}
+}
+
+function LayoutIch() {
+ canvas.fillStyle = "#FF8000";//Farbe
+ canvas.fillRect(0,190 + 88,1585,184)
+ canvas.fillStyle = "white"
+ canvas.font = "50px Georgia";
+if (Siegpunkte[1] == NameBleibt[0] && Siegpunkte[0] == 0 == false) {
+  canvas.fillText(Siegpunkte[0] + "↓", 17 ,289  + 88);
+}
+else if (Siegpunkte[0] == 0 == false) {
+  canvas.fillText(Siegpunkte[0] + "↑", 17 ,289  + 88);
+}
+else {
+  canvas.fillText(Siegpunkte[0], 17 ,289  + 88);
+}
+  Koordinaten[0] = 95;
+  if (NameBleibt[0] == name) {
+    Koordinaten[3] =  0;
+  /*  if (yMaus > 261) {
+      AblageListe[0] = kartenSpieler1;
+    }
+    else {
+      AblageListe[0] = kartenSpieler2;
+    }
+    */
+  while (zähler < kartenSpieler1.length) {//console.log(012345678);
+    if (kartenSpieler2[kartenSpieler2.length - 1] == undefined || kartenSpieler2[kartenSpieler2.length - 2] == "z") {
+      kartenSpieler2.pop();
+    }
+    if (kartenSpieler1[kartenSpieler1.length - 1] == undefined || kartenSpieler1[kartenSpieler1.length - 2] == "z") {
+      kartenSpieler1.pop();
+    }
+    canvas.fillStyle = "#FF8000";//Farbe
+    canvas.fillRect(Koordinaten[0],390 + 88 - Koordinaten[3],180,250)
+    canvas.fillStyle = kartenSpieler1[zähler][2];//Farbe
+    canvas.fillRect(Koordinaten[0] + 20,410 + 88 - Koordinaten[3],140,207)
+    // Werte Karte ich (Angriff/Verteidigung/Einheit)
+    canvas.fillStyle = "white";
+    canvas.font = "37px Georgia";
+    canvas.fillText("         " + kartenSpieler1[zähler][4] + "💀" , 120 + 250*zähler ,665 - Koordinaten[3]);
+    canvas.fillText(kartenSpieler1[zähler][3] + "🔫" , 120 + 250*zähler ,665 - Koordinaten[3]);
+    canvas.font = "29px Georgia";
+    canvas.fillText(kartenSpieler1[zähler][6], 120 + 250*zähler ,695 - Koordinaten[3]);
+    // KostenLayoutIch:
+    zählerListe[4] = 0;
+    Koordinaten[2] = 0;
+    Koordinaten[1] = 0;
+    while (zählerListe[4] < kartenSpieler1[zähler][1].length) {//console.log(0123456789);
+      if (kartenSpieler1[zähler][1][zählerListe[4]] == "" == false) {
+      canvas.fillStyle = "white";
+      canvas.fillRect(120 + 250*zähler + Koordinaten[1] ,590 - Koordinaten[2] - Koordinaten[3] - Koordinaten[3], 23, 39)
+      canvas.fillStyle = kartenSpieler1[zähler][1][zählerListe[4]]
+      canvas.fillRect(125 + 250*zähler + Koordinaten[1] ,595 - Koordinaten[2] - Koordinaten[3] - Koordinaten[3], 13, 29)
+    }
+      zählerListe[4]++;
+      Koordinaten[2] += 44;
+      if (zählerListe[4] == 3) {
+        Koordinaten[2] = 0;
+        Koordinaten[1] = 30;
+      }
+    }
+    Koordinaten[0] += 250
+    zähler++;
+  }
+  }
+
+  else {
+    Koordinaten[3] =  475
+  /*  if (yMaus > 261) {
+      AblageListe[0] = kartenSpieler2;
+    }
+    else {
+      AblageListe[0] = kartenSpieler1;
+    }
+    while (kartenSpieler1[kartenSpieler1.length - 1] == undefined) {
+      kartenSpieler1.pop();
+    }
+    while (kartenSpieler2[kartenSpieler2.length - 1] == undefined) {
+      kartenSpieler2.pop();
+    }
+    while (kartenZiehen[kartenZiehen.length - 1] == undefined) {
+      kartenZiehen.pop();
+    }
+    */
+    zähler = 0;
+
+    while (zähler < kartenSpieler2.length) {//console.log(01234567890);
+    canvas.fillStyle = "#FF8000";//Farbe
+    canvas.fillRect(Koordinaten[0],390 + 88 - Koordinaten[3],180,250)
+    canvas.fillStyle = kartenSpieler2[zähler][2];//Farbe
+    canvas.fillRect(Koordinaten[0] + 20,410 + 88 - Koordinaten[3],140,207)
+    // Werte Karte ich (Angriff/Verteidigung/Einheit)
+    canvas.fillStyle = "white";
+    canvas.font = "37px Georgia";
+    canvas.fillText("         " + kartenSpieler2[zähler][4] + "💀", 120 + 250*zähler ,665 - Koordinaten[3]);
+    canvas.fillText(kartenSpieler2[zähler][3] + "🔫" , 120 + 250*zähler ,665 - Koordinaten[3]);
+    canvas.font = "29px Georgia";
+    canvas.fillText(kartenSpieler2[zähler][6], 120 + 250*zähler ,695 - Koordinaten[3]);
+    // KostenLayoutIch:
+    zählerListe[4] = 0;
+    Koordinaten[2] = 0;
+    Koordinaten[1] = 0;
+    while (zählerListe[4] < kartenSpieler2[zähler][1].length) {//console.log(012345678901);
+      if (kartenSpieler2[zähler][1][zählerListe[4]] == "" == false) {
+      canvas.fillStyle = "white";
+      canvas.fillRect(120 + 250*zähler + Koordinaten[1] ,590 - Koordinaten[2] - Koordinaten[3], 23, 39)
+      canvas.fillStyle = kartenSpieler2[zähler][1][zählerListe[4]]
+      canvas.fillRect(125 + 250*zähler + Koordinaten[1] ,595 - Koordinaten[2] - Koordinaten[3], 13, 29)
+    }
+      zählerListe[4]++;
+      Koordinaten[2] += 44;
+      if (zählerListe[4] == 3) {
+        Koordinaten[2] = 0;
+        Koordinaten[1] = 30;
+  }
+}
+    zähler++;
+    Koordinaten[0] += 250
+  }
+}
+zähler = 0;
+canvas.fillStyle = "white"
+canvas.fillRect(1370,390,200,60);
+canvas.fillStyle = "blue"
+canvas.fillRect(1377,397,185,45);
+canvas.fillStyle = "white"
+canvas.font = "32px Georgia";
+canvas.fillText(textButton , 1380 ,430);
+}
+
+function FarbsteineMitte() {
+  zählerListe[2] = 0;
+  Koordinaten[0] = 648;
+  Koordinaten[1] = 350;
+
+  while (zählerListe[2] < SteineMitte.length) {
+    canvas.fillStyle = SteineMitte[zählerListe[2]];
+    canvas.beginPath();
+    canvas.arc(Koordinaten[0] + 385,Koordinaten[1],15,0,Math.PI*2, false);
+    canvas.fill();
+    zählerListe[2] ++;
+    if (zählerListe[2] == 1) {
+      Koordinaten[0] += 65;
+    }
+    if (zählerListe[2] == 2) {
+      Koordinaten[0] = 648;
+      Koordinaten[1] += 65
+    }
+    else if(zählerListe[2] == 3 ) {
+        Koordinaten[0] += 65;
+        Koordinaten[1] = 350 + 65;
+    }
+  }
+}
+
+function FarbsteineIch() {
+  zählerListe[2] = 0;
+  zählerListe[3] = [];
+  Koordinaten[0] = 648;
+  Koordinaten[1] = 350;
+  AblageListe[5] = ["red", "green", "yellow", "blue"];
+  if (name == NameBleibt[0]) {
+    while (zählerListe[2] < AblageListe[5].length) {
+
+  if (kartenSpieler1[[AblageListe[5]][0][zählerListe[2]]] == true) {
+    zählerListe[3][zählerListe[2]] = AblageListe[5][zählerListe[2]];
+  }
+  else {
+    zählerListe[3][zählerListe[2]] = "#FF8000"
+  }
+  zählerListe[2]++;
+}
+  }
+  else {
+    while (zählerListe[2] < AblageListe[5].length) {
+
+  if (kartenSpieler2[[AblageListe[5]][0][zählerListe[2]]] == true) {
+    zählerListe[3][zählerListe[2]] = AblageListe[5][zählerListe[2]];
+  }
+  else {
+    zählerListe[3][zählerListe[2]] = "#FF8000"
+  }
+  zählerListe[2]++;
+}
+}
+  zählerListe[2] = 0;
+  while (zählerListe[2] < zählerListe[3].length) {
+      canvas.fillStyle = zählerListe[3][zählerListe[2]];
+    canvas.beginPath();
+    canvas.arc(Koordinaten[0] + 385,Koordinaten[1],15,0,Math.PI*2, false);
+    canvas.fill();
+    zählerListe[2] ++;
+    if (zählerListe[2] == 1) {
+      Koordinaten[0] += 65;
+    }
+    if (zählerListe[2] == 2) {
+      Koordinaten[0] = 648;
+      Koordinaten[1] += 65
+    }
+    else if(zählerListe[2] == 3 ) {
+        Koordinaten[0] += 65;
+        Koordinaten[1] = 350 + 65;
+    }
+  }
+}
+
+function readMouseMove(e) {
+  xMaus = e.clientX;
+  yMaus = e.clientY;
+  //console.log(xMaus + " - " + yMaus);
+}
+document.onmousemove = readMouseMove
+KoordinatenCheck = setInterval(KoordinatenCheck, 700)
+// 1377,397,185,45
+window.addEventListener('mousedown', function () {
+  if (xMaus > 1380 && xMaus < 1385 + 186 && yMaus > 427 && yMaus < 473) {
+  if (textButton == "Meine Karten") {
+    textButton = "Spielfeld"
+    Sperren[1] = true;
+    canvas.fillStyle = "white"
+    if (NameBleibt[0] == name) {
+      canvas.fillRect(0,470,2000, 800);
+    }
+    else {
+      canvas.fillRect(0,0,2000, 275);
+    }
+  }
+  else {
+    textButton = "Meine Karten";
+    Sperren[1] = false;
+    canvas.fillStyle = "white"
+    if (NameBleibt[0] == name) {
+      canvas.fillRect(0,470,2000, 800);
+    }
+    else {
+      canvas.fillRect(0,0,2000, 275);
+    }
+  }
+  }
+  if (AblageListe[1] > -1 && NameSpieler[0] == name && Sperren[1] == true && AblageListe[2] == "beendet"/* || AblageListe[2] == undefined*/) {
+    zählerListe[2] = 0;
+    while (zählerListe[2] < KartenAusgewählt.length) {//console.log(0123456789012);
+      if (KartenAusgewählt[zählerListe[2]] == AblageListe[1]) {
+        zählerListe[2] = KartenAusgewählt.length + 2
+        console.log("ignoriert (später: rausnehmen?)");
+      }
+      zählerListe[2]++;
+    }
+    if (zählerListe[2] == KartenAusgewählt.length + 2 == false) {
+      KartenAusgewählt[KartenAusgewählt.length] = AblageListe[1];
+      farbenGebraucht = [];
+    if (NameBleibt[0] == name) {
+      farbenGebraucht[farbenGebraucht.length] = kartenSpieler1[AblageListe[1]][1]
+    }
+    else {
+      farbenGebraucht[farbenGebraucht.length] = kartenSpieler2[AblageListe[1]][1]
+    }
+    while (farbenGebraucht.length > 1) {//console.log(01234567890123);
+      farbenGebraucht[0] += "," + farbenGebraucht[farbenGebraucht.length - 1];
+        farbenGebraucht.pop();
+  }
+  farbenGebraucht[0] = farbenGebraucht.toString().split(',');
+  farbenGebraucht[1] = [];
+  farbenGebraucht[2] = [];
+  farbenGebraucht[3] = [];
+  farbenGebraucht[4] = [];
+  zählerListe[2] = 0;
+  while (zählerListe[2] < farbenGebraucht[0].length) {//console.log(012345678901234);
+    if (farbenGebraucht[0][zählerListe[2]] == "red") {
+      farbenGebraucht[1][farbenGebraucht[1].length] = zählerListe[2]
+    }
+    if (farbenGebraucht[0][zählerListe[2]] == "green") {
+      farbenGebraucht[2][farbenGebraucht[2].length] = zählerListe[2]
+    }
+    if (farbenGebraucht[0][zählerListe[2]] == "blue") {
+      farbenGebraucht[3][farbenGebraucht[3].length] = zählerListe[2]
+    }
+    if (farbenGebraucht[0][zählerListe[2]] == "yellow") {
+      farbenGebraucht[4][farbenGebraucht[4].length] = zählerListe[2]
+    }
+    zählerListe[2]++;
+  }
+  console.log(farbenGebraucht);
+
+farbenVorhanden = [];
+
+zählerListe[2] = 0;
+  if (NameBleibt[0] == name) {
+    while (zählerListe[2] < kartenSpieler1.length) {//console.log(01234567890123457);
+    if (zählerListe[2] == AblageListe[1] == false) {
+    farbenVorhanden[0] += "," + kartenSpieler1[zählerListe[2]][2]
+  }
+  else {
+    farbenVorhanden[0] += "," + "gewählte Karte";
+    AblageListe[3] = kartenSpieler1[zählerListe[2]];
+  //  AblageListe[4] = zählerListe[2];
+  }
+    zählerListe[2]++;
+  }
+  if (kartenSpieler1["red"] == true) {
+    farbenVorhanden[0] += "," + "red";
+  }
+  if (kartenSpieler1["green"] == true) {
+    farbenVorhanden[0] += "," + "green";
+  }
+  if (kartenSpieler1["yellow"] == true) {
+    farbenVorhanden[0] += "," + "yellow";
+  }
+  if (kartenSpieler1["blue"] == true) {
+    farbenVorhanden[0] += "," + "blue";
+  }
+  }
+
+  else {
+    while (zählerListe[2] < kartenSpieler2.length) {//console.log(01234567890123457);
+    if (zählerListe[2] == AblageListe[1] == false) {
+    farbenVorhanden[0] += "," + kartenSpieler2[zählerListe[2]][2]
+  }
+  else {
+    farbenVorhanden[0] += "," + "gewählte Karte";
+    AblageListe[3] = kartenSpieler2[zählerListe[2]];
+  //  AblageListe[4] = zählerListe[2];
+  }
+    zählerListe[2]++;
+  }
+  if (kartenSpieler2["red"] == true) {
+    farbenVorhanden[0] += "," + "red";
+  }
+  if (kartenSpieler2["green"] == true) {
+    farbenVorhanden[0] += "," + "green";
+  }
+  if (kartenSpieler2["yellow"] == true) {
+    farbenVorhanden[0] += "," + "yellow";
+  }
+  if (kartenSpieler2["blue"] == true) {
+    farbenVorhanden[0] += "," + "blue";
+  }
+  }
+  /*while (farbenVorhanden.length > 1) {
+    farbenGebraucht[0] += "," + farbenGebraucht[farbenGebraucht.length - 1];
+    farbenGebraucht.pop();
+  }*/
+  farbenVorhanden[0] = farbenVorhanden.toString().split(',');
+  farbenVorhanden[0].shift();
+  farbenVorhanden[1] = [];
+  farbenVorhanden[2] = [];
+  farbenVorhanden[3] = [];
+  farbenVorhanden[4] = [];
+  zählerListe[2] = 0;
+    while (zählerListe[2] < farbenVorhanden[0].length) {//console.log(012345678901234578);
+        if (farbenVorhanden[0][zählerListe[2]] == "red") {
+          farbenVorhanden[1][farbenVorhanden[1].length] = zählerListe[2]
+        }
+        if (farbenVorhanden[0][zählerListe[2]] == "green") {
+          farbenVorhanden[2][farbenVorhanden[2].length] = zählerListe[2]
+        }
+        if (farbenVorhanden[0][zählerListe[2]] == "blue") {
+          farbenVorhanden[3][farbenVorhanden[3].length] = zählerListe[2]
+        }
+        if (farbenVorhanden[0][zählerListe[2]] == "yellow") {
+          farbenVorhanden[4][farbenVorhanden[4].length] = zählerListe[2]
+        }
+      zählerListe[2]++;
+    }
+    console.log(farbenVorhanden);
+  }
+  zählerListe[2] = 0;
+  if (NameBleibt[0] == name) {
+    if (farbenVorhanden[1].length < farbenGebraucht[1].length || farbenVorhanden[2].length < farbenGebraucht[2].length ||farbenVorhanden[3].length < farbenGebraucht[3].length || farbenVorhanden[4].length < farbenGebraucht[4].length || kartenSpieler1[KartenAusgewählt[KartenAusgewählt.length - 1]][6] == "Ausrüstung" && MitteSpieler1[0][0] == "z" && MitteSpieler1[1][0] == "z" && MitteSpieler1[2][0] == "z" && MitteSpieler1[3][0] == "z" && MitteSpieler1[4][0] == "z" && MitteSpieler1[5][0] == "z" == false) {
+    AblageListe[2] = "beendet";
+    zählerListe[2]++;
+  }
+  }
+  else {
+    if (farbenVorhanden[1].length < farbenGebraucht[1].length || farbenVorhanden[2].length < farbenGebraucht[2].length ||farbenVorhanden[3].length < farbenGebraucht[3].length || farbenVorhanden[4].length < farbenGebraucht[4].length || kartenSpieler2[KartenAusgewählt[KartenAusgewählt.length - 1]][6] == "Ausrüstung" && MitteSpieler2[0][0] == "z" && MitteSpieler2[1][0] == "z" && MitteSpieler2[2][0] == "z" && MitteSpieler2[3][0] == "z" && MitteSpieler2[4][0] == "z" && MitteSpieler2[5][0] == "z" == false) {
+    AblageListe[2] = "beendet";
+    zählerListe[2]++;
+  }
+}
+  if (zählerListe[2] < 1) {
+    zählerListe[2] = 0;
+  if (NameBleibt[0] == name) {
+    if (farbenGebraucht[1].length == farbenVorhanden[1].length && farbenGebraucht[1].length == 0 == false) {
+      if ([farbenVorhanden[1][0]] > kartenSpieler1.length - 1) {
+        kartenSpieler1["red"] = false;
+        SteineMitte[0] = "red";
+        SteineIch[0] = "#FF8000"
+      }
+      else {
+        kartenSpieler1[farbenVorhanden[1][0]] = "z";
+        kartenSpieler1[farbenVorhanden[1][1]] = "z";
+      }
+        farbenGebraucht[1] = [];
+    }
+    if (farbenGebraucht[2].length == farbenVorhanden[2].length && farbenGebraucht[2].length == 0 == false) {
+      if ([farbenVorhanden[2][0]] > kartenSpieler1.length - 1) {
+        kartenSpieler1["green"] = false;
+        SteineMitte[1] = "green";
+        SteineIch[1] = "#FF8000"
+      }
+      else {
+        kartenSpieler1[farbenVorhanden[2][0]] = "z";
+        kartenSpieler1[farbenVorhanden[2][1]] = "z";
+      }
+      farbenGebraucht[2] = [];
+    }
+    if (farbenGebraucht[3].length == farbenVorhanden[3].length && farbenGebraucht[3].length == 0 == false) {
+      if ([farbenVorhanden[3][0]] > kartenSpieler1.length - 1) {
+        kartenSpieler1["blue"] = false;
+        SteineMitte[2] = "yellow";
+        SteineIch[2] = "#FF8000"
+      }
+      else {
+        kartenSpieler1[farbenVorhanden[3][0]] = "z";
+        kartenSpieler1[farbenVorhanden[3][1]] = "z";
+      }
+        farbenGebraucht[3] = [];
+    }
+    if (farbenGebraucht[4].length == farbenVorhanden[4].length && farbenGebraucht[4].length == 0 == false) {
+      if ([farbenVorhanden[4][0]] > kartenSpieler1.length - 1) {
+        kartenSpieler1["yellow"] = false;
+        SteineMitte[3] = "blue";
+        SteineIch[3] = "#FF8000"
+      }
+      else {
+        kartenSpieler1[farbenVorhanden[4][0]] = "z";
+        kartenSpieler1[farbenVorhanden[4][1]] = "z";
+
+      }
+      farbenGebraucht[4] = [];
+    }
+    kartenSpieler1.sort();
+    while (kartenSpieler1[kartenSpieler1.length - 1][0] == "z") {//console.log(01234567890123457890);
+      kartenSpieler1.pop();
+      canvas.fillStyle = "white"
+      canvas.fillRect(0,470,2000, 800);
+    }
+}
+
+else {
+  if (farbenGebraucht[1].length == farbenVorhanden[1].length && farbenGebraucht[1].length == 0 == false) {
+    if ([farbenVorhanden[1][0]] > kartenSpieler2.length - 1) {
+      kartenSpieler2["red"] = false;
+      SteineMitte[0] = "red";
+      SteineIch[0] = "#FF8000"
+    }
+    else {
+      kartenSpieler2[farbenVorhanden[1][0]] = "z";
+      kartenSpieler2[farbenVorhanden[1][1]] = "z";
+    }
+      farbenGebraucht[1] = [];
+  }
+  if (farbenGebraucht[2].length == farbenVorhanden[2].length && farbenGebraucht[2].length == 0 == false) {
+    if ([farbenVorhanden[2][0]] > kartenSpieler2.length - 1) {
+      kartenSpieler2["green"] = false;
+      SteineMitte[1] = "green";
+      SteineIch[1] = "#FF8000"
+    }
+    else {
+      kartenSpieler2[farbenVorhanden[2][0]] = "z";
+      kartenSpieler2[farbenVorhanden[2][1]] = "z";
+    }
+    farbenGebraucht[2] = [];
+  }
+  if (farbenGebraucht[3].length == farbenVorhanden[3].length && farbenGebraucht[3].length == 0 == false) {
+    if ([farbenVorhanden[3][0]] > kartenSpieler2.length - 1) {
+      kartenSpieler2["blue"] = false;
+      SteineMitte[2] = "yellow";
+      SteineIch[2] = "#FF8000"
+    }
+    else {
+      kartenSpieler2[farbenVorhanden[3][0]] = "z";
+      kartenSpieler2[farbenVorhanden[3][1]] = "z";
+    }
+      farbenGebraucht[3] = [];
+  }
+  if (farbenGebraucht[4].length == farbenVorhanden[4].length && farbenGebraucht[4].length == 0 == false) {
+    if ([farbenVorhanden[4][0]] > kartenSpieler2.length - 1) {
+      kartenSpieler2["yellow"] = false;
+      SteineMitte[3] = "blue";
+      SteineIch[3] = "#FF8000"
+    }
+    else {
+      kartenSpieler2[farbenVorhanden[4][0]] = "z";
+      kartenSpieler2[farbenVorhanden[4][1]] = "z";
+
+    }
+    farbenGebraucht[4] = [];
+  }
+  kartenSpieler2.sort();
+  while (kartenSpieler2[kartenSpieler2.length - 1][0] == "z") {//console.log(01234567890123457890);
+    kartenSpieler2.pop();
+    canvas.fillStyle = "white"
+    canvas.fillRect(0,470,2000, 800);
+  }
+}
+setTimeout(function () {
+  AblageListe[2] = "AuswahlManuel"
+}, 500);
+if (farbenGebraucht[1].length == 0 && farbenGebraucht[2].length == 0 && farbenGebraucht[3].length == 0 && farbenGebraucht[4].length == 0) {
+  Sperren[1] = false;
+  setTimeout(function () {
+    AblageListe[2] = "AuswahlKarteAblegen";
+  }, 500);
+}
+}
+}
+if (AblageListe[2] == "AuswahlManuel") {
+  zählerListe[2] = 4;
+  FarbsteineKlickCheck();
+  if (NameBleibt[0] == name) {
+    if (zählerListe[2] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && kartenSpieler1[AblageListe[1]][2] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && kartenSpieler1[AblageListe[1]][2] == "blue" || farbenGebraucht[2].length < farbenVorhanden[2].length && kartenSpieler1[AblageListe[1]][2] == "green" || farbenGebraucht[1].length < farbenVorhanden[1].length && kartenSpieler1[AblageListe[1]][2] == "red") {
+    if ( zählerListe[2] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "yellow") {
+        farbenGebraucht[4].pop();
+      }
+      if ( zählerListe[2] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "red") {
+          farbenGebraucht[1].pop();
+        }
+        if ( zählerListe[2] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "green") {
+            farbenGebraucht[2].pop();
+          }
+          if ( zählerListe[2] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "blue") {
+              farbenGebraucht[3].pop();
+            }
+            if (kartenSpieler1[SteineIch[zählerListe[2]]] == true) {
+              if ([SteineIch[zählerListe[2]]] == "red") {
+                farbenGebraucht[1].pop();
+              }
+              if ([SteineIch[zählerListe[2]]] == "green") {
+                farbenGebraucht[2].pop();
+              }
+              if ([SteineIch[zählerListe[2]]] == "blue") {
+                farbenGebraucht[3].pop();
+              }
+              if ([SteineIch[zählerListe[2]]] == "yellow") {
+                farbenGebraucht[4].pop();
+              }
+              kartenSpieler1[SteineIch[zählerListe[2]]] = false;
+              if (zählerListe[2] < 4) {
+                SteineMitte[zählerListe[2]] = SteineIch[zählerListe[2]];
+                SteineIch[zählerListe[2]] = "#FF8000";
+              }
+            }
+
+    zählerListe[2] = 0;
+    kartenSpieler1[AblageListe[1]] = "z";
+    kartenSpieler1.sort();
+    while (kartenSpieler1[kartenSpieler1.length - 1][0] == "z") {//console.log(0123456789012345789012);
+      kartenSpieler1.pop();
+    }
+    canvas.fillStyle = "white"
+    canvas.fillRect(0,470,2000, 800);
+    if (farbenGebraucht[1].length == 0 && farbenGebraucht[2].length == 0 && farbenGebraucht[3].length == 0 && farbenGebraucht[4].length == 0) {
+      Sperren[1] = false;
+      setTimeout(function () {
+        AblageListe[2] = "AuswahlKarteAblegen";
+      }, 500);
+    }
+    }
+  }
+
+  else {
+  if (zählerListe[2] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && kartenSpieler2[AblageListe[1]][2] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && kartenSpieler2[AblageListe[1]][2] == "blue" || farbenGebraucht[2].length < farbenVorhanden[2].length && kartenSpieler2[AblageListe[1]][2] == "green" || farbenGebraucht[1].length < farbenVorhanden[1].length && kartenSpieler2[AblageListe[1]][2] == "red") {
+  if ( zählerListe[2] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "yellow") {
+      farbenGebraucht[4].pop();
+    }
+    if ( zählerListe[2] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "red") {
+        farbenGebraucht[1].pop();
+      }
+      if ( zählerListe[2] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "green") {
+          farbenGebraucht[2].pop();
+        }
+        if ( zählerListe[2] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "blue") {
+            farbenGebraucht[3].pop();
+          }
+          if (kartenSpieler2[SteineIch[zählerListe[2]]] == true) {
+            if ([SteineIch[zählerListe[2]]] == "red") {
+              farbenGebraucht[1].pop();
+            }
+            if ([SteineIch[zählerListe[2]]] == "green") {
+              farbenGebraucht[2].pop();
+            }
+            if ([SteineIch[zählerListe[2]]] == "blue") {
+              farbenGebraucht[3].pop();
+            }
+            if ([SteineIch[zählerListe[2]]] == "yellow") {
+              farbenGebraucht[4].pop();
+            }
+            kartenSpieler2[SteineIch[zählerListe[2]]] = false;
+            if (zählerListe[2] < 4) {
+              SteineMitte[zählerListe[2]] = SteineIch[zählerListe[2]];
+              SteineIch[zählerListe[2]] = "#FF8000";
+            }
+          }
+
+  zählerListe[2] = 0;
+  kartenSpieler2[AblageListe[1]] = "z";
+  kartenSpieler2.sort();
+  while (kartenSpieler2[kartenSpieler2.length - 1][0] == "z") {//console.log(0123456789012345789012);
+    kartenSpieler2.pop();
+  }
+  canvas.fillStyle = "white"
+  canvas.fillRect(0,470,2000, 800);
+  if (farbenGebraucht[1].length == 0 && farbenGebraucht[2].length == 0 && farbenGebraucht[3].length == 0 && farbenGebraucht[4].length == 0) {
+    Sperren[1] = false;
+    setTimeout(function () {
+      AblageListe[2] = "AuswahlKarteAblegen";
+    }, 500);
+  }
+  }
+}
+}
+if (AblageListe[2] == "AuswahlKarteAblegen" && AblageListe[1] > - 1) {
+  zählerListe[2] = 0;
+  if (NameBleibt[0] == name) {
+    while (zählerListe[2] < kartenSpieler1.length) {
+      if (kartenSpieler1[zählerListe[2]][0] == AblageListe[3][0] && kartenSpieler1[zählerListe[2]][1] == AblageListe[3][1] && kartenSpieler1[zählerListe[2]][2] == AblageListe[3][2] && kartenSpieler1[zählerListe[2]][3] == AblageListe[3][3] && kartenSpieler1[zählerListe[2]][4] == AblageListe[3][4] && kartenSpieler1[zählerListe[2]][5] == AblageListe[3][5] && kartenSpieler1[zählerListe[2]][6] == AblageListe[3][6]) {
+          kartenSpieler1[zählerListe[2]] = "z";
+      }
+      zählerListe[2]++;
+    }
+  //  kartenSpieler1[AblageListe[4]] = "z";
+    kartenSpieler1.sort();
+    zählerListe[2] = 1;
+    while (kartenSpieler1.length > 0 && kartenSpieler1[kartenSpieler1.length - 1][0] == "z") {//console.log(0123456789012345789012);
+      kartenSpieler1.pop();
+    }
+    if (MitteSpieler1[AblageListe[1]][0] == "z" && AblageListe[3][6] == "Ausrüstung" == false) {
+      MitteSpieler1[AblageListe[1]] = AblageListe[3];
+      AblageListe[2] = "beendet";
+      textButton = "Meine Karten";
+      FähigkeitenKartenAusgespielt();
+    }
+    if ( MitteSpieler1[AblageListe[1]][0] == "z" == false && AblageListe[3][6] == "Ausrüstung") {
+      MitteSpieler1[AblageListe[1]][3] += AblageListe[3][3];
+      MitteSpieler1[AblageListe[1]][4] += AblageListe[3][4];
+      AblageListe[2] = "beendet";
+      textButton = "Meine Karten";
+      FähigkeitenKartenAusgespielt();
+    }
+  }
+
+  else {
+  while (zählerListe[2] < kartenSpieler2.length) {
+    if (kartenSpieler2[zählerListe[2]][0] == AblageListe[3][0] && kartenSpieler2[zählerListe[2]][1] == AblageListe[3][1] && kartenSpieler2[zählerListe[2]][2] == AblageListe[3][2] && kartenSpieler2[zählerListe[2]][3] == AblageListe[3][3] && kartenSpieler2[zählerListe[2]][4] == AblageListe[3][4] && kartenSpieler2[zählerListe[2]][5] == AblageListe[3][5] && kartenSpieler2[zählerListe[2]][6] == AblageListe[3][6]) {
+        kartenSpieler2[zählerListe[2]] = "z";
+    }
+    zählerListe[2]++;
+  }
+//  kartenSpieler2[AblageListe[4]] = "z";
+  kartenSpieler2.sort();
+  zählerListe[2] = 1;
+  while (kartenSpieler2.length > 0 && kartenSpieler2[kartenSpieler2.length - 1][0] == "z") {//console.log(0123456789012345789012);
+    kartenSpieler2.pop();
+  }
+  if (MitteSpieler2[AblageListe[1]][0] == "z" && AblageListe[3][6] == "Ausrüstung" == false) {
+    MitteSpieler2[AblageListe[1]] = AblageListe[3];
+    AblageListe[2] = "beendet";
+    textButton = "Meine Karten";
+    FähigkeitenKartenAusgespielt();
+  }
+  if ( MitteSpieler2[AblageListe[1]][0] == "z" == false && AblageListe[3][6] == "Ausrüstung") {
+    MitteSpieler2[AblageListe[1]][3] += AblageListe[3][3];
+    MitteSpieler2[AblageListe[1]][4] += AblageListe[3][4];
+    AblageListe[2] = "beendet";
+    textButton = "Meine Karten";
+    FähigkeitenKartenAusgespielt();
+  }
+}
+
+if (AblageListe[3][5] == "Wenn Hylas ins Spiel kommt, ziehe 2 Karten. ") {
+  zweiKartenZiehen();
+}
+if (AblageListe[3][5] == "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. ") {
+  SiegpunktePlus();
+}
+}
+if (AblageListe[2] == "Spieler2AuswahlHeld1SchadenZufügen") {
+  if (MitteSpieler1[AblageListe[1]] [6] == "Held/-in") {
+    MitteSpieler1[AblageListe[1]] [4] -= 1;
+    AblageListe[2] = "beendet";
+  }
+}
+if (AblageListe[2] == "Spieler1AuswahlHeld1SchadenZufügen") {
+  if (MitteSpieler2[AblageListe[1]] [6] == "Held/-in") {
+    MitteSpieler2[AblageListe[1]] [4] -= 1;
+    AblageListe[2] = "beendet";
+  }
+}
+if (xMaus > 1210 && xMaus < 1355 && yMaus > 427 && yMaus < 473 && NameSpieler[0] == name && AblageListe[2] == "Angriff" == false && AblageListe[2] == "VorAngriffDurch0" == false && AblageListe[2] == "VorAngriffDurch1" == false && AblageListe[2] == "VorAngriffDurch2" == false && AblageListe[2] == "VorAngriffDurch3" == false && AblageListe[2] == "VorAngriffDurch4" == false && AblageListe[2] == "VorAngriffDurch5" == false && AblageListe[2] == "VorAngriffDurch6" == false) {
+zählerListe[8] = 0;
+zählerListe[6] = 0;
+AblageListe[2] = "Angriff";
+angreifen();
+}
+  if (AblageListe[4] == "wartenFarbauswahlSpieler2") {
+    FarbsteineKlickCheck();
+      if (SteineMitte[zählerListe[2]] == undefined == false) {
+    //    SteineIch[SteineIch.length] = SteineMitte[zählerListe[2]];
+    SteineIch[zählerListe[2]] = [SteineMitte[zählerListe[2]]  ]
+        kartenSpieler2[SteineMitte[zählerListe[2]]] = true;
+        SteineMitte[zählerListe[2]] = "#FF8000"
+    //    SteineMitte[zählerListe[2]] = "z";
+      //  SteineMitte.sort();
+    //    SteineMitte.pop();
+        if (zählerListe[6] > 1) {
+          zählerListe[6]--;
+        }
+        else {
+          Spielerwechsel();
+          AblageListe[4] = "beendet"
+          AblageListe[2] = "beendet"
+        }
+      }
+  }
+  if (AblageListe[4] == "wartenFarbauswahlSpieler1") {
+    FarbsteineKlickCheck();
+      if (SteineMitte[zählerListe[2]] == undefined == false) {
+    //    SteineIch[SteineIch.length] = SteineMitte[zählerListe[2]];
+    SteineIch[zählerListe[2]] = [SteineMitte[zählerListe[2]]  ]
+        kartenSpieler1[SteineMitte[zählerListe[2]]] = true;
+        SteineMitte[zählerListe[2]] = "#FF8000"
+    //    SteineMitte[zählerListe[2]] = "z";
+      //  SteineMitte.sort();
+    //    SteineMitte.pop();
+        if (zählerListe[6] > 1) {
+          zählerListe[6]--;
+        }
+        else {
+          Spielerwechsel();
+          AblageListe[4] = "beendet"
+          AblageListe[2] = "beendet"
+        }
+      }
+  }
+});
+function angreifen() {
+  console.log("Angreifen");
+
+  if (NameBleibt[0] == name) {
+    while (zählerListe[8] < 3) {
+      if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
+        VorAngriff();
+      }
+      else {
+      console.log("Siegpunkte");
+      if (MitteSpieler1[zählerListe[8]][0] == "z" == false) {
+        if (MitteSpieler2[zählerListe[8]][0] == "z" || MitteSpieler1[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
+          SiegpunktePlus();
+        }
+        else if (MitteSpieler2[zählerListe[8]][5] == "rot resistent" && MitteSpieler1[zählerListe[8]][2] == "red" || MitteSpieler2[zählerListe[8]][5] == "grün resistent" && MitteSpieler1[zählerListe[8]][2] == "green" || MitteSpieler2[zählerListe[8]][5] == "blau resistent" && MitteSpieler1[zählerListe[8]][2] == "blue" || MitteSpieler2[zählerListe[8]][5] == "gelb resistent" && MitteSpieler1[zählerListe[8]][2] == "yellow") {console.log("resistent");}
+        else {
+          MitteSpieler2[zählerListe[8]][4] -= MitteSpieler1[zählerListe[8]][3]
+        }
+      }
+    }
+      zählerListe[8]++;
+    }
+    while (zählerListe[8] < 5) {
+      if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
+        VorAngriff();
+      }
+      else {
+        console.log("Farbsteine");
+      if (MitteSpieler1[zählerListe[8]][0] == "z" == false) {
+        if (MitteSpieler2[zählerListe[8]][0] == "z" || MitteSpieler1[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
+      //    if (SteineMitte.length > 1) {
+              setTimeout(function () {
+                if (SteineMitte.length > 0) {
+                  AblageListe[4] = "wartenFarbauswahlSpieler1";
+                }
+              }, 500);
+              zählerListe[6]++;
+      //    }
+      /*    else if (SteineMitte.length == 1) {
+            SteineIch[0] = SteineMitte[0];
+            SteineIch[SteineIch.length] = [SteineMitte[0]];
+            SteineMitte[0] = "#FF8000";
+        //    SteineMitte.pop();
+          }
+          */
+        }
+        else if (MitteSpieler2[zählerListe[8]][5] == "rot resistent" && MitteSpieler2[zählerListe[8]][2] == "red" || MitteSpieler2[zählerListe[8]][5] == "grün resistent" && MitteSpieler2[zählerListe[8]][2] == "green" || MitteSpieler2[zählerListe[8]][5] == "blau resistent" && MitteSpieler2[zählerListe[8]][2] == "blue" || MitteSpieler2[zählerListe[8]][5] == "gelb resistent" && MitteSpieler2[zählerListe[8]][2] == "yellow") {console.log("resistent");}
+        else {
+          MitteSpieler2[zählerListe[8]][4] -= MitteSpieler1[zählerListe[8]][3]
+        }
+      }
+    }
+      zählerListe[8]++;
+    }
+    if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
+      VorAngriff();
+    }
+    else {
+        console.log("Nachziehen");
+      if (MitteSpieler1[zählerListe[8]][0] == "z" == false) {
+        if (MitteSpieler2[zählerListe[8]][0] == "z" || MitteSpieler1[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
+          zweiKartenZiehen();
+        }
+        else if (MitteSpieler2[zählerListe[8]][5] == "rot resistent" && MitteSpieler1[zählerListe[8]][2] == "red" || MitteSpieler2[zählerListe[8]][5] == "grün resistent" && MitteSpieler1[zählerListe[8]][2] == "green" || MitteSpieler2[zählerListe[8]][5] == "blau resistent" && MitteSpieler1[zählerListe[8]][2] == "blue" || MitteSpieler2[zählerListe[8]][5] == "gelb resistent" && MitteSpieler1[zählerListe[8]][2] == "yellow") {console.log("resistent");}
+        else {
+          MitteSpieler2[zählerListe[8]][4] -= MitteSpieler1[zählerListe[8]][3]
+        }
+      }
+      zweiKartenZiehen();
+  }
+}
+
+  else {
+    zählerListe[8] = 0;
+    while (zählerListe[8] < 3) {
+      if (MitteSpieler2[zählerListe[8]][0] == "z" == false) {
+        if (MitteSpieler1[zählerListe[8]][0] == "z" || MitteSpieler2[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
+          SiegpunktePlus();
+        }
+        else if (MitteSpieler1[zählerListe[8]][5] == "rot resistent" && MitteSpieler2[zählerListe[8]][2] == "red" || MitteSpieler1[zählerListe[8]][5] == "grün resistent" && MitteSpieler2[zählerListe[8]][2] == "green" || MitteSpieler1[zählerListe[8]][5] == "blau resistent" && MitteSpieler2[zählerListe[8]][2] == "blue" || MitteSpieler1[zählerListe[8]][5] == "gelb resistent" && MitteSpieler2[zählerListe[8]][2] == "yellow") {console.log("resistent");}
+        else {
+          MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
+        }
+      }
+
+      zählerListe[8]++;
+    }
+    zählerListe[6] = 0;
+    while (zählerListe[8] < 5) {
+      if (MitteSpieler2[zählerListe[8]][0] == "z" == false) {
+        if (MitteSpieler1[zählerListe[8]][0] == "z" || MitteSpieler2[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
+        //  if (SteineMitte.length > 1) {
+              setTimeout(function () {
+                AblageListe[4] = "wartenFarbauswahlSpieler2";
+              }, 500);
+              zählerListe[6]++;
+      //    }
+      /*    else if (SteineMitte.length == 1) {
+            SteineIch[0] = SteineMitte[0];
+            SteineIch[SteineIch.length] = [SteineMitte[0]];
+            SteineMitte[0] = "#FF8000";
+        //    SteineMitte.pop();
+          }
+          */
+        }
+        else if (MitteSpieler1[zählerListe[8]][5] == "rot resistent" && MitteSpieler2[zählerListe[8]][2] == "red" || MitteSpieler1[zählerListe[8]][5] == "grün resistent" && MitteSpieler2[zählerListe[8]][2] == "green" || MitteSpieler1[zählerListe[8]][5] == "blau resistent" && MitteSpieler2[zählerListe[8]][2] == "blue" || MitteSpieler1[zählerListe[8]][5] == "gelb resistent" && MitteSpieler2[zählerListe[8]][2] == "yellow") {console.log("resistent");}
+        else {
+          MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
+        }
+      }
+
+      zählerListe[8]++;
+    }
+
+      if (MitteSpieler2[zählerListe[8]][0] == "z" == false) {
+        if (MitteSpieler1[zählerListe[8]][0] == "z" || MitteSpieler2[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
+          zweiKartenZiehen();
+        }
+        else if (MitteSpieler1[zählerListe[8]][5] == "rot resistent" && MitteSpieler2[zählerListe[8]][2] == "red" || MitteSpieler1[zählerListe[8]][5] == "grün resistent" && MitteSpieler2[zählerListe[8]][2] == "green" || MitteSpieler1[zählerListe[8]][5] == "blau resistent" && MitteSpieler2[zählerListe[8]][2] == "blue" || MitteSpieler1[zählerListe[8]][5] == "gelb resistent" && MitteSpieler2[zählerListe[8]][2] == "yellow") {console.log("resistent");}
+        else {
+          MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
+        }
+      }
+      zweiKartenZiehen();
+  }
+/*  setTimeout(function () {
+    if (AblageListe[4] == "beendet") {
+      Spielerwechsel();
+    }
+  }, 700);  */
+}
+
+function VorAngriff() {
+  if (zählerListe[8] < 6) {
+  zählerListe[9] = zählerListe[8]
+  zählerListe[8] = 6;
+  if (NameBleibt[0] == name) {
+    if (MitteSpieler1[zählerListe[9]][5] == "") {
+
+    }
+  }
+  AblageListe[2] = "VorAngriffDurch" + zählerListe[9];
+  zählerListe[8] = zählerListe[9];
+    angreifen();
+  }
+  else {
+    setTimeout(function () {
+      if (AblageListe[4] == "beendet") {
+        Spielerwechsel();
+      }
+    }, 700);
+  }
+}
+
+function FarbsteineKlickCheck() {
+  if (xMaus > 647 + 385 && xMaus < 647 + 45 + 385 && yMaus > 349 && yMaus < 349 + 45) {
+    zählerListe[2] = 0;
+  }
+  if (xMaus > 713 + 385 && xMaus < 713 + 45 + 385 && yMaus > 349 && yMaus < 349 + 45) {
+    zählerListe[2] = 1;
+  }
+  if (xMaus > 647 + 385 && xMaus < 647 + 45 + 385 && yMaus > 414 + 16 && yMaus < 414 + 45) {
+    zählerListe[2] = 2;
+  }
+  if (xMaus > 712 + 385 && xMaus < 712 + 385 + 45 && yMaus > 414 + 16 && yMaus < 414 + 45) {
+    zählerListe[2] = 3;
+  }
+  if (Sperren[1] == true) {
+    console.log(SteineIch[zählerListe[2]]);
+  }
+  else {
+    console.log(SteineMitte[zählerListe[2]]);
+  }
+
+}
+
+function zweiKartenZiehen() {
+  if (kartenZiehen.length > 1) {
+  if (name == NameBleibt[0] && kartenZiehen.length) {
+    kartenSpieler1[kartenSpieler2.length] = kartenZiehen[0];
+    kartenSpieler1[kartenSpieler2.length] = kartenZiehen[1];
+  }
+  else {
+    kartenSpieler2[kartenSpieler2.length] = kartenZiehen[0];
+    kartenSpieler2[kartenSpieler2.length] = kartenZiehen[1];
+  }
+  kartenZiehen.shift();
+  kartenZiehen.shift();
+}
+else {
+  console.log("Rundenende");
+}
+}
+
+function FähigkeitenKartenAusgespielt() {
+  if (AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ") {
+    zählerListe[2] = 0;
+    zählerListe[5] = 0;
+    if (NameBleibt[0] == name) {
+      while (zählerListe[2] < MitteSpieler2.length) {
+        if (MitteSpieler2[zählerListe[2]][0] == "z" == false) {
+
+        if (MitteSpieler2[zählerListe[2]][6] == "Held/-in") {
+          zählerListe[5]++;
+          AblageListe[6] = zählerListe[2]
+        }
+      }
+        if (zählerListe[2] + 1 < MitteSpieler2.length) {
+              zählerListe[2]++;
+      }
+      else {
+        zählerListe[2] += 2;
+      }
+    }
+    zählerListe[2] -= 2;
+      if (zählerListe[5] == 1) {
+        MitteSpieler2[AblageListe[6]][4] -= 1;
+      }
+      if (zählerListe[5] > 1) {
+        setTimeout(function () {
+          AblageListe[2] = "Spieler1AuswahlHeld1SchadenZufügen";
+        }, 500);
+      }
+    }
+
+    else {
+      while (zählerListe[2] < MitteSpieler1.length) {
+        if (MitteSpieler1[zählerListe[2]][0] == "z" == false) {
+
+        if (MitteSpieler1[zählerListe[2]][6] == "Held/-in") {
+          zählerListe[5]++;
+          AblageListe[6] = zählerListe[2]
+        }
+      }
+        if (zählerListe[2] + 1 < MitteSpieler1.length) {
+              zählerListe[2]++;
+      }
+      else {
+        zählerListe[2] += 2;
+      }
+    }
+    zählerListe[2] -= 2;
+      if (zählerListe[5] == 1) {
+        MitteSpieler1[AblageListe[6]][4] -= 1;
+      }
+      if (zählerListe[5] > 1) {
+        setTimeout(function () {
+          AblageListe[2] = "Spieler2AuswahlHeld1SchadenZufügen";
+        }, 500);
+      }
+    }
+  }
+
+/*  if (AblageListe[3][5] == ) {
+
+} */
+
+}
+
+function SiegpunktePlus() {
+  if (Siegpunkte[0] == 0) {
+    Siegpunkte[1] = name;
+  }
+  if (Siegpunkte[1] == name) {
+    Siegpunkte[0]++;
+  }
+  else {
+    Siegpunkte[0]--;
+  }
+}
+
+function KoordinatenCheck() {
+if (SteineMitte.length == 0) {
+  AblageListe[2] = "beendet"
+}
+kartenSpieler1.sort();
+kartenSpieler2.sort();
+  if (yMaus > 500) {
+    if (Sperren[1] == false) {
+        AblageListe[0] = MitteSpieler1
+    }
+    else if (NameBleibt[0] == name) {
+        AblageListe[0] = kartenSpieler1
+    }
+    else {
+      AblageListe[0] = MitteSpieler1
+    }
+  }
+
+  else if (Sperren[1] == false) {
+      AblageListe[0] = MitteSpieler2
+  }
+  else if (NameBleibt[0] == name) {
+      AblageListe[0] = MitteSpieler2
+  }
+  else {
+    AblageListe[0] = kartenSpieler2
+  }
+
+  if (Sperren[1] == false) {
+    LayoutMitte();
+  }
+  else {
+    LayoutIch();
+  }
+  Koordinaten[0] = 95;
+  AblageListe[1] = -1;
+while (zähler < 6) {//console.log(01234567890123457890123);
+  if (xMaus > Koordinaten[0] + 20 && xMaus < Koordinaten[0] + 160) {
+    if (yMaus < 264 && yMaus > 15 || yMaus > 528 && yMaus < 736) {
+      AblageListe [1] = zähler
+      TextAktuell();
+      zähler = "Kartegefunden";
+    }
+}
+  if (zähler == "Kartegefunden" == false) {
+    zähler++;
+    Koordinaten[0] += 250;
+  }
+}
+if (zähler == "Kartegefunden") {
+//  LayoutMitte();
+}
+else if(Sperren[1] == false) {
+  FarbsteineMitte();
+}
+else {
+  FarbsteineIch();
+}
+zähler = 0;
+}
+//
+
+function Spielerwechsel() {
+//  dbSet("Olymp", "NameSpieler" , NameSpieler);
+  zählerListe[8] = 0;
+  Sperren[2] = false
+  Sperren[3] = false;
+    Zustand[Zustand.length] = "Spielerwechsel"
+    SpielerwechselSet();
+    setTimeout(function () {
+        SpielerwechselSet();
+        setTimeout(function () {
+          SpielerwechselSet();
+          setTimeout(function () {
+            SpielerwechselSet();
+          }, 2500);
+        }, 500);
+    }, 1500);
+          NameSpieler[2] = NameSpieler[0];
+          NameSpieler[0] = NameSpieler[1];
+          NameSpieler[1] = NameSpieler[2];
+          NameSpieler.pop();
+}
+
+function SpielerwechselSet() {
+  Sperren[3] = false;
+  dbSet("Olymp", "Siegpunkte" + NameBleibt[0] + NameBleibt[1], Siegpunkte);
+  //  dbSet("Olymp", "SteineMitte" + NameBleibt[0] + NameBleibt[1], SteineMitte[0] + "," + SteineMitte[1] + "," + SteineMitte[2] + "," + SteineMitte[3]);
+  ZuVarMitteSpieler1();
+  dbSet("Olymp", "MitteSpieler1" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
+    ZuVarMitteSpieler2();
+    dbSet("Olymp", "MitteSpieler2" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
+    zuVarKartenZiehen();
+    dbSet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
+  //    dbSet("Olymp", "NameSpieler" , NameSpieler);
+dbGet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], function(result) {
+  if (result == "" == false) {
+  if (kartenZiehen[0] == result.toString().split(';')[0] == false) {
+    zählerListe[1]++;
+  }
+}
+  dbGet("Olymp", "Siegpunkte" + NameBleibt[0] + NameBleibt[1], function(result) {
+      if (result.toString().split(',')[0] == Siegpunkte[0] == false || result.toString().split(',')[1] == Siegpunkte[1] == false) {
+        zählerListe[1]++;
+    }
+  /*dbGet("Olymp", "SteineMitte" + NameBleibt[0] + NameBleibt[1], function(result) {
+    if (result.toString().split(',')[0] == SteineMitte[0] == false || result.toString().split(',')[1] == SteineMitte[1] == false || result.toString().split(',')[2] == SteineMitte[2] == false || result.toString().split(',')[2] == SteineMitte[2] == false || result.toString().split(',')[3] == SteineMitte[3] == false || result.toString().split(',')[3] == SteineMitte[3] == false) {
+      zählerListe[1]++;
+}*/
+
+  dbGet("Olymp", "MitteSpieler1" + NameBleibt[0] + NameBleibt[1], function(result) {
+    AblageListe[2] = result.toString().split(';')
+    AblageListe[2].pop();
+    zählerListe[7] = 0
+    while (zählerListe[7] < MitteSpieler1.length) {
+      if (MitteSpieler1[zählerListe[7]][4] == undefined == false && AblageListe[2].toString().split('?')[zählerListe[7]][4] == undefined == false) {
+
+      if (MitteSpieler1[zählerListe[7]][4] == AblageListe[2].toString().split('?')[zählerListe[7]][4] == false || MitteSpieler1[zählerListe[7]][3] == AblageListe[2].toString().split('?')[zählerListe[7]][3] == false) {
+        zählerListe[1]++;
+      }
+    }
+    if (MitteSpieler1[zählerListe[7]][4] == undefined == false && AblageListe[2][zählerListe[7]].toString().split('?')[4] == undefined) {
+      zählerListe[1]++;
+    }
+      zählerListe[7]++;
+    }
+    zählerListe[7] = 0;
+
+  dbGet("Olymp", "MitteSpieler2" + NameBleibt[0] + NameBleibt[1], function(result) {
+    AblageListe[2] = result.toString().split(';')
+    AblageListe[2].pop();
+    zählerListe[7] = 0
+    while (zählerListe[7] < MitteSpieler2.length) {
+      if (MitteSpieler2[zählerListe[7]][4] == undefined == false && AblageListe[2].toString().split('?')[zählerListe[7]][4] == undefined == false) {
+      if (MitteSpieler2[zählerListe[7]][4] == AblageListe[2].toString().split('?')[zählerListe[7]][4] == false || MitteSpieler2[zählerListe[7]][3] == AblageListe[2].toString().split('?')[zählerListe[7]][3] == false) {
+        zählerListe[1]++;
+      }
+    }
+    if (MitteSpieler2[zählerListe[7]][4] == undefined == false && AblageListe[2][zählerListe[7]].toString().split('?')[4] == undefined) {
+      zählerListe[1]++;
+    }
+      zählerListe[7]++;
+    }
+    zählerListe[7] = 0;
+    if (zählerListe[1] > 0 && zählerListe[8] < 1000) {
+      console.log(zählerListe[8]);
+      zählerListe[1] = 0;
+      Sperren[3] = true;
+      zählerListe[8]++;
+//      SpielerwechselSet();
+    }
+  /*  dbGet("Olymp", "SteineMitte" + NameBleibt[0] + NameBleibt[1], function(result) {
+      AblageListe[6] = result.toString().split(',')
+      zählerListe[7] = 0;
+      while (zählerListe[7] < 4) {
+        if (AblageListe[6][zählerListe[7]] == "") {
+          AblageListe[6][zählerListe[7]] = "#FF8000";
+        }
+        zählerListe[7]++;
+      }
+      zählerListe[7] = 0;  */
+  if (Sperren[3] == false /* && AblageListe[6][0] == SteineMitte[0] || SteineMitte[0] == "#FF8000" && AblageListe[6][1] == SteineMitte[1] || SteineMitte[1] == "#FF8000"  && AblageListe[6][2] == SteineMitte[2] && AblageListe[6][2] == SteineMitte[2] || SteineMitte[2] == "#FF8000" && AblageListe[6][3] == SteineMitte[3] && AblageListe[6][3] == SteineMitte[3] || SteineMitte[3] == "#FF8000" */) {
+  console.log("Spielerwechsel eingeleitet");
+  //  gewonnenCheck();
+  setTimeout(function () {
+    Sperren[2] = true;
+  }, 2573);
+    setTimeout(function () {
+      dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
+    setTimeout(function () {
+      dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
+    setTimeout(function () {
+      dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
+    setTimeout(function () {
+      dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
+      setTimeout(function () {
+        dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
+    }, 500);
+    }, 500);
+    }, 500);
+    }, 500);
+    }, 1000);
+}
+else {
+  SpielerwechselSet();
+}
+});
+//});
+});
+});
+});
+}
+
+
+</script>
