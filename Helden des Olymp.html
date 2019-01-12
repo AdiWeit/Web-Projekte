@@ -278,6 +278,12 @@
       zuVarKartenZiehen();
       dbSet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
       AblageListe[0] = "";
+      zählerListe[2] = 0;
+      while (zählerListe[2] < 6) {
+        kartenSpieler2[zählerListe[2]][4] = JSON.parse(kartenSpieler2[zählerListe[2]][4]);
+        kartenSpieler2[zählerListe[2]][3] = JSON.parse(kartenSpieler2[zählerListe[2]][3]);
+        zählerListe[2]++;
+      }
     }
   }
 
@@ -737,6 +743,8 @@ else {
   }
 
   function LayoutIch() {
+    kartenSpieler1.sort();
+    kartenSpieler2.sort();
     canvas.fillStyle = "#FF8000"; //Farbe
     canvas.fillRect(0, 190 + 88, 1585, 184)
     canvas.fillStyle = "white"
@@ -1468,6 +1476,7 @@ else {
           }
         }
         zählerListe[8]++;
+        nachAngriff();
       }
       while (zählerListe[8] < 5) {
         if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
@@ -1500,6 +1509,7 @@ else {
           }
         }
         zählerListe[8]++;
+        nachAngriff();
       }
       if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
         VorAngriff();
@@ -1517,72 +1527,84 @@ else {
         }
         zweiKartenZiehen();
       }
+      zählerListe[8]++;
+      nachAngriff();
 
     } else {
-    //  zählerListe[8] = 0;
+      //  zählerListe[8] = 0;
       while (zählerListe[8] < 3) {
         if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
           VorAngriff();
         } else {
-        if (MitteSpieler2[zählerListe[8]][0] == "z" == false) {
-          if (MitteSpieler1[zählerListe[8]][0] == "z" || MitteSpieler2[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
-            SiegpunktePlus();
-          } else if (MitteSpieler1[zählerListe[8]][5] == "rot resistent" && MitteSpieler2[zählerListe[8]][2] == "red" || MitteSpieler1[zählerListe[8]][5] == "grün resistent" && MitteSpieler2[zählerListe[8]][2] == "green" || MitteSpieler1[zählerListe[
-              8]][5] == "blau resistent" && MitteSpieler2[zählerListe[8]][2] == "blue" || MitteSpieler1[zählerListe[8]][5] == "gelb resistent" && MitteSpieler2[zählerListe[8]][2] == "yellow") {
-            console.log("resistent");
-          } else {
-            MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
+          if (MitteSpieler2[zählerListe[8]][0] == "z" == false) {
+            if (MitteSpieler1[zählerListe[8]][0] == "z" || MitteSpieler2[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
+              SiegpunktePlus();
+            } else if (MitteSpieler1[zählerListe[8]][5] == "rot resistent" && MitteSpieler2[zählerListe[8]][2] == "red" || MitteSpieler1[zählerListe[8]][5] == "grün resistent" && MitteSpieler2[zählerListe[8]][2] == "green" || MitteSpieler1[
+                zählerListe[
+                  8]][5] == "blau resistent" && MitteSpieler2[zählerListe[8]][2] == "blue" || MitteSpieler1[zählerListe[8]][5] == "gelb resistent" && MitteSpieler2[zählerListe[8]][2] == "yellow") {
+              console.log("resistent");
+            } else {
+              MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
+            }
           }
         }
-      }
         zählerListe[8]++;
+        nachAngriff();
       }
-    //  zählerListe[6] = 0;
+      //  zählerListe[6] = 0;
       while (zählerListe[8] < 5) {
         if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
           VorAngriff();
         } else {
+          if (MitteSpieler2[zählerListe[8]][0] == "z" == false) {
+            if (MitteSpieler1[zählerListe[8]][0] == "z" || MitteSpieler2[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
+              //  if (SteineMitte.length > 1) {
+              setTimeout(function() {
+                if (SteineMitte.length > 0) {
+                AblageListe[4] = "wartenFarbauswahlSpieler2";
+              }
+              }, 500);
+              zählerListe[6]++;
+
+              //    }
+              /*    else if (SteineMitte.length == 1) {
+                    SteineIch[0] = SteineMitte[0];
+                    SteineIch[SteineIch.length] = [SteineMitte[0]];
+                    SteineMitte[0] = "#FF8000";
+                //    SteineMitte.pop();
+                  }
+                  */
+            } else if (MitteSpieler1[zählerListe[8]][5] == "rot resistent" && MitteSpieler2[zählerListe[8]][2] == "red" || MitteSpieler1[zählerListe[8]][5] == "grün resistent" && MitteSpieler2[zählerListe[8]][2] == "green" || MitteSpieler1[
+                zählerListe[
+                  8]][5] == "blau resistent" && MitteSpieler2[zählerListe[8]][2] == "blue" || MitteSpieler1[zählerListe[8]][5] == "gelb resistent" && MitteSpieler2[zählerListe[8]][2] == "yellow") {
+              console.log("resistent");
+            } else {
+              MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
+            }
+          }
+        }
+        zählerListe[8]++;
+        nachAngriff();
+      }
+      if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
+        VorAngriff();
+      } else {
         if (MitteSpieler2[zählerListe[8]][0] == "z" == false) {
           if (MitteSpieler1[zählerListe[8]][0] == "z" || MitteSpieler2[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
-            //  if (SteineMitte.length > 1) {
-            setTimeout(function() {
-              AblageListe[4] = "wartenFarbauswahlSpieler2";
-            }, 500);
-            zählerListe[6]++;
-            //    }
-            /*    else if (SteineMitte.length == 1) {
-                  SteineIch[0] = SteineMitte[0];
-                  SteineIch[SteineIch.length] = [SteineMitte[0]];
-                  SteineMitte[0] = "#FF8000";
-              //    SteineMitte.pop();
-                }
-                */
+            zweiKartenZiehen();
           } else if (MitteSpieler1[zählerListe[8]][5] == "rot resistent" && MitteSpieler2[zählerListe[8]][2] == "red" || MitteSpieler1[zählerListe[8]][5] == "grün resistent" && MitteSpieler2[zählerListe[8]][2] == "green" || MitteSpieler1[zählerListe[
-              8]][5] == "blau resistent" && MitteSpieler2[zählerListe[8]][2] == "blue" || MitteSpieler1[zählerListe[8]][5] == "gelb resistent" && MitteSpieler2[zählerListe[8]][2] == "yellow") {
+              8]]
+            [5] == "blau resistent" && MitteSpieler2[zählerListe[8]][2] == "blue" || MitteSpieler1[zählerListe[8]][5] == "gelb resistent" && MitteSpieler2[zählerListe[8]][2] == "yellow") {
             console.log("resistent");
           } else {
             MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
           }
         }
-      }
+        zweiKartenZiehen();
         zählerListe[8]++;
+        nachAngriff();
       }
-      if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
-        VorAngriff();
-      } else {
-      if (MitteSpieler2[zählerListe[8]][0] == "z" == false) {
-        if (MitteSpieler1[zählerListe[8]][0] == "z" || MitteSpieler2[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
-          zweiKartenZiehen();
-        } else if (MitteSpieler1[zählerListe[8]][5] == "rot resistent" && MitteSpieler2[zählerListe[8]][2] == "red" || MitteSpieler1[zählerListe[8]][5] == "grün resistent" && MitteSpieler2[zählerListe[8]][2] == "green" || MitteSpieler1[zählerListe[8]]
-          [5] == "blau resistent" && MitteSpieler2[zählerListe[8]][2] == "blue" || MitteSpieler1[zählerListe[8]][5] == "gelb resistent" && MitteSpieler2[zählerListe[8]][2] == "yellow") {
-          console.log("resistent");
-        } else {
-          MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
-        }
-      }
-      zweiKartenZiehen();
     }
-  }
     /*  setTimeout(function () {
         if (AblageListe[4] == "beendet") {
           Spielerwechsel();
@@ -1604,13 +1626,29 @@ else {
       AblageListe[2] = "VorAngriffDurch" + zählerListe[9];
       zählerListe[8] = zählerListe[9];
       angreifen();
-    } else {
-      setTimeout(function() {
-        if (AblageListe[4] == "beendet") {
-          Spielerwechsel();
-        }
-      }, 700);
     }
+  }
+
+  function nachAngriff() {
+    if (zählerListe[8] < 6) {
+    zählerListe[9] = zählerListe[8]
+    zählerListe[8] = 6;
+    if (NameBleibt[0] == name) {
+      if (MitteSpieler1[zählerListe[9]][5] == "") {
+
+      } else if (MitteSpieler1[zählerListe[9]][5] == "") {
+
+      }
+    }
+    zählerListe[8] = zählerListe[9];
+    angreifen();
+  }  else {
+     setTimeout(function() {
+       if (AblageListe[4] == "beendet") {
+         Spielerwechsel();
+       }
+     }, 700);
+   }
   }
 
   function FarbsteineKlickCheck() {
