@@ -315,7 +315,7 @@
             zählerListe[7] = 0;
             //      kartenZiehen[zähler] = kartenZiehen[zähler].toString().split('?');
             while (zählerListe[7] < kartenZiehen.length) {
-              if (kartenZiehen[zählerListe[7]][0] == undefined == false) {
+              if (kartenZiehen[zählerListe[7]] == "" || kartenZiehen[zählerListe[7]][0] == undefined == false) {
 
                 if (kartenZiehen[zählerListe[7]] == "") {
                   kartenZiehen.pop();
@@ -766,6 +766,7 @@ else {
           AblageListe[0] = kartenSpieler2;
         }
         */
+        if (kartenSpieler1.length > 0) {
       while (zähler < kartenSpieler1.length) { //console.log(012345678);
         if (kartenSpieler2[kartenSpieler2.length - 1] == undefined || kartenSpieler2[kartenSpieler2.length - 2] == "z") {
           kartenSpieler2.pop();
@@ -805,7 +806,8 @@ else {
         Koordinaten[0] += 250
         zähler++;
       }
-    } else {
+    }
+  } else if(kartenSpieler2.length > 0) {
       Koordinaten[3] = 475
       /*  if (yMaus > 261) {
           AblageListe[0] = kartenSpieler2;
@@ -1746,8 +1748,9 @@ else {
       }
     }
     if (AblageListe[3][5] == "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. ") {
-      zählerListe[2] = 0;
-        while (zählerListe[2] < 6) {
+      AblageListe[2] = "wartenKarteAufHandZurrückehmen";
+  /*    zählerListe[2] = 0;
+      while (zählerListe[2] < 6) {
           if (NameBleibt[0] == name) {
           if (MitteSpieler2[AblageListe[1]][1].length < 3) {
             kartenSpieler2[kartenSpieler2.length] = MitteSpieler2[AblageListe[1]][1]
@@ -1761,7 +1764,7 @@ else {
           AblageListe[2] = "beendet";
         }
         zählerListe[2]++;
-      }
+      } */
   }
     /*  if (AblageListe[3][5] == ) {
 
