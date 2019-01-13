@@ -1,0 +1,61 @@
+<canvas id="textur" width="2570" height="800"></canvas>
+<script>
+  var textur = document.getElementById('textur');
+  var canvas = textur.getContext('2d'); //Dimension
+  var x = 0;
+  var y = 0;
+  var direction = "down"
+let cyrcle1;
+let cyrcle2;
+
+
+function setup() {
+  cyrcle1 = new cyrcle(Math.floor(Math.random() * 1500), Math.floor(Math.random() * 700));
+  cyrcle1.show();
+  cyrcle2 = new cyrcle(Math.floor(Math.random() * 1500), Math.floor(Math.random() * 700));
+  cyrcle2.show();
+}
+function show() {
+  canvas.fillStyle = "white";
+  canvas.fillRect(0, 0, 1800, 800);
+  cyrcle1.show();
+  cyrcle2.show();
+}
+/*function draw() {
+
+} */
+
+class cyrcle {
+  constructor(x, y) {
+    this.x = x
+    this.y = y
+    if (this.y > 350) {
+    this.direction = "down";
+  }
+  else {
+    this.direction = "up";
+  }
+  }
+  show() {
+    if (this.direction == "down") {
+      this.y++;
+    }
+    else {
+      this.y--;
+    }
+    if (this.y == 705) {
+      this.direction = "up";
+    }
+    else if(this.y == 0) {
+      this.direction = "down";
+    }
+    canvas.fillStyle = "red";
+    canvas.fillRect(this.x, this.y, 80, 80);
+  }
+}
+setup();
+//draw();
+setInterval(show, 50)
+
+
+</script>
