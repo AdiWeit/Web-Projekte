@@ -36,9 +36,9 @@
   var kartenZiehen = [
     [1, ["red"], "red", 1, 2, "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ", "Held/-in"],
     [2, ["blue", "green"], "blue", 1, 3, "Im- mer wenn die Me- le- a- gros ge- gen- über- lie- gen- de Ein- heit ab- ge- legt wird, zie- he 1 Karte. ", "Held/-in"],
-    [2, ["yellow", "yellow"], "yellow", 1, 2,
+  /*  [2, ["yellow", "yellow"], "yellow", 1, 2,
       "Im- mer wenn du Eu- ry- di- ke wegen ih- rer Scha- dens- mar- ker ab- le- gen müs- stest, kannst du 1 Hand- karte ab- wer- fen, um alle Marker von ihr zu ent- fernen und sie auf einen freien Platz zu ver- schie- ben. ", "Held/-in"
-    ],
+    ], */
     [2, ["blue", "blue"], "blue", 1, 3, "Wenn Hylas ins Spiel kommt, ziehe 2 Karten. ", "Held/-in"],
     [2, ["green", "green"], "green", 1, 3, "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. ", "Held/-in"],
     [1, ["yellow"], "yellow", 2, 2, "Wenn Alkemene ins Spiel kommt, zieht dein Gegner 1 Karte. ", "Held/-in"],
@@ -267,6 +267,12 @@
             kartenZiehen.shift();
             zählerListe[7]++;
           }
+        /*  zählerListe[7] = 0;
+          while (zählerListe[7] < 6) {
+            kartenSpieler1[zählerListe[7]][4] = JSON.parse(kartenSpieler1[zählerListe[7]][4]);
+            kartenSpieler1[zählerListe[7]][3] = JSON.parse(kartenSpieler1[zählerListe[7]][3]);
+            zählerListe[7]++;
+          } */
         }, 1737);
       }, 3000);
     } else {
@@ -278,12 +284,12 @@
       zuVarKartenZiehen();
       dbSet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
       AblageListe[0] = "";
-      zählerListe[2] = 0;
-      while (zählerListe[2] < 6) {
-        kartenSpieler2[zählerListe[2]][4] = JSON.parse(kartenSpieler2[zählerListe[2]][4]);
-        kartenSpieler2[zählerListe[2]][3] = JSON.parse(kartenSpieler2[zählerListe[2]][3]);
-        zählerListe[2]++;
-      }
+  /*    zählerListe[7] = 0;
+      while (zählerListe[7] < 6) {
+        kartenSpieler2[zählerListe[7]][4] = JSON.parse(kartenSpieler2[zählerListe[7]][4]);
+        kartenSpieler2[zählerListe[7]][3] = JSON.parse(kartenSpieler2[zählerListe[7]][3]);
+        zählerListe[7]++;
+      } */
     }
   }
 
@@ -315,7 +321,7 @@
             zählerListe[7] = 0;
             //      kartenZiehen[zähler] = kartenZiehen[zähler].toString().split('?');
             while (zählerListe[7] < kartenZiehen.length) {
-              if (kartenZiehen[zählerListe[7]][0] == "z" == false) {
+              if (kartenZiehen[zählerListe[7]][0] == undefined == false || kartenZiehen[zählerListe[7]] == "") {
 
                 if (kartenZiehen[zählerListe[7]] == "") {
                   kartenZiehen.pop();
@@ -328,6 +334,56 @@
             }
             zählerListe[7] = 0;
           }
+
+          dbGet("Olymp", "kartenSpieler1" + NameBleibt[0] + NameBleibt[1], function(result) {
+            if (result == "NOPE" == false) {
+
+            zählerListe[7] = 0;
+              AblageListe[7] = result.toString().split(';');
+              zählerListe[7] = 0;
+              //      kartenSpieler1[zähler] = kartenSpieler1[zähler].toString().split('?');
+              while (zählerListe[7] < AblageListe[7].length) {
+                if (AblageListe[7][zählerListe[7]][0] == undefined == false || AblageListe[7][zählerListe[7]] == "") {
+
+                  if (AblageListe[7][zählerListe[7]] == "") {
+                    AblageListe[7].pop();
+                  } else {
+                    AblageListe[7][zählerListe[7]] = AblageListe[7][zählerListe[7]].toString().split('?');
+                    AblageListe[7][zählerListe[7]][1] = AblageListe[7][zählerListe[7]][1].toString().split(',');
+                  }
+                }
+                zählerListe[7]++;
+              }
+              zählerListe[7] = 0;
+              while (zählerListe[7] < AblageListe[7].length) {
+                kartenSpieler1[zählerListe[7]] = AblageListe[7][zählerListe[7]];
+                zählerListe[7]++;
+              }
+            }
+              dbGet("Olymp", "kartenSpieler2" + NameBleibt[0] + NameBleibt[1], function(result) {
+                if (result == "NOPE" == false) {
+                zählerListe[7] = 0;
+                  AblageListe[7] = result.toString().split(';');
+                  zählerListe[7] = 0;
+                  //      AblageListe[7][zähler] = AblageListe[7][zähler].toString().split('?');
+                  while (zählerListe[7] < AblageListe[7].length) {
+                    if (AblageListe[7][zählerListe[7]][0] == undefined == false || AblageListe[7][zählerListe[7]] == "") {
+
+                      if (AblageListe[7][zählerListe[7]] == "") {
+                        AblageListe[7].pop();
+                      } else {
+                        AblageListe[7][zählerListe[7]] = AblageListe[7][zählerListe[7]].toString().split('?');
+                        AblageListe[7][zählerListe[7]][1] = AblageListe[7][zählerListe[7]][1].toString().split(',');
+                      }
+                    }
+                    zählerListe[7]++;
+                  }
+                  zählerListe[7] = 0;
+                  while (zählerListe[7] < AblageListe[7].length) {
+                    kartenSpieler1[zählerListe[7]] = AblageListe[7][zählerListe[7]];
+                    zählerListe[7]++;
+                  }
+                }
           dbGet("Olymp", "MitteSpieler1" + NameBleibt[0] + NameBleibt[1], function(result) {
             if (result == "NOPE") {
               ZuVarMitteSpieler1();
@@ -384,6 +440,8 @@
               }
             });
           });
+          });
+          });
         });
       });
     });
@@ -433,6 +491,54 @@
         AblageListe[0] += ";"
         zählerListe[1] = -1;
       } else if (MitteSpieler2[zählerListe[0]][0] == "z" == false) {
+        AblageListe[0] += "?"
+      }
+      zählerListe[7]++;
+
+    }
+    zählerListe[0] = [0, 0]
+  }
+  function ZuVarkartenSpieler1() {
+    zählerListe[7] = 0;
+    zählerListe[0] = 0;
+    zählerListe[1] = -1;
+    AblageListe[0] = "";
+    while (zählerListe[0] < kartenSpieler1.length) {
+      zählerListe[1]++;
+      if (kartenSpieler1[zählerListe[0]] == undefined == false && zählerListe[1] == 7 == false) {
+        AblageListe[0] += kartenSpieler1[zählerListe[0]][zählerListe[1]];
+      } else if (zählerListe[1] == 7 && AblageListe[0][AblageListe[0].length - 1] == "?" == false) {
+        AblageListe[0] += "z"
+      }
+      if (zählerListe[1] == 7) {
+        zählerListe[0]++;
+        AblageListe[0] += ";"
+        zählerListe[1] = -1;
+      } else if (kartenSpieler1[zählerListe[0]] == undefined == false) {
+        AblageListe[0] += "?"
+      }
+      zählerListe[7]++;
+
+    }
+    zählerListe[0] = [0, 0]
+  }
+  function ZuVarkartenSpieler2() {
+    zählerListe[7] = 0;
+    zählerListe[0] = 0;
+    zählerListe[1] = -1;
+    AblageListe[0] = "";
+    while (zählerListe[0] < kartenSpieler2.length) {
+      zählerListe[1]++;
+      if (kartenSpieler2[zählerListe[0]] == undefined == false && zählerListe[1] == 7 == false) {
+        AblageListe[0] += kartenSpieler2[zählerListe[0]][zählerListe[1]];
+      } else if (zählerListe[1] == 7 && AblageListe[0][AblageListe[0].length - 1] == "?" == false) {
+        AblageListe[0] += "z"
+      }
+      if (zählerListe[1] == 7) {
+        zählerListe[0]++;
+        AblageListe[0] += ";"
+        zählerListe[1] = -1;
+      } else if (kartenSpieler2[zählerListe[0]] == undefined == false) {
         AblageListe[0] += "?"
       }
       zählerListe[7]++;
@@ -1745,10 +1851,24 @@ else {
         }
       }
     }
-
-    /*  if (AblageListe[3][5] == ) {
-
-    } */
+    if (AblageListe[3][5] == "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. ") {
+      zählerListe[2] = 0;
+        while (zählerListe[2] < 6) {
+          if (NameBleibt[0] == name) {
+          if (MitteSpieler2[AblageListe[1]][1].length < 3) {
+            kartenSpieler2[kartenSpieler2.length] = MitteSpieler2[AblageListe[1]][1]
+            MitteSpieler2[AblageListe[1]] = ["z", 0, ""];
+            AblageListe[2] = "beendet";
+          }
+        }
+        else if (MitteSpieler1[AblageListe[1]][1].length < 3) {
+          kartenSpieler1[kartenSpieler2.length] = MitteSpieler2[AblageListe[1]][1]
+          MitteSpieler1[AblageListe[1]] = ["z", 0, ""];
+          AblageListe[2] = "beendet";
+        }
+        zählerListe[2]++;
+      }
+  }
 
   }
 
@@ -1835,6 +1955,14 @@ else {
     dbSet("Olymp", "MitteSpieler2" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
     zuVarKartenZiehen();
     dbSet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
+    if (kartenSpieler1.length > 0) {
+    ZuVarkartenSpieler1();
+    dbSet("Olymp", "kartenSpieler1" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
+  }
+  if (kartenSpieler2.length > 0) {
+    ZuVarkartenSpieler2();
+    dbSet("Olymp", "kartenSpieler2" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
+  }
     //    dbSet("Olymp", "NameSpieler" , NameSpieler);
     dbGet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], function(result) {
       if (result == "" == false) {
@@ -1862,7 +1990,7 @@ else {
                 zählerListe[1]++;
               }
             }
-            if (MitteSpieler1[zählerListe[7]][4] == undefined == false && AblageListe[2][zählerListe[7]].toString().split('?')[4] == undefined) {
+            if (result == "NOPE" == false && MitteSpieler1[zählerListe[7]][4] == undefined == false && AblageListe[2][zählerListe[7]].toString().split('?')[4] == undefined) {
               zählerListe[1]++;
             }
             zählerListe[7]++;
@@ -1890,6 +2018,51 @@ else {
             if (result == "NOPE") {
               zählerListe[1]++;
             }
+
+            dbGet("Olymp", "kartenSpieler1" + NameBleibt[0] + NameBleibt[1], function(result) {
+              if (kartenSpieler1.length > 0) {
+              AblageListe[2] = result.toString().split(';')
+              AblageListe[2].pop();
+              zählerListe[7] = 0
+              while (zählerListe[7] < kartenSpieler1.length) {
+                if (result == "NOPE" == false && kartenSpieler1[zählerListe[7]][4] == undefined == false && AblageListe[2].toString().split('?')[zählerListe[7]][4] == undefined == false) {
+
+                  if (kartenSpieler1[zählerListe[7]][4] == AblageListe[2].toString().split('?')[zählerListe[7]][4] == false || kartenSpieler1[zählerListe[7]][3] == AblageListe[2].toString().split('?')[zählerListe[7]][3] == false) {
+                    zählerListe[1]++;
+                  }
+                }
+                if (result == "NOPE" == false && kartenSpieler1[zählerListe[7]][4] == undefined == false && AblageListe[2][zählerListe[7]].toString().split('?')[4] == undefined) {
+                  zählerListe[1]++;
+                }
+                zählerListe[7]++;
+              }
+              zählerListe[7] = 0;
+              if (result == "NOPE") {
+                zählerListe[1]++;
+              }
+            }
+              dbGet("Olymp", "kartenSpieler2" + NameBleibt[0] + NameBleibt[1], function(result) {
+                if (kartenSpieler2.length > 0) {
+                AblageListe[2] = result.toString().split(';')
+                AblageListe[2].pop();
+                zählerListe[7] = 0
+                while (zählerListe[7] < kartenSpieler2.length) {
+                  if (result == "NOPE" == false && kartenSpieler2[zählerListe[7]][4] == undefined == false && AblageListe[2].toString().split('?')[zählerListe[7]][4] == undefined == false) {
+
+                    if (kartenSpieler2[zählerListe[7]][4] == AblageListe[2].toString().split('?')[zählerListe[7]][4] == false || kartenSpieler2[zählerListe[7]][3] == AblageListe[2].toString().split('?')[zählerListe[7]][3] == false) {
+                      zählerListe[1]++;
+                    }
+                  }
+                  if (result == "NOPE" == false && kartenSpieler2[zählerListe[7]][4] == undefined == false && AblageListe[2][zählerListe[7]].toString().split('?')[4] == undefined) {
+                    zählerListe[1]++;
+                  }
+                  zählerListe[7]++;
+                }
+                zählerListe[7] = 0;
+                if (result == "NOPE") {
+                  zählerListe[1]++;
+                }
+              }
             if (zählerListe[1] > 0 && zählerListe[8] < 1000) {
               console.log(zählerListe[8]);
               zählerListe[1] = 0;
@@ -1932,8 +2105,9 @@ else {
               SpielerwechselSet();
             }
           });
-          //});
+          });
         });
+      });
       });
     });
   }
