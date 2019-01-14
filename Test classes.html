@@ -1,4 +1,4 @@
-<canvas id="textur" width="1592" height="791"></canvas>
+<canvas id="textur" width="1582" height="771"></canvas>
 <script>
   var textur = document.getElementById('textur');
   var canvas = textur.getContext('2d'); //Dimension
@@ -55,19 +55,21 @@ class cyrcle {
     else {
       this.y--;
     }
-    if (this.y == 710) {
+    if (this.y > 690) {
       this.direction = "up";
+      document.body.style.background = colors[Math.floor(Math.random() * colors.length - 1)]
     }
-    else if(this.y == 0) {
+    else if(this.y < 1) {
       this.direction = "down";
+      document.body.style.background = colors[Math.floor(Math.random() * colors.length - 1)]
     }
     canvas.fillStyle = this.colors;
-    canvas.fillRect(this.x, this.y, 80, 80);
+    canvas.fillRect(this.x, this.y, 50, 50);
   }
 }
 setup();
 //draw();
-setInterval(show, 50)
+setInterval(show, 10)
 
 
 </script>
