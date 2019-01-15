@@ -8,10 +8,10 @@
   var xDirection = "down"
   var colors = ['green', 'springGreen', 'yellow', 'gold', 'blue', 'steelBlue', 'cyan', 'plum', 'purple', 'brown', 'tomato', 'silver'];
   var cycle = [];
-  var Anzahl = 77
+  var Anzahl = 2222
 function setup() {
 while (zähler < Anzahl) {
-  cyrcle[zähler] = new cyrcle(Math.floor(Math.random() * 1500), Math.floor(Math.random() * 700), colors[Math.floor(Math.random() * colors.length - 1)], );
+  cyrcle[zähler] = new cyrcle(Math.floor(Math.random() * 1500), Math.floor(Math.random() * 700), colors[Math.floor(Math.random() * colors.length - 1)]);
   cyrcle[zähler].show();
   zähler++;
 }
@@ -33,11 +33,16 @@ class cyrcle {
     this.y = y
     this.colors = colors;
     this.random = Math.floor(Math.random() * 100)
+    this.radius = Math.floor(Math.random() * 10) + 5
     if (this.random > 50) {
       this.xDirection = "right";
     }
     else {
       this.xDirection = "left";
+    }
+    this.radius = Math.floor(Math.random() * 10) + 5
+    if (this.radius > 9 && this.random > 50) {
+      this.radius = Math.floor(Math.random() * 10)
     }
     if (this.y > 350) {
     this.yDirection = "down";
@@ -48,16 +53,16 @@ class cyrcle {
   }
   show() {
     if (this.yDirection == "down") {
-      this.y++;
+      this.y += 3;
     }
     else {
-      this.y--;
+      this.y -= 3;
     }
     if (this.xDirection == "right") {
-      this.x++;
+      this.x += 3;
     }
     else {
-      this.x--;
+      this.x -= 3;
     }
     if (this.y > 720) {
       this.yDirection = "up";
@@ -76,7 +81,9 @@ class cyrcle {
       document.body.style.background = colors[Math.floor(Math.random() * colors.length - 1)]
     }
     canvas.fillStyle = this.colors;
-    canvas.fillRect(this.x, this.y, 50, 50);
+    canvas.beginPath();
+canvas.arc(this.x,this.y,this.radius,0,Math.PI*2, true);
+canvas.fill();
   }
 }
 setup();
