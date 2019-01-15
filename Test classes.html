@@ -10,17 +10,13 @@ let cyrcle1;
 let cyrcle2;
 let cyrcle3;
 let cyrcle4;
-
 function setup() {
   cyrcle1 = new cyrcle(Math.floor(Math.random() * 1500), Math.floor(Math.random() * 700), colors[Math.floor(Math.random() * colors.length - 1)]);
   cyrcle1.show();
-
   cyrcle2 = new cyrcle(Math.floor(Math.random() * 1500), Math.floor(Math.random() * 700), colors[Math.floor(Math.random() * colors.length - 1)]);
   cyrcle2.show();
-
   cyrcle3 = new cyrcle(Math.floor(Math.random() * 1500), Math.floor(Math.random() * 700), colors[Math.floor(Math.random() * colors.length - 1)]);
   cyrcle3.show();
-
   cyrcle4 = new cyrcle(Math.floor(Math.random() * 1500), Math.floor(Math.random() * 700), colors[Math.floor(Math.random() * colors.length - 1)]);
   cyrcle4.show();
 }
@@ -33,9 +29,7 @@ function show() {
   cyrcle4.show();
 }
 /*function draw() {
-
 } */
-
 class cyrcle {
   constructor(x, y, colors) {
     this.x = x
@@ -55,7 +49,7 @@ class cyrcle {
     else {
       this.y--;
     }
-    if (this.y > 690) {
+    if (this.y > 720) {
       this.direction = "up";
       document.body.style.background = colors[Math.floor(Math.random() * colors.length - 1)]
     }
@@ -70,6 +64,4 @@ class cyrcle {
 setup();
 //draw();
 setInterval(show, 10)
-
-
 </script>
