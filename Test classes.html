@@ -44,7 +44,8 @@ class cyrcle {
     if (this.radius > 9 && this.random > 50) {
       this.radius = Math.floor(Math.random() * 10)
     }
-    if (this.y > 350) {
+    this.random = Math.floor(Math.random() * 100)
+    if (this.random > 50) {
     this.yDirection = "down";
   }
   else {
