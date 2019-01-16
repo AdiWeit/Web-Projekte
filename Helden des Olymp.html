@@ -24,6 +24,8 @@
   var AnfrageCheck;
   var xMaus = 0,
     yMaus;
+    var hinzufügenXMaus = 0;
+    var hinzufügenYMaus = 0;
   var SpielerAnfrage = [];
   var nameGegner = "";
   var Siegpunkte = [0, ""];
@@ -43,13 +45,41 @@
     [2, ["green", "green"], "green", 1, 3, "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. ", "Held/-in"],
     [1, ["yellow"], "yellow", 2, 2, "Wenn Alkemene ins Spiel kommt, zieht dein Gegner 1 Karte. ", "Held/-in"],
     [2, ["red", "blue"], "red", 0, 3, "1 Ein- heit auf ei- nem zu Kyknos be- nach- bar- ten Platz kann bis zu 2X pro Runde an- grei- fen. ", "Held/-in"],
-    [2, ["blue", "yellow"], "blue", 2, 1, "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. ", "Held/-in"],
+    [2, ["blue", "yellow"], "blue", 2, 1 , "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. ", "Held/-in"],
     [0, [], "yellow", 0, 2, "keine besonderheit. ", "Soldat/-in"],
     [3, ["red", "green", "blue"], "red", 1, 4, "Wenn Kassandra ins Spiel kommt, fügt sie al- len Ein- hei- ten 1 Scha- den zu (auch ei- ge- nen). ", "Held/-in"],
     [1, ["red"], "red", 1, 0, "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. ", "Ausrüstung"],
     [0, [], "green", 0, 2, "keine besonderheit. ", "Soldat/-in"],
-
     [3, ["blue", "green", "yellow"], "yellow", 1, 3, "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ", "Held/-in"],
+
+    [1, ["yellow"], "yellow", 1, 0, "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. ", "Ausrüstung"],
+    [3, ["yellow", "blue", "green"], "green", 2, 3, "Wenn Diomedes ins Spiel kommt, kannst du bei al- len dei- nen Hel- den 1 Scha- den hei- len. ", "Held/-in"],
+    [0, [], "green", 1, 1, "keine besonderheit ", "Soldat/-in"],
+    [0, [], "green", 1, 1, "keine besonderheit ", "Ausrüstung"],
+    [1, ["green"], "green", 1, 2, "Wenn Idmon ins Spiel kommt, kannst du 1 ei- ge- ne Ein- heit auf einen ei- ge- nen frei- en Platz ver- schie- ben ", "Held/-in"],
+    [0, [], "yellow", 1, 1, "keine besonderheit ", "Soldat/-in" ],
+    [2, ["red", "green"], "green", 1, 3, "Im- mer wenn Iphigenie an- greift und eine rote Ein- heit als Geg- ner hat, fügt sie 2 Scha- den zu. ", "Held/-in"],
+    [2, ["green", "green"], "green", 2, 2, "Wenn Penelope ins Spiel kommt, kannst du 1 geg- ne- ri- sche Ein- heit auf einen frei- en Platz des Geg- ners ver- schie- ben. ", "Held/-in" ],
+    [0, [], "red", 1, 1, "keine besonderheit ", "Ausrüstung"],
+    [1, ["red"], "red", 1, 2, "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ", "Held/-in"],
+    [3, ["yellow", "green", "green"], "green", 0, 4, "Alle Ein- hei- ten auf ei- nem zu Nestor be- nach- bar- ten Platz grei- fen 2X pro Runde an. ", "Held/-in"],
+    [0, [], "green", 0, 1, "Wenn der Helm ins Spiel kommt, kann er der ge- gen- ü- ber- lie- gen- den Ein- heit 1 Scha- den zu- fü- gen. ", "Ausrüstung"],
+    [3, ["yellow", "green", "red"], "red", 0, 3, "Im- mer wenn Heabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. ", "Held/-in"] //,
+  /*  [],
+    [], */
+
+
+
+
+
+
+
+
+
+
+
+
+
   ];
   // Kosten.length/Kosten/Farbe/Angriff/Verteidigung/Fähigkeit/Einheit
   var zähler = kartenZiehen.length,
@@ -170,7 +200,7 @@
             Ablage = false;
             Sperren[2] = false;
             Namenklärung();
-            DranCheck = setInterval(DranCheck, 450)
+            DranCheck = setInterval(DranCheck, 1735)
           }
         }
       });
@@ -183,15 +213,17 @@
       result = result.toString().split(',');
       if (Sperren[2] == true) {
         if (result.length > Zustand.length) {
+          Sperren[2] = false;
+          setTimeout(function () {
           console.log("Bin dran!!!");
           NameSpieler[2] = NameSpieler[0];
           NameSpieler[0] = NameSpieler[1];
           NameSpieler[1] = NameSpieler[2];
           NameSpieler.pop();
-          Sperren[2] = false;
           Zustand = [result];
           Zustand = Zustand.toString().split(',');
           //     zähler = 1;
+
           kartenErhalten();
           Sperren[2] = false;
           AblageListe[2] = "beendet"
@@ -199,8 +231,9 @@
           //dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], "NOPE");
 
 
-        }
+        }, 1000);
       }
+        }
     });
     //  });
   }
@@ -322,6 +355,8 @@
                 } else {
                   kartenZiehen[zählerListe[7]] = kartenZiehen[zählerListe[7]].toString().split('?');
                   kartenZiehen[zählerListe[7]][1] = kartenZiehen[zählerListe[7]][1].toString().split(',');
+                  kartenZiehen[zählerListe[7]][4] = JSON.parse(kartenZiehen[zählerListe[7]][4]);
+                  kartenZiehen[zählerListe[7]][3] = JSON.parse(kartenZiehen[zählerListe[7]][3]);
                 }
               }
               zählerListe[7]++;
@@ -943,11 +978,23 @@ else {
   }
 
   function readMouseMove(e) {
-    xMaus = e.clientX;
-    yMaus = e.clientY;
-    //console.log(xMaus + " - " + yMaus);
+    xMaus = e.clientX + hinzufügenXMaus;
+    yMaus = e.clientY + hinzufügenYMaus;
+  //  console.log(xMaus + " - " + yMaus);
   }
   document.onmousemove = readMouseMove
+
+  var f = function() {
+
+    var eventHandler = function(event) {
+    console.log(window.scrollX + " - " + window.scrollY);
+    hinzufügenXMaus = window.scrollX;
+    hinzufügenYMaus = window.scrollY;
+    };
+    window.addEventListener('scroll', eventHandler, false)
+    };
+    window.addEventListener('DOMContentLoaded', f, false)
+
   KoordinatenCheck = setInterval(KoordinatenCheck, 700)
   // 1377,397,185,45
   window.addEventListener('mousedown', function() {
@@ -957,22 +1004,26 @@ else {
         Sperren[1] = true;
         canvas.fillStyle = "white"
         if (NameBleibt[0] == name) {
-          canvas.fillRect(0, 470, 2000, 800);
+          canvas.fillRect(0, 470, 92000, 9800);
         } else {
-          canvas.fillRect(0, 0, 2000, 275);
+          canvas.fillRect(0, 0, 92000, 275);
         }
       } else {
         textButton = "Meine Karten";
         Sperren[1] = false;
         canvas.fillStyle = "white"
         if (NameBleibt[0] == name) {
-          canvas.fillRect(0, 470, 2000, 800);
+          canvas.fillRect(0, 470, 92000, 9800);
         } else {
-          canvas.fillRect(0, 0, 2000, 275);
+          canvas.fillRect(0, 0, 92000, 275);
         }
       }
     }
-    if (AblageListe[1] > -1 && NameSpieler[0] == name && Sperren[1] == true && AblageListe[2] == "beendet" /* || AblageListe[2] == undefined*/ ) {
+    if (AblageListe[1] > -1 && NameSpieler[0] == name && Sperren[1] == true && AblageListe[2] == "beendet" /* || AblageListe[2] == undefined*/) {
+      if (NameBleibt[0] == name && kartenSpieler1[AblageListe[1]][6] == "Ausrüstung" && MitteSpieler1[0][0] == "z" && MitteSpieler1[1][0] == "z" && MitteSpieler1[2][0] == "z" && MitteSpieler1[3][0] == "z" && MitteSpieler1[4][0] == "z" && MitteSpieler1[5][0] == "z") {}
+      else if (NameBleibt[1] == name && kartenSpieler2[AblageListe[1]][6] == "Ausrüstung" && MitteSpieler2[0][0] == "z" && MitteSpieler2[1][0] == "z" && MitteSpieler2[2][0] == "z" && MitteSpieler2[3][0] == "z" && MitteSpieler2[4][0] == "z" && MitteSpieler2[5][0] == "z") {}
+      else {
+
       zählerListe[2] = 0;
       while (zählerListe[2] < KartenAusgewählt.length) { //console.log(0123456789012);
         if (KartenAusgewählt[zählerListe[2]] == AblageListe[1]) {
@@ -1020,6 +1071,7 @@ else {
 
         zählerListe[2] = 0;
         if (NameBleibt[0] == name) {
+
           while (zählerListe[2] < kartenSpieler1.length) { //console.log(01234567890123457);
             if (zählerListe[2] == AblageListe[1] == false) {
               farbenVorhanden[0] += "," + kartenSpieler1[zählerListe[2]][2]
@@ -1162,7 +1214,7 @@ else {
           while (kartenSpieler1[kartenSpieler1.length - 1][0] == "z") { //console.log(01234567890123457890);
             kartenSpieler1.pop();
             canvas.fillStyle = "white"
-            canvas.fillRect(0, 470, 2000, 800);
+            canvas.fillRect(0, 470, 92000, 9800);
           }
         } else {
           if (farbenGebraucht[1].length == farbenVorhanden[1].length && farbenGebraucht[1].length == 0 == false) {
@@ -1214,7 +1266,7 @@ else {
           while (kartenSpieler2[kartenSpieler2.length - 1][0] == "z") { //console.log(01234567890123457890);
             kartenSpieler2.pop();
             canvas.fillStyle = "white"
-            canvas.fillRect(0, 470, 2000, 800);
+            canvas.fillRect(0, 470, 92000, 9800);
           }
         }
         setTimeout(function() {
@@ -1228,6 +1280,7 @@ else {
         }
       }
     }
+  }
     if (AblageListe[2] == "AuswahlManuel") {
       zählerListe[2] = 4;
       FarbsteineKlickCheck();
@@ -1273,7 +1326,7 @@ else {
             kartenSpieler1.pop();
           }
           canvas.fillStyle = "white"
-          canvas.fillRect(0, 470, 2000, 800);
+          canvas.fillRect(0, 470, 13000, 9800);
           if (farbenGebraucht[1].length == 0 && farbenGebraucht[2].length == 0 && farbenGebraucht[3].length == 0 && farbenGebraucht[4].length == 0) {
             Sperren[1] = false;
             setTimeout(function() {
@@ -1323,7 +1376,7 @@ else {
             kartenSpieler2.pop();
           }
           canvas.fillStyle = "white"
-          canvas.fillRect(0, 470, 2000, 800);
+          canvas.fillRect(0, 470, 92000, 9800);
           if (farbenGebraucht[1].length == 0 && farbenGebraucht[2].length == 0 && farbenGebraucht[3].length == 0 && farbenGebraucht[4].length == 0) {
             Sperren[1] = false;
             setTimeout(function() {
@@ -1415,10 +1468,6 @@ else {
       zählerListe[8] = 0;
       zählerListe[6] = 0;
       AblageListe[2] = "Angriff";
-      NameSpieler[2] = NameSpieler[0];
-      NameSpieler[0] = NameSpieler[1];
-      NameSpieler[1] = NameSpieler[2];
-      NameSpieler.pop();
       angreifen();
     }
     if (AblageListe[4] == "wartenFarbauswahlSpieler2") {
@@ -1647,7 +1696,7 @@ else {
     }
     zählerListe[8] = zählerListe[9];
     angreifen();
-  }  else {
+  }  else if(zählerListe[8] == 6) {
      setTimeout(function() {
        if (AblageListe[4] == "beendet") {
          Spielerwechsel();
@@ -1748,7 +1797,7 @@ else {
       }
     }
     if (AblageListe[3][5] == "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. ") {
-      AblageListe[2] = "wartenKarteAufHandZurrückehmen";
+  //    AblageListe[2] = "wartenKarteAufHandZurrückehmen";
   /*    zählerListe[2] = 0;
       while (zählerListe[2] < 6) {
           if (NameBleibt[0] == name) {
@@ -1812,7 +1861,8 @@ else {
     }
     Koordinaten[0] = 95;
     AblageListe[1] = -1;
-    while (zähler < 6) { //console.log(01234567890123457890123);
+    // (?)
+    while (zähler < 25) { //console.log(01234567890123457890123);
       if (xMaus > Koordinaten[0] + 20 && xMaus < Koordinaten[0] + 160) {
         if (yMaus < 264 && yMaus > 15 || yMaus > 528 && yMaus < 736) {
           AblageListe[1] = zähler
@@ -1838,6 +1888,10 @@ else {
 
   function Spielerwechsel() {
     //  dbSet("Olymp", "NameSpieler" , NameSpieler);
+    NameSpieler[2] = NameSpieler[0];
+    NameSpieler[0] = NameSpieler[1];
+    NameSpieler[1] = NameSpieler[2];
+    NameSpieler.pop();
     zählerListe[8] = 0;
     Sperren[2] = false
     Sperren[3] = false;
@@ -1910,13 +1964,21 @@ else {
             if (result == "NOPE") {
               zählerListe[1]++;
             }
-            if (zählerListe[1] > 0 && zählerListe[8] < 1000) {
+            if (zählerListe[1] > 0 && zählerListe[8] < 25) {
               console.log(zählerListe[8]);
               zählerListe[1] = 0;
               Sperren[3] = true;
               zählerListe[8]++;
               //      SpielerwechselSet();
             }
+          /*  else if (zählerListe[8] == 25) {
+              SpielerwechselSet();
+              zählerListe[8]++;
+              setTimeout(function () {
+                Sperren[2] = true;
+                Sperren[3] = false;
+              }, 3000);
+            }  */
             /*  dbGet("Olymp", "SteineMitte" + NameBleibt[0] + NameBleibt[1], function(result) {
                 AblageListe[6] = result.toString().split(',')
                 zählerListe[7] = 0;
@@ -1932,7 +1994,7 @@ else {
               //  gewonnenCheck();
               setTimeout(function() {
                 Sperren[2] = true;
-              }, 2573);
+              }, 1573);
               setTimeout(function() {
                 dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
                 setTimeout(function() {
@@ -1948,7 +2010,7 @@ else {
                   }, 500);
                 }, 500);
               }, 1000);
-            } else {
+            } else if (Sperren[2] == false) {
               SpielerwechselSet();
             }
           });
