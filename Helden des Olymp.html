@@ -9,6 +9,7 @@
   var gerät = "";
   var KoordinatenCheck;
   var Zustand = ["NOPE"];
+  var Bild = new Image();
   var SpielerCheck = [false, true, true];
   var zählerListe = [0, 0, 0];
   var Koordinaten = [];
@@ -222,6 +223,7 @@
           NameSpieler.pop();
           Zustand = [result];
           Zustand = Zustand.toString().split(',');
+          gewonnenCheck();
           //     zähler = 1;
 
           kartenErhalten();
@@ -237,6 +239,32 @@
     });
     //  });
   }
+function gewonnenCheck() {
+  if (Zustand[Zustand.length - 1] == name + "gewonnen" ) {
+              console.log("Du hast gewonnen!!!");
+              clearInterval(KoordinatenCheck);
+              canvas.fillStyle = "green";
+              canvas.fillRect(0,0, 1847, 973)
+             Bild.src = 'http://adi.nicolaiweitkemper.de/Bilder/Gewinnerbildschirm.jpeg'
+             canvas.drawImage(Bild, 260, 0);
+             setTimeout(function () {
+              canvas.drawImage(Bild, 260, 0);
+             }, 500);
+             Sperren[2] = true;
+            }
+            else if (Zustand[Zustand.length - 1] == nameGegner + "gewonnen") {
+              console.log("Du hast verloren!!!");
+              clearInterval(KoordinatenCheck);
+              canvas.fillStyle = "red";
+              canvas.fillRect(0,0, 1847, 973)
+           Bild.src = "http://adi.nicolaiweitkemper.de/Bilder/Verloren%20Bildschirm.jpg"
+           canvas.drawImage(Bild, 260, 0);
+           setTimeout(function () {
+            canvas.drawImage(Bild, 260, 0);
+           }, 500);
+           Sperren[2] = true;
+              }
+}
 
 
   function Namenklärung() {
@@ -1727,7 +1755,7 @@ else {
   }
 
   function zweiKartenZiehen() {
-    if (kartenZiehen.length > 1) {
+    if (kartenZiehen.length > 2) {
       if (name == NameBleibt[0] && kartenZiehen.length) {
         kartenSpieler1[kartenSpieler2.length] = kartenZiehen[0];
         kartenSpieler1[kartenSpieler2.length] = kartenZiehen[1];
@@ -1739,8 +1767,31 @@ else {
       kartenZiehen.shift();
     } else {
       console.log("Rundenende");
+    if (Siegpunkte[1] == name) {
+        Zustand[Zustand.length] = name + "gewonnen"
+      }
+    else {
+      Zustand[Zustand.length] = nameGegner + "gewonnen"
+    }
+    ZustandSpeichern();
     }
   }
+function ZustandSpeichern() {
+  dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
+  setTimeout(function() {
+    dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
+    setTimeout(function() {
+      dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
+      setTimeout(function() {
+        dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
+        setTimeout(function() {
+          dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
+          gewonnenCheck();
+        }, 500);
+      }, 500);
+    }, 500);
+    }, 500)
+}
 
   function FähigkeitenKartenAusgespielt() {
     if (AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ") {
@@ -1829,6 +1880,15 @@ else {
       Siegpunkte[0]++;
     } else {
       Siegpunkte[0]--;
+    }
+    if (Siegpunkte[0] > 6) {
+      if (Siegpunkte[1] == name) {
+          Zustand[Zustand.length] = name + "gewonnen"
+        }
+      else {
+        Zustand[Zustand.length] = nameGegner + "gewonnen"
+      }
+      ZustandSpeichern();
     }
   }
 
@@ -1991,7 +2051,6 @@ else {
                 zählerListe[7] = 0;  */
             if (Sperren[3] == false /* && AblageListe[6][0] == SteineMitte[0] || SteineMitte[0] == "#FF8000" && AblageListe[6][1] == SteineMitte[1] || SteineMitte[1] == "#FF8000"  && AblageListe[6][2] == SteineMitte[2] && AblageListe[6][2] == SteineMitte[2] || SteineMitte[2] == "#FF8000" && AblageListe[6][3] == SteineMitte[3] && AblageListe[6][3] == SteineMitte[3] || SteineMitte[3] == "#FF8000" */ ) {
               console.log("Spielerwechsel eingeleitet");
-              //  gewonnenCheck();
               setTimeout(function() {
                 Sperren[2] = true;
               }, 1573);
