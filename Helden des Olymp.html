@@ -264,6 +264,16 @@ function gewonnenCheck() {
            }, 500);
            Sperren[2] = true;
               }
+              if (Zustand[Zustand.length - 1] + Zustand[Zustand.length - 1] == "Von" + name + "überrollt" + "Von" + name + "überrollt") {
+                Zustand[Zustand.length] = name + "gewonnen";
+                ZustandSpeichern();
+                gewonnenCheck();
+              }
+              else if (Zustand[Zustand.length - 1] + Zustand[Zustand.length - 1] == "Von" + nameGegner + "überrollt" + "Von" + nameGegner + "überrollt") {
+                Zustand[Zustand.length] = nameGegner + "gewonnen";
+                ZustandSpeichern();
+                gewonnenCheck();
+              }
 }
 
 
@@ -546,6 +556,15 @@ function gewonnenCheck() {
     } else {
       canvas.fillText(Siegpunkte[0], 17, 289 + 88);
     }
+    if (kartenZiehen.length < 7) {
+      if (Siegpunkte[1] == NameBleibt[0] && Siegpunkte[0] == 0 == false) {
+        canvas.fillText(Siegpunkte[0] + "↓", 17, 289 + 88);
+      } else if (Siegpunkte[0] == 0 == false) {
+        canvas.fillText(Siegpunkte[0] + "↑", 17, 289 + 88);
+      } else {
+        canvas.fillText(Siegpunkte[0], 17, 289 + 88);
+      }
+    }
 
     Koordinaten[0] = 95;
     //Mitte Ich
@@ -819,6 +838,16 @@ else {
     } else {
       canvas.fillText(Siegpunkte[0], 17, 289 + 88);
     }
+    if (kartenZiehen.length < 7) {
+      if (Siegpunkte[1] == NameBleibt[0] && Siegpunkte[0] == 0 == false) {
+        canvas.fillText(Siegpunkte[0] + "↓", 17, 289 + 88);
+      } else if (Siegpunkte[0] == 0 == false) {
+        canvas.fillText(Siegpunkte[0] + "↑", 17, 289 + 88);
+      } else {
+        canvas.fillText(Siegpunkte[0], 17, 289 + 88);
+      }
+    }
+
     Koordinaten[0] = 95;
     if (NameBleibt[0] == name) {
       Koordinaten[3] = 0;
@@ -962,7 +991,7 @@ else {
     zählerListe[2] = 0;
     zählerListe[3] = [];
     Koordinaten[0] = 648;
-    Koordinaten[1] = 350;
+    Koordinaten[1]  = 350;
     AblageListe[5] = ["red", "green", "yellow", "blue"];
     if (name == NameBleibt[0]) {
       while (zählerListe[2] < AblageListe[5].length) {
@@ -1008,7 +1037,7 @@ else {
   function readMouseMove(e) {
     xMaus = e.clientX + hinzufügenXMaus;
     yMaus = e.clientY + hinzufügenYMaus;
-  //  console.log(xMaus + " - " + yMaus);
+//    console.log(xMaus + " - " + yMaus);
   }
   document.onmousemove = readMouseMove
 
@@ -1051,7 +1080,20 @@ else {
       if (NameBleibt[0] == name && kartenSpieler1[AblageListe[1]][6] == "Ausrüstung" && MitteSpieler1[0][0] == "z" && MitteSpieler1[1][0] == "z" && MitteSpieler1[2][0] == "z" && MitteSpieler1[3][0] == "z" && MitteSpieler1[4][0] == "z" && MitteSpieler1[5][0] == "z") {}
       else if (NameBleibt[1] == name && kartenSpieler2[AblageListe[1]][6] == "Ausrüstung" && MitteSpieler2[0][0] == "z" && MitteSpieler2[1][0] == "z" && MitteSpieler2[2][0] == "z" && MitteSpieler2[3][0] == "z" && MitteSpieler2[4][0] == "z" && MitteSpieler2[5][0] == "z") {}
       else {
-
+        zählerListe[2] = 0;
+        while (zählerListe[2] < kartenSpieler1.length) {
+          if (kartenSpieler1[zählerListe[2]][7] == undefined == false) {
+            kartenSpieler1[zählerListe[2]].pop();
+          }
+          zählerListe[2]++;
+        }
+        zählerListe[2] = 0;
+        while (zählerListe[2] < kartenSpieler2.length) {
+          if (kartenSpieler2[zählerListe[2]][7] == undefined == false) {
+            kartenSpieler2[zählerListe[2]].pop();
+          }
+          zählerListe[2]++;
+        }
       zählerListe[2] = 0;
       while (zählerListe[2] < KartenAusgewählt.length) { //console.log(0123456789012);
         if (KartenAusgewählt[zählerListe[2]] == AblageListe[1]) {
@@ -1106,6 +1148,7 @@ else {
             } else {
               farbenVorhanden[0] += "," + "gewählte Karte";
               AblageListe[3] = kartenSpieler1[zählerListe[2]];
+              kartenSpieler1[zählerListe[2]][7] = "gewählte Karte";
               //  AblageListe[4] = zählerListe[2];
             }
             zählerListe[2]++;
@@ -1130,6 +1173,7 @@ else {
               farbenVorhanden[0] += "," + "gewählte Karte";
               AblageListe[3] = kartenSpieler2[zählerListe[2]];
               //  AblageListe[4] = zählerListe[2];
+              kartenSpieler2[zählerListe[2]][7] = "gewählte Karte";
             }
             zählerListe[2]++;
           }
@@ -1315,6 +1359,7 @@ else {
       if (NameBleibt[0] == name) {
         if (zählerListe[2] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && kartenSpieler1[AblageListe[1]][2] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && kartenSpieler1[AblageListe[1]][2] == "blue" ||
           farbenGebraucht[2].length < farbenVorhanden[2].length && kartenSpieler1[AblageListe[1]][2] == "green" || farbenGebraucht[1].length < farbenVorhanden[1].length && kartenSpieler1[AblageListe[1]][2] == "red") {
+          if (SteineIch[zählerListe[2]] == undefined == false || kartenSpieler1[AblageListe[1]][7] == undefined) {
           if (zählerListe[2] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "yellow") {
             farbenGebraucht[4].pop();
           }
@@ -1362,9 +1407,11 @@ else {
             }, 500);
           }
         }
+      }
       } else {
         if (zählerListe[2] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && kartenSpieler2[AblageListe[1]][2] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && kartenSpieler2[AblageListe[1]][2] == "blue" ||
           farbenGebraucht[2].length < farbenVorhanden[2].length && kartenSpieler2[AblageListe[1]][2] == "green" || farbenGebraucht[1].length < farbenVorhanden[1].length && kartenSpieler2[AblageListe[1]][2] == "red") {
+          if (SteineIch[zählerListe[2]] == undefined == false || kartenSpieler2[AblageListe[1]][7] == undefined) {
           if (zählerListe[2] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "yellow") {
             farbenGebraucht[4].pop();
           }
@@ -1412,6 +1459,7 @@ else {
             }, 500);
           }
         }
+      }
       }
     }
     if (AblageListe[2] == "AuswahlKarteAblegen" && AblageListe[1] > -1) {
@@ -1607,7 +1655,6 @@ else {
             MitteSpieler2[zählerListe[8]][4] -= MitteSpieler1[zählerListe[8]][3]
           }
         }
-        zweiKartenZiehen();
       }
       zählerListe[8]++;
       nachAngriff();
@@ -1682,7 +1729,7 @@ else {
             MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
           }
         }
-        zweiKartenZiehen();
+    //    zweiKartenZiehen();
         zählerListe[8]++;
         nachAngriff();
       }
@@ -1725,6 +1772,7 @@ else {
     zählerListe[8] = zählerListe[9];
     angreifen();
   }  else if(zählerListe[8] == 6) {
+      zweiKartenZiehen();
      setTimeout(function() {
        if (AblageListe[4] == "beendet") {
          Spielerwechsel();
@@ -1757,8 +1805,8 @@ else {
   function zweiKartenZiehen() {
     if (kartenZiehen.length > 2) {
       if (name == NameBleibt[0] && kartenZiehen.length) {
-        kartenSpieler1[kartenSpieler2.length] = kartenZiehen[0];
-        kartenSpieler1[kartenSpieler2.length] = kartenZiehen[1];
+        kartenSpieler1[kartenSpieler1.length] = kartenZiehen[0];
+        kartenSpieler1[kartenSpieler1.length] = kartenZiehen[1];
       } else {
         kartenSpieler2[kartenSpieler2.length] = kartenZiehen[0];
         kartenSpieler2[kartenSpieler2.length] = kartenZiehen[1];
@@ -1777,6 +1825,7 @@ else {
     }
   }
 function ZustandSpeichern() {
+  gewonnenCheck();
   dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
   setTimeout(function() {
     dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
@@ -1786,7 +1835,6 @@ function ZustandSpeichern() {
         dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
         setTimeout(function() {
           dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
-          gewonnenCheck();
         }, 500);
       }, 500);
     }, 500);
@@ -1942,9 +1990,17 @@ function ZustandSpeichern() {
     } else {
       FarbsteineIch();
     }
+    if (zähler == "Kartegefunden" == false || AblageListe[0][AblageListe[1]] [0] == undefined || AblageListe[0][AblageListe[1]][0] == "z") {
+      canvas.fillStyle = "white"; //Farbe
+      canvas.fillRect(500, 210 + 88, 130, 147)
+      canvas.fillStyle = "#FF8000"; //Farbe
+      canvas.fillRect(515, 210 + 98, 100, 127)
+      canvas.fillStyle = "white"
+      canvas.font = "50px Georgia";
+      canvas.fillText(kartenZiehen.length, 538, 290 + 98);
+    }
     zähler = 0;
   }
-  //
 
   function Spielerwechsel() {
     //  dbSet("Olymp", "NameSpieler" , NameSpieler);
@@ -1955,7 +2011,27 @@ function ZustandSpeichern() {
     zählerListe[8] = 0;
     Sperren[2] = false
     Sperren[3] = false;
-    Zustand[Zustand.length] = "Spielerwechsel"
+    if (MitteSpieler1[0][0] == "z" && MitteSpieler1[1][0] == "z" && MitteSpieler1[2][0] == "z" && MitteSpieler1[3][0] == "z" && MitteSpieler1[4][0] == "z" && MitteSpieler1[5][0] == "z" && MitteSpieler2[1][0] == "z" == false && MitteSpieler2[2][0] == "z" == false &&  MitteSpieler2[2][0] == "z" == false &&  MitteSpieler2[3][0] == "z" == false &&  MitteSpieler2[4][0] == "z" == false &&  MitteSpieler2[5][0] == "z" == false && MitteSpieler2[0][0] == "z" == false) {
+        if (NameBleibt[0] == name) {
+          Zustand[Zustand.length] = "Von " + nameGegner + "überrollt";
+        }
+        else {
+          Zustand[Zustand.length] = "Von " + name + "überrollt";
+        }
+        gewonnenCheck();
+    }
+  else if (MitteSpieler2[0][0] == "z" && MitteSpieler2[1][0] == "z" && MitteSpieler2[2][0] == "z" && MitteSpieler2[3][0] == "z" && MitteSpieler2[4][0] == "z" && MitteSpieler2[5][0] == "z" && MitteSpieler1[1][0] == "z" == false && MitteSpieler1[2][0] == "z" == false &&  MitteSpieler1[2][0] == "z" == false &&  MitteSpieler1[3][0] == "z" == false &&  MitteSpieler1[4][0] == "z" == false &&  MitteSpieler1[5][0] == "z" == false && MitteSpieler1[0][0] == "z" == false) {
+        if (NameBleibt[0] == name) {
+          Zustand[Zustand.length] = "Von " + name + "überrollt";
+        }
+        else {
+          Zustand[Zustand.length] = "Von " + nameGegner + "überrollt";
+        }
+        gewonnenCheck();
+    }
+  else if (Zustand[Zustand.length - 1] == name + "gewonnen" == false && Zustand[Zustand.length - 1] == nameGegner + "gewonnen" == false) {
+      Zustand[Zustand.length] = "Spielerwechsel";
+    }
     SpielerwechselSet();
   }
 
