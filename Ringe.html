@@ -1,50 +1,66 @@
 <canvas id="textur" width="1584" height="700"></canvas>
-
+<meta charset="utf-8">
 <script>
 
 var zähler = 0;
-var start = 4.72
-var RingGröße = 10;
-var Radius = 55;
 var textur = document.getElementById('textur');
 var canvas = textur.getContext('2d');//Dimension
 var ring;
-var Zufall = Math.floor(Math.random()*4)
 var colors = ['green', 'springGreen', 'yellow', 'gold', 'blue', 'steelBlue', '#09F', 'cyan', 'plum', 'purple', 'brown', 'tomato', 'silver'];
+var cycle = [];
+var xMaus;
+var yMaus;
+var Anzahl = 0;
 
-setInterval(Dauerschleife, 734);
-
-function Dauerschleife() {
-  ARG = setInterval(AnimationRingGroß, 19)
+class cyrcle {
+constructor(colors) {
+this.x = xMaus;
+this.y = yMaus;
+this.start = 4.72
+this.RingGröße = 10;
+this.Radius = 55;
+this.colors = colors;
+this.zähler = 0;
 }
-function AnimationRingGroß() {
-canvas.fillStyle = "white";
-canvas.fillRect(0,0,1900, 700);
-diff = ((1)*Math.PI*2*10).toFixed(2)
-canvas.lineWidth = RingGröße;
+
+AnimationRingGroß() {
+//canvas.fillStyle = "white";
+//canvas.fillRect(0,0,1900, 700);
+
+this.diff = ((1)*Math.PI*2*10).toFixed(2)
+canvas.lineWidth = this.RingGröße;
 canvas.fillStyle = '#09F'
-canvas.strokeStyle = '#09F'
+canvas.strokeStyle = this.colors
 canvas.textAlign = 'center'
 canvas.beginPath();
-if(Zufall > 1) {
-canvas.arc(790, 410, Radius, start, diff / 10 + start, false)
-}
-else {
-
-canvas.arc(790, 380, Radius, start, diff / 10 + start, false)
-}
+canvas.arc(this.x, this.y, this.Radius, this.start, this.diff / 10 + this.start, false)
 canvas.stroke()
-zähler++;
-Radius++;
-RingGröße--;
-if(zähler == 17) {
+this.zähler++;
+this.Radius++;
+this.RingGröße--;
+}
+}
+
+document.onmousemove = readMouseMove
+function readMouseMove(e) {
+  xMaus = e.clientX
+  yMaus = e.clientY
+//    console.log(xMaus + " - " + yMaus);
+cyrcle[Anzahl] = new cyrcle(colors[Math.floor(Math.random() * colors.length - 1)]);
+Anzahl++;
+}
+
+function Animation() {
+  zähler = 0;
   canvas.fillStyle = "white";
   canvas.fillRect(0,0,1900, 700);
-zähler = 0;
-clearInterval(ARG)
-Radius = 55;
-RingGröße = 10;
+  while (zähler < Anzahl) {
+    if (cyrcle[zähler].zähler < 18) {
+      cyrcle[zähler].AnimationRingGroß();
+    }
+    zähler++;
+  }
 }
-}
+setInterval(Animation, 90)
 
 </script>
