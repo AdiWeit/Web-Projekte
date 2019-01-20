@@ -102,7 +102,7 @@
     ["z", 0, ""]
   ];
   var SteineMitte = [];
-  var SteineIch = [];
+  var SteineIch = ["#FF8000", "#FF8000", "#FF8000", "#FF8000"];
   while (--zähler > 0) { //console.log(0);
     j = Math.floor(Math.random() * (zähler + 1));
     Ablage = kartenZiehen[j];
@@ -1262,8 +1262,8 @@ else {
           if (farbenGebraucht[3].length == farbenVorhanden[3].length && farbenGebraucht[3].length == 0 == false) {
             if ([farbenVorhanden[3][0]] > kartenSpieler1.length - 1) {
               kartenSpieler1["blue"] = false;
-              SteineMitte[2] = "yellow";
-              SteineIch[2] = "#FF8000"
+              SteineMitte[3] = "blue";
+              SteineIch[3] = "#FF8000"
             } else {
               kartenSpieler1[farbenVorhanden[3][0]] = "z";
               kartenSpieler1[farbenVorhanden[3][1]] = "z";
@@ -1273,8 +1273,8 @@ else {
           if (farbenGebraucht[4].length == farbenVorhanden[4].length && farbenGebraucht[4].length == 0 == false) {
             if ([farbenVorhanden[4][0]] > kartenSpieler1.length - 1) {
               kartenSpieler1["yellow"] = false;
-              SteineMitte[3] = "blue";
-              SteineIch[3] = "#FF8000"
+              SteineMitte[2] = "yellow";
+              SteineIch[2] = "#FF8000";
             } else {
               kartenSpieler1[farbenVorhanden[4][0]] = "z";
               kartenSpieler1[farbenVorhanden[4][1]] = "z";
@@ -1314,8 +1314,8 @@ else {
           if (farbenGebraucht[3].length == farbenVorhanden[3].length && farbenGebraucht[3].length == 0 == false) {
             if ([farbenVorhanden[3][0]] > kartenSpieler2.length - 1) {
               kartenSpieler2["blue"] = false;
-              SteineMitte[2] = "yellow";
-              SteineIch[2] = "#FF8000"
+              SteineMitte[3] = "blue";
+              SteineIch[3] = "#FF8000"
             } else {
               kartenSpieler2[farbenVorhanden[3][0]] = "z";
               kartenSpieler2[farbenVorhanden[3][1]] = "z";
@@ -1325,8 +1325,8 @@ else {
           if (farbenGebraucht[4].length == farbenVorhanden[4].length && farbenGebraucht[4].length == 0 == false) {
             if ([farbenVorhanden[4][0]] > kartenSpieler2.length - 1) {
               kartenSpieler2["yellow"] = false;
-              SteineMitte[3] = "blue";
-              SteineIch[3] = "#FF8000"
+              SteineMitte[2] = "yellow";
+              SteineIch[2] = "#FF8000";
             } else {
               kartenSpieler2[farbenVorhanden[4][0]] = "z";
               kartenSpieler2[farbenVorhanden[4][1]] = "z";
@@ -1354,45 +1354,46 @@ else {
     }
   }
     if (AblageListe[2] == "AuswahlManuel") {
-      zählerListe[2] = 4;
+      zählerListe[9] = 4;
       FarbsteineKlickCheck();
       if (NameBleibt[0] == name) {
-        if (zählerListe[2] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && kartenSpieler1[AblageListe[1]][2] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && kartenSpieler1[AblageListe[1]][2] == "blue" ||
+        if (kartenSpieler1[AblageListe[1]] == undefined || kartenSpieler1[AblageListe[1]][7] == undefined) {
+        if (zählerListe[9] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && kartenSpieler1[AblageListe[1]][2] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && kartenSpieler1[AblageListe[1]][2] == "blue" ||
           farbenGebraucht[2].length < farbenVorhanden[2].length && kartenSpieler1[AblageListe[1]][2] == "green" || farbenGebraucht[1].length < farbenVorhanden[1].length && kartenSpieler1[AblageListe[1]][2] == "red") {
-          if (SteineIch[zählerListe[2]] == undefined == false || kartenSpieler1[AblageListe[1]][7] == undefined) {
-          if (zählerListe[2] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "yellow") {
+          if (SteineIch[zählerListe[9]] == "#FF8000" == false || kartenSpieler1[AblageListe[1]][7] == undefined) {
+          if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "yellow") {
             farbenGebraucht[4].pop();
           }
-          if (zählerListe[2] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "red") {
+          if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "red") {
             farbenGebraucht[1].pop();
           }
-          if (zählerListe[2] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "green") {
+          if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "green") {
             farbenGebraucht[2].pop();
           }
-          if (zählerListe[2] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "blue") {
+          if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "blue") {
             farbenGebraucht[3].pop();
           }
-          if (kartenSpieler1[SteineIch[zählerListe[2]]] == true) {
-            if ([SteineIch[zählerListe[2]]] == "red") {
+          if (kartenSpieler1[SteineIch[zählerListe[9]]] == true) {
+            if ([SteineIch[zählerListe[9]]] == "red") {
               farbenGebraucht[1].pop();
             }
-            if ([SteineIch[zählerListe[2]]] == "green") {
+            if ([SteineIch[zählerListe[9]]] == "green") {
               farbenGebraucht[2].pop();
             }
-            if ([SteineIch[zählerListe[2]]] == "blue") {
+            if ([SteineIch[zählerListe[9]]] == "blue") {
               farbenGebraucht[3].pop();
             }
-            if ([SteineIch[zählerListe[2]]] == "yellow") {
+            if ([SteineIch[zählerListe[9]]] == "yellow") {
               farbenGebraucht[4].pop();
             }
-            kartenSpieler1[SteineIch[zählerListe[2]]] = false;
-            if (zählerListe[2] < 4) {
-              SteineMitte[zählerListe[2]] = SteineIch[zählerListe[2]];
-              SteineIch[zählerListe[2]] = "#FF8000";
+            if (zählerListe[9] < 4) {
+              kartenSpieler1[SteineIch[zählerListe[9]]] = false;
+              SteineMitte[zählerListe[9]] = SteineIch[zählerListe[9]];
+              SteineIch[zählerListe[9]] = "#FF8000";
             }
           }
 
-          zählerListe[2] = 0;
+          zählerListe[9] = 0;
           kartenSpieler1[AblageListe[1]] = "z";
           kartenSpieler1.sort();
           while (kartenSpieler1[kartenSpieler1.length - 1][0] == "z") { //console.log(0123456789012345789012);
@@ -1408,43 +1409,45 @@ else {
           }
         }
       }
-      } else {
-        if (zählerListe[2] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && kartenSpieler2[AblageListe[1]][2] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && kartenSpieler2[AblageListe[1]][2] == "blue" ||
+      }
+    } else {
+      if (kartenSpieler2[AblageListe[1]] == undefined || kartenSpieler2[AblageListe[1]][7] == undefined) {
+        if (zählerListe[9] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && kartenSpieler2[AblageListe[1]][2] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && kartenSpieler2[AblageListe[1]][2] == "blue" ||
           farbenGebraucht[2].length < farbenVorhanden[2].length && kartenSpieler2[AblageListe[1]][2] == "green" || farbenGebraucht[1].length < farbenVorhanden[1].length && kartenSpieler2[AblageListe[1]][2] == "red") {
-          if (SteineIch[zählerListe[2]] == undefined == false || kartenSpieler2[AblageListe[1]][7] == undefined) {
-          if (zählerListe[2] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "yellow") {
+          if (SteineIch[zählerListe[9]] == "#FF8000" == false || kartenSpieler2[AblageListe[1]][7] == undefined) {
+          if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "yellow") {
             farbenGebraucht[4].pop();
           }
-          if (zählerListe[2] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "red") {
+          if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "red") {
             farbenGebraucht[1].pop();
           }
-          if (zählerListe[2] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "green") {
+          if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "green") {
             farbenGebraucht[2].pop();
           }
-          if (zählerListe[2] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "blue") {
+          if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "blue") {
             farbenGebraucht[3].pop();
           }
-          if (kartenSpieler2[SteineIch[zählerListe[2]]] == true) {
-            if ([SteineIch[zählerListe[2]]] == "red") {
+          if (kartenSpieler2[SteineIch[zählerListe[9]]] == true) {
+            if ([SteineIch[zählerListe[9]]] == "red") {
               farbenGebraucht[1].pop();
             }
-            if ([SteineIch[zählerListe[2]]] == "green") {
+            if ([SteineIch[zählerListe[9]]] == "green") {
               farbenGebraucht[2].pop();
             }
-            if ([SteineIch[zählerListe[2]]] == "blue") {
+            if ([SteineIch[zählerListe[9]]] == "blue") {
               farbenGebraucht[3].pop();
             }
-            if ([SteineIch[zählerListe[2]]] == "yellow") {
+            if ([SteineIch[zählerListe[9]]] == "yellow") {
               farbenGebraucht[4].pop();
             }
-            kartenSpieler2[SteineIch[zählerListe[2]]] = false;
-            if (zählerListe[2] < 4) {
-              SteineMitte[zählerListe[2]] = SteineIch[zählerListe[2]];
-              SteineIch[zählerListe[2]] = "#FF8000";
+            if (zählerListe[9] < 4) {
+              kartenSpieler2[SteineIch[zählerListe[9]]] = false;
+              SteineMitte[zählerListe[9]] = SteineIch[zählerListe[9]];
+              SteineIch[zählerListe[9]] = "#FF8000";
             }
           }
 
-          zählerListe[2] = 0;
+          zählerListe[9] = 0;
           kartenSpieler2[AblageListe[1]] = "z";
           kartenSpieler2.sort();
           while (kartenSpieler2[kartenSpieler2.length - 1][0] == "z") { //console.log(0123456789012345789012);
@@ -1461,6 +1464,7 @@ else {
         }
       }
       }
+    }
     }
     if (AblageListe[2] == "AuswahlKarteAblegen" && AblageListe[1] > -1) {
       zählerListe[2] = 0;
@@ -1516,7 +1520,7 @@ else {
           MitteSpieler2[AblageListe[1]][4] += AblageListe[3][4];
           AblageListe[2] = "beendet";
           textButton = "Meine Karten";
-          FähigkeitenKartenAusgespielt();
+            FähigkeitenKartenAusgespielt();
         }
       }
 
@@ -1784,15 +1788,19 @@ else {
   function FarbsteineKlickCheck() {
     if (xMaus > 647 + 385 && xMaus < 647 + 45 + 385 && yMaus > 349 && yMaus < 349 + 45) {
       zählerListe[2] = 0;
+      zählerListe[9] = 0;
     }
     if (xMaus > 713 + 385 && xMaus < 713 + 45 + 385 && yMaus > 349 && yMaus < 349 + 45) {
       zählerListe[2] = 1;
+      zählerListe[9] = 1;
     }
     if (xMaus > 647 + 385 && xMaus < 647 + 45 + 385 && yMaus > 414 + 16 && yMaus < 414 + 45) {
       zählerListe[2] = 2;
+      zählerListe[9] = 2;
     }
     if (xMaus > 712 + 385 && xMaus < 712 + 385 + 45 && yMaus > 414 + 16 && yMaus < 414 + 45) {
       zählerListe[2] = 3;
+      zählerListe[9] = 3;
     }
     if (Sperren[1] == true) {
       console.log(SteineIch[zählerListe[2]]);
