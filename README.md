@@ -1,5 +1,7 @@
 # Web-Projekte
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/363932f7b94941c4a5ae0df586fb4916)](https://app.codacy.com/app/NProductions/Web-Projekte?utm_source=github.com&utm_medium=referral&utm_content=AdiWeit/Web-Projekte&utm_campaign=Badge_Grade_Settings)
+
 [Repo](https://github.com/AdiWeit/Web-Projekte) | [Hosted (github.io)](https://adiweit.github.io/Web-Projekte/)
 
 ## Spiele
