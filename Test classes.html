@@ -11,7 +11,7 @@
   var Anzahl = 2222
 function setup() {
 while (zähler < Anzahl) {
-  cyrcle[zähler] = new cyrcle(Math.floor(Math.random() * 1500), Math.floor(Math.random() * 700), colors[Math.floor(Math.random() * colors.length - 1)]);
+  cyrcle[zähler] = new cyrcle(Math.floor(Math.random() * 1565), Math.floor(Math.random() * 750), colors[Math.floor(Math.random() * colors.length - 1)]);
   cyrcle[zähler].show();
   zähler++;
 }
@@ -65,7 +65,7 @@ class cyrcle {
     else {
       this.x -= 3;
     }
-    if (this.y > 720) {
+    if (this.y > 770) {
       this.yDirection = "up";
       document.body.style.background = colors[Math.floor(Math.random() * colors.length - 1)]
     }
@@ -73,7 +73,7 @@ class cyrcle {
       this.yDirection = "down";
       document.body.style.background = colors[Math.floor(Math.random() * colors.length - 1)]
     }
-    if (this.x > 1510) {
+    if (this.x > 1565) {
       this.xDirection = "left";
       document.body.style.background = colors[Math.floor(Math.random() * colors.length - 1)]
     }
