@@ -11,14 +11,9 @@ var canvas = textur.getContext('2d');//Dimension
 var ring;
 var Zufall = Math.floor(Math.random()*4)
 var colors = ['green', 'springGreen', 'yellow', 'gold', 'blue', 'steelBlue', '#09F', 'cyan', 'plum', 'purple', 'brown', 'tomato', 'silver'];
-var cycle = [];
-var xMaus;
-var yMaus;
-var Anzahl = 0;
+
 
 ARG = setInterval(AnimationRingGroß, 19)
-
-class cyrcle {
 function AnimationRingGroß() {
 canvas.fillStyle = "white";
 canvas.fillRect(0,0,1900, 700);
@@ -48,14 +43,5 @@ Radius = 55;
 RingGröße = 10;
 }
 }
-}
 
-function readMouseMove(e) {
-  xMaus = e.clientX + hinzufügenXMaus;
-  yMaus = e.clientY + hinzufügenYMaus;
-//    console.log(xMaus + " - " + yMaus);
-Anzahl++;
-cyrcle[Anzahl] = new cyrcle(Math.floor(Math.random() * 1565), Math.floor(Math.random() * 750), colors[Math.floor(Math.random() * colors.length - 1)]);
-cyrcle[Anzahl].AnimationRingGroß();
-}
 </script>
