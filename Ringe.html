@@ -1,0 +1,61 @@
+<canvas id="textur" width="1584" height="700"></canvas>
+
+<script>
+
+var zähler = 0;
+var start = 4.72
+var RingGröße = 10;
+var Radius = 55;
+var textur = document.getElementById('textur');
+var canvas = textur.getContext('2d');//Dimension
+var ring;
+var Zufall = Math.floor(Math.random()*4)
+var colors = ['green', 'springGreen', 'yellow', 'gold', 'blue', 'steelBlue', '#09F', 'cyan', 'plum', 'purple', 'brown', 'tomato', 'silver'];
+var cycle = [];
+var xMaus;
+var yMaus;
+var Anzahl = 0;
+
+ARG = setInterval(AnimationRingGroß, 19)
+
+class cyrcle {
+function AnimationRingGroß() {
+canvas.fillStyle = "white";
+canvas.fillRect(0,0,1900, 700);
+diff = ((1)*Math.PI*2*10).toFixed(2)
+canvas.lineWidth = RingGröße;
+canvas.fillStyle = '#09F'
+canvas.strokeStyle = '#09F'
+canvas.textAlign = 'center'
+canvas.beginPath();
+if(Zufall > 1) {
+canvas.arc(790, 410, Radius, start, diff / 10 + start, false)
+}
+else {
+
+canvas.arc(790, 380, Radius, start, diff / 10 + start, false)
+}
+canvas.stroke()
+zähler++;
+Radius++;
+RingGröße--;
+if(zähler == 17) {
+  canvas.fillStyle = "white";
+  canvas.fillRect(0,0,1900, 700);
+zähler = 0;
+clearInterval(ARG)
+Radius = 55;
+RingGröße = 10;
+}
+}
+}
+
+function readMouseMove(e) {
+  xMaus = e.clientX + hinzufügenXMaus;
+  yMaus = e.clientY + hinzufügenYMaus;
+//    console.log(xMaus + " - " + yMaus);
+Anzahl++;
+cyrcle[Anzahl] = new cyrcle(Math.floor(Math.random() * 1565), Math.floor(Math.random() * 750), colors[Math.floor(Math.random() * colors.length - 1)]);
+cyrcle[Anzahl].AnimationRingGroß();
+}
+</script>
