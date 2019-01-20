@@ -12,8 +12,11 @@ var ring;
 var Zufall = Math.floor(Math.random()*4)
 var colors = ['green', 'springGreen', 'yellow', 'gold', 'blue', 'steelBlue', '#09F', 'cyan', 'plum', 'purple', 'brown', 'tomato', 'silver'];
 
+setInterval(Dauerschleife, 734);
 
-ARG = setInterval(AnimationRingGroß, 19)
+function Dauerschleife() {
+  ARG = setInterval(AnimationRingGroß, 19)
+}
 function AnimationRingGroß() {
 canvas.fillStyle = "white";
 canvas.fillRect(0,0,1900, 700);
