@@ -25,8 +25,8 @@
   var AnfrageCheck;
   var xMaus = 0,
     yMaus;
-    var hinzufügenXMaus = 0;
-    var hinzufügenYMaus = 0;
+  var hinzufügenXMaus = 0;
+  var hinzufügenYMaus = 0;
   var SpielerAnfrage = [];
   var nameGegner = "";
   var Siegpunkte = [0, ""];
@@ -39,14 +39,14 @@
   var kartenZiehen = [
     [1, ["red"], "red", 1, 2, "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ", "Held/-in"],
     [2, ["blue", "green"], "blue", 1, 3, "Im- mer wenn die Me- le- a- gros ge- gen- über- lie- gen- de Ein- heit ab- ge- legt wird, zie- he 1 Karte. ", "Held/-in"],
-  /*  [2, ["yellow", "yellow"], "yellow", 1, 2,
-      "Im- mer wenn du Eu- ry- di- ke wegen ih- rer Scha- dens- mar- ker ab- le- gen müs- stest, kannst du 1 Hand- karte ab- wer- fen, um alle Marker von ihr zu ent- fernen und sie auf einen freien Platz zu ver- schie- ben. ", "Held/-in"
-    ], */
+    /*  [2, ["yellow", "yellow"], "yellow", 1, 2,
+        "Im- mer wenn du Eu- ry- di- ke wegen ih- rer Scha- dens- mar- ker ab- le- gen müs- stest, kannst du 1 Hand- karte ab- wer- fen, um alle Marker von ihr zu ent- fernen und sie auf einen freien Platz zu ver- schie- ben. ", "Held/-in"
+      ], */
     [2, ["blue", "blue"], "blue", 1, 3, "Wenn Hylas ins Spiel kommt, ziehe 2 Karten. ", "Held/-in"],
     [2, ["green", "green"], "green", 1, 3, "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. ", "Held/-in"],
     [1, ["yellow"], "yellow", 2, 2, "Wenn Alkemene ins Spiel kommt, zieht dein Gegner 1 Karte. ", "Held/-in"],
     [2, ["red", "blue"], "red", 0, 3, "1 Ein- heit auf ei- nem zu Kyknos be- nach- bar- ten Platz kann bis zu 2X pro Runde an- grei- fen. ", "Held/-in"],
-    [2, ["blue", "yellow"], "blue", 2, 1 , "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. ", "Held/-in"],
+    [2, ["blue", "yellow"], "blue", 2, 1, "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. ", "Held/-in"],
     [0, [], "yellow", 0, 2, "keine besonderheit. ", "Soldat/-in"],
     [3, ["red", "green", "blue"], "red", 1, 4, "Wenn Kassandra ins Spiel kommt, fügt sie al- len Ein- hei- ten 1 Scha- den zu (auch ei- ge- nen). ", "Held/-in"],
     [1, ["red"], "red", 1, 0, "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. ", "Ausrüstung"],
@@ -58,20 +58,16 @@
     [0, [], "green", 1, 1, "keine besonderheit ", "Soldat/-in"],
     [0, [], "green", 1, 1, "keine besonderheit ", "Ausrüstung"],
     [1, ["green"], "green", 1, 2, "Wenn Idmon ins Spiel kommt, kannst du 1 ei- ge- ne Ein- heit auf einen ei- ge- nen frei- en Platz ver- schie- ben ", "Held/-in"],
-    [0, [], "yellow", 1, 1, "keine besonderheit ", "Soldat/-in" ],
+    [0, [], "yellow", 1, 1, "keine besonderheit ", "Soldat/-in"],
     [2, ["red", "green"], "green", 1, 3, "Im- mer wenn Iphigenie an- greift und eine rote Ein- heit als Geg- ner hat, fügt sie 2 Scha- den zu. ", "Held/-in"],
-    [2, ["green", "green"], "green", 2, 2, "Wenn Penelope ins Spiel kommt, kannst du 1 geg- ne- ri- sche Ein- heit auf einen frei- en Platz des Geg- ners ver- schie- ben. ", "Held/-in" ],
+    [2, ["green", "green"], "green", 2, 2, "Wenn Penelope ins Spiel kommt, kannst du 1 geg- ne- ri- sche Ein- heit auf einen frei- en Platz des Geg- ners ver- schie- ben. ", "Held/-in"],
     [0, [], "red", 1, 1, "keine besonderheit ", "Ausrüstung"],
     [1, ["red"], "red", 1, 2, "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ", "Held/-in"],
     [3, ["yellow", "green", "green"], "green", 0, 4, "Alle Ein- hei- ten auf ei- nem zu Nestor be- nach- bar- ten Platz grei- fen 2X pro Runde an. ", "Held/-in"],
     [0, [], "green", 0, 1, "Wenn der Helm ins Spiel kommt, kann er der ge- gen- ü- ber- lie- gen- den Ein- heit 1 Scha- den zu- fü- gen. ", "Ausrüstung"],
     [3, ["yellow", "green", "red"], "red", 0, 3, "Im- mer wenn Heabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. ", "Held/-in"] //,
-  /*  [],
-    [], */
-
-
-
-
+    /*  [],
+      [], */
 
 
 
@@ -215,66 +211,65 @@
       if (Sperren[2] == true) {
         if (result.length > Zustand.length) {
           Sperren[2] = false;
-          setTimeout(function () {
-          console.log("Bin dran!!!");
-          NameSpieler[2] = NameSpieler[0];
-          NameSpieler[0] = NameSpieler[1];
-          NameSpieler[1] = NameSpieler[2];
-          NameSpieler.pop();
-          Zustand = [result];
-          Zustand = Zustand.toString().split(',');
-          gewonnenCheck();
-          //     zähler = 1;
+          setTimeout(function() {
+            console.log("Bin dran!!!");
+            NameSpieler[2] = NameSpieler[0];
+            NameSpieler[0] = NameSpieler[1];
+            NameSpieler[1] = NameSpieler[2];
+            NameSpieler.pop();
+            Zustand = [result];
+            Zustand = Zustand.toString().split(',');
+            gewonnenCheck();
+            //     zähler = 1;
 
-          kartenErhalten();
-          Sperren[2] = false;
-          AblageListe[2] = "beendet"
-          AblageListe[4] = "beendet"
-          //dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], "NOPE");
+            kartenErhalten();
+            Sperren[2] = false;
+            AblageListe[2] = "beendet"
+            AblageListe[4] = "beendet"
+            //dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], "NOPE");
 
 
-        }, 1000);
-      }
+          }, 1000);
         }
+      }
     });
     //  });
   }
-function gewonnenCheck() {
-  if (Zustand[Zustand.length - 1] == name + "gewonnen" ) {
-              console.log("Du hast gewonnen!!!");
-              clearInterval(KoordinatenCheck);
-              canvas.fillStyle = "green";
-              canvas.fillRect(0,0, 1847, 973)
-             Bild.src = 'http://adi.nicolaiweitkemper.de/Bilder/Gewinnerbildschirm.jpeg'
-             canvas.drawImage(Bild, 260, 0);
-             setTimeout(function () {
-              canvas.drawImage(Bild, 260, 0);
-             }, 500);
-             Sperren[2] = true;
-            }
-            else if (Zustand[Zustand.length - 1] == nameGegner + "gewonnen") {
-              console.log("Du hast verloren!!!");
-              clearInterval(KoordinatenCheck);
-              canvas.fillStyle = "red";
-              canvas.fillRect(0,0, 1847, 973)
-           Bild.src = "http://adi.nicolaiweitkemper.de/Bilder/Verloren%20Bildschirm.jpg"
-           canvas.drawImage(Bild, 260, 0);
-           setTimeout(function () {
-            canvas.drawImage(Bild, 260, 0);
-           }, 500);
-           Sperren[2] = true;
-              }
-              if (Zustand[Zustand.length - 1] + Zustand[Zustand.length - 1] == "Von" + name + "überrollt" + "Von" + name + "überrollt") {
-                Zustand[Zustand.length] = name + "gewonnen";
-                ZustandSpeichern();
-                gewonnenCheck();
-              }
-              else if (Zustand[Zustand.length - 1] + Zustand[Zustand.length - 1] == "Von" + nameGegner + "überrollt" + "Von" + nameGegner + "überrollt") {
-                Zustand[Zustand.length] = nameGegner + "gewonnen";
-                ZustandSpeichern();
-                gewonnenCheck();
-              }
-}
+
+  function gewonnenCheck() {
+    if (Zustand[Zustand.length - 1] == name + "gewonnen") {
+      console.log("Du hast gewonnen!!!");
+      clearInterval(KoordinatenCheck);
+      canvas.fillStyle = "green";
+      canvas.fillRect(0, 0, 1847, 973)
+      Bild.src = 'http://adi.nicolaiweitkemper.de/Bilder/Gewinnerbildschirm.jpeg'
+      canvas.drawImage(Bild, 260, 0);
+      setTimeout(function() {
+        canvas.drawImage(Bild, 260, 0);
+      }, 500);
+      Sperren[2] = true;
+    } else if (Zustand[Zustand.length - 1] == nameGegner + "gewonnen") {
+      console.log("Du hast verloren!!!");
+      clearInterval(KoordinatenCheck);
+      canvas.fillStyle = "red";
+      canvas.fillRect(0, 0, 1847, 973)
+      Bild.src = "http://adi.nicolaiweitkemper.de/Bilder/Verloren%20Bildschirm.jpg"
+      canvas.drawImage(Bild, 260, 0);
+      setTimeout(function() {
+        canvas.drawImage(Bild, 260, 0);
+      }, 500);
+      Sperren[2] = true;
+    }
+    if (Zustand[Zustand.length - 1] + Zustand[Zustand.length - 1] == "Von" + name + "überrollt" + "Von" + name + "überrollt") {
+      Zustand[Zustand.length] = name + "gewonnen";
+      ZustandSpeichern();
+      gewonnenCheck();
+    } else if (Zustand[Zustand.length - 1] + Zustand[Zustand.length - 1] == "Von" + nameGegner + "überrollt" + "Von" + nameGegner + "überrollt") {
+      Zustand[Zustand.length] = nameGegner + "gewonnen";
+      ZustandSpeichern();
+      gewonnenCheck();
+    }
+  }
 
 
   function Namenklärung() {
@@ -349,12 +344,12 @@ function gewonnenCheck() {
       zuVarKartenZiehen();
       dbSet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
       AblageListe[0] = "";
-    /*  zählerListe[2] = 0;
-      while (zählerListe[2] < 6) {
-        kartenSpieler2[zählerListe[2]][4] = JSON.parse(kartenSpieler2[zählerListe[2]][4]);
-        kartenSpieler2[zählerListe[2]][3] = JSON.parse(kartenSpieler2[zählerListe[2]][3]);
-        zählerListe[2]++;
-      } */
+      /*  zählerListe[2] = 0;
+        while (zählerListe[2] < 6) {
+          kartenSpieler2[zählerListe[2]][4] = JSON.parse(kartenSpieler2[zählerListe[2]][4]);
+          kartenSpieler2[zählerListe[2]][3] = JSON.parse(kartenSpieler2[zählerListe[2]][3]);
+          zählerListe[2]++;
+        } */
     }
   }
 
@@ -827,6 +822,12 @@ else {
   function LayoutIch() {
     kartenSpieler1.sort();
     kartenSpieler2.sort();
+    canvas.fillStyle = "white"
+    if (NameBleibt[0] == name) {
+      canvas.fillRect(0, 470, 92000, 9800);
+    } else {
+      canvas.fillRect(0, 0, 92000, 275);
+    }
     canvas.fillStyle = "#FF8000"; //Farbe
     canvas.fillRect(0, 190 + 88, 1585, 184)
     canvas.fillStyle = "white"
@@ -858,48 +859,48 @@ else {
           AblageListe[0] = kartenSpieler2;
         }
         */
-        if (kartenSpieler1.length > 0) {
-      while (zähler < kartenSpieler1.length) { //console.log(012345678);
-        if (kartenSpieler2[kartenSpieler2.length - 1] == undefined || kartenSpieler2[kartenSpieler2.length - 2] == "z") {
-          kartenSpieler2.pop();
-        }
-        if (kartenSpieler1[kartenSpieler1.length - 1] == undefined || kartenSpieler1[kartenSpieler1.length - 2] == "z") {
-          kartenSpieler1.pop();
-        }
-        canvas.fillStyle = "#FF8000"; //Farbe
-        canvas.fillRect(Koordinaten[0], 390 + 88 - Koordinaten[3], 180, 250)
-        canvas.fillStyle = kartenSpieler1[zähler][2]; //Farbe
-        canvas.fillRect(Koordinaten[0] + 20, 410 + 88 - Koordinaten[3], 140, 207)
-        // Werte Karte ich (Angriff/Verteidigung/Einheit)
-        canvas.fillStyle = "white";
-        canvas.font = "37px Georgia";
-        canvas.fillText("         " + kartenSpieler1[zähler][4] + "💀", 120 + 250 * zähler, 665 - Koordinaten[3]);
-        canvas.fillText(kartenSpieler1[zähler][3] + "🔫", 120 + 250 * zähler, 665 - Koordinaten[3]);
-        canvas.font = "29px Georgia";
-        canvas.fillText(kartenSpieler1[zähler][6], 120 + 250 * zähler, 695 - Koordinaten[3]);
-        // KostenLayoutIch:
-        zählerListe[4] = 0;
-        Koordinaten[2] = 0;
-        Koordinaten[1] = 0;
-        while (zählerListe[4] < kartenSpieler1[zähler][1].length) { //console.log(0123456789);
-          if (kartenSpieler1[zähler][1][zählerListe[4]] == "" == false) {
-            canvas.fillStyle = "white";
-            canvas.fillRect(120 + 250 * zähler + Koordinaten[1], 590 - Koordinaten[2] - Koordinaten[3] - Koordinaten[3], 23, 39)
-            canvas.fillStyle = kartenSpieler1[zähler][1][zählerListe[4]]
-            canvas.fillRect(125 + 250 * zähler + Koordinaten[1], 595 - Koordinaten[2] - Koordinaten[3] - Koordinaten[3], 13, 29)
+      if (kartenSpieler1.length > 0) {
+        while (zähler < kartenSpieler1.length) { //console.log(012345678);
+          if (kartenSpieler2[kartenSpieler2.length - 1] == undefined || kartenSpieler2[kartenSpieler2.length - 2] == "z") {
+            kartenSpieler2.pop();
           }
-          zählerListe[4]++;
-          Koordinaten[2] += 44;
-          if (zählerListe[4] == 3) {
-            Koordinaten[2] = 0;
-            Koordinaten[1] = 30;
+          if (kartenSpieler1[kartenSpieler1.length - 1] == undefined || kartenSpieler1[kartenSpieler1.length - 2] == "z") {
+            kartenSpieler1.pop();
           }
+          canvas.fillStyle = "#FF8000"; //Farbe
+          canvas.fillRect(Koordinaten[0], 390 + 88 - Koordinaten[3], 180, 250)
+          canvas.fillStyle = kartenSpieler1[zähler][2]; //Farbe
+          canvas.fillRect(Koordinaten[0] + 20, 410 + 88 - Koordinaten[3], 140, 207)
+          // Werte Karte ich (Angriff/Verteidigung/Einheit)
+          canvas.fillStyle = "white";
+          canvas.font = "37px Georgia";
+          canvas.fillText("         " + kartenSpieler1[zähler][4] + "💀", 120 + 250 * zähler, 665 - Koordinaten[3]);
+          canvas.fillText(kartenSpieler1[zähler][3] + "🔫", 120 + 250 * zähler, 665 - Koordinaten[3]);
+          canvas.font = "29px Georgia";
+          canvas.fillText(kartenSpieler1[zähler][6], 120 + 250 * zähler, 695 - Koordinaten[3]);
+          // KostenLayoutIch:
+          zählerListe[4] = 0;
+          Koordinaten[2] = 0;
+          Koordinaten[1] = 0;
+          while (zählerListe[4] < kartenSpieler1[zähler][1].length) { //console.log(0123456789);
+            if (kartenSpieler1[zähler][1][zählerListe[4]] == "" == false) {
+              canvas.fillStyle = "white";
+              canvas.fillRect(120 + 250 * zähler + Koordinaten[1], 590 - Koordinaten[2] - Koordinaten[3] - Koordinaten[3], 23, 39)
+              canvas.fillStyle = kartenSpieler1[zähler][1][zählerListe[4]]
+              canvas.fillRect(125 + 250 * zähler + Koordinaten[1], 595 - Koordinaten[2] - Koordinaten[3] - Koordinaten[3], 13, 29)
+            }
+            zählerListe[4]++;
+            Koordinaten[2] += 44;
+            if (zählerListe[4] == 3) {
+              Koordinaten[2] = 0;
+              Koordinaten[1] = 30;
+            }
+          }
+          Koordinaten[0] += 250
+          zähler++;
         }
-        Koordinaten[0] += 250
-        zähler++;
       }
-    }
-  } else if(kartenSpieler2.length > 0) {
+    } else if (kartenSpieler2.length > 0) {
       Koordinaten[3] = 475
       /*  if (yMaus > 261) {
           AblageListe[0] = kartenSpieler2;
@@ -991,7 +992,7 @@ else {
     zählerListe[2] = 0;
     zählerListe[3] = [];
     Koordinaten[0] = 648;
-    Koordinaten[1]  = 350;
+    Koordinaten[1] = 350;
     AblageListe[5] = ["red", "green", "yellow", "blue"];
     if (name == NameBleibt[0]) {
       while (zählerListe[2] < AblageListe[5].length) {
@@ -1037,20 +1038,20 @@ else {
   function readMouseMove(e) {
     xMaus = e.clientX + hinzufügenXMaus;
     yMaus = e.clientY + hinzufügenYMaus;
-//    console.log(xMaus + " - " + yMaus);
+    //    console.log(xMaus + " - " + yMaus);
   }
   document.onmousemove = readMouseMove
 
   var f = function() {
 
     var eventHandler = function(event) {
-    console.log(window.scrollX + " - " + window.scrollY);
-    hinzufügenXMaus = window.scrollX;
-    hinzufügenYMaus = window.scrollY;
+      console.log(window.scrollX + " - " + window.scrollY);
+      hinzufügenXMaus = window.scrollX;
+      hinzufügenYMaus = window.scrollY;
     };
     window.addEventListener('scroll', eventHandler, false)
-    };
-    window.addEventListener('DOMContentLoaded', f, false)
+  };
+  window.addEventListener('DOMContentLoaded', f, false)
 
   KoordinatenCheck = setInterval(KoordinatenCheck, 700)
   // 1377,397,185,45
@@ -1076,10 +1077,10 @@ else {
         }
       }
     }
-    if (AblageListe[1] > -1 && NameSpieler[0] == name && Sperren[1] == true && AblageListe[2] == "beendet" /* || AblageListe[2] == undefined*/) {
-      if (NameBleibt[0] == name && kartenSpieler1[AblageListe[1]][6] == "Ausrüstung" && MitteSpieler1[0][0] == "z" && MitteSpieler1[1][0] == "z" && MitteSpieler1[2][0] == "z" && MitteSpieler1[3][0] == "z" && MitteSpieler1[4][0] == "z" && MitteSpieler1[5][0] == "z") {}
-      else if (NameBleibt[1] == name && kartenSpieler2[AblageListe[1]][6] == "Ausrüstung" && MitteSpieler2[0][0] == "z" && MitteSpieler2[1][0] == "z" && MitteSpieler2[2][0] == "z" && MitteSpieler2[3][0] == "z" && MitteSpieler2[4][0] == "z" && MitteSpieler2[5][0] == "z") {}
-      else {
+    if (AblageListe[1] > -1 && NameSpieler[0] == name && Sperren[1] == true && AblageListe[2] == "beendet" /* || AblageListe[2] == undefined*/ ) {
+      if (NameBleibt[0] == name && kartenSpieler1[AblageListe[1]][6] == "Ausrüstung" && MitteSpieler1[0][0] == "z" && MitteSpieler1[1][0] == "z" && MitteSpieler1[2][0] == "z" && MitteSpieler1[3][0] == "z" && MitteSpieler1[4][0] == "z" &&
+        MitteSpieler1[5][0] == "z") {} else if (NameBleibt[1] == name && kartenSpieler2[AblageListe[1]][6] == "Ausrüstung" && MitteSpieler2[0][0] == "z" && MitteSpieler2[1][0] == "z" && MitteSpieler2[2][0] == "z" && MitteSpieler2[3][0] == "z" &&
+        MitteSpieler2[4][0] == "z" && MitteSpieler2[5][0] == "z") {} else {
         zählerListe[2] = 0;
         while (zählerListe[2] < kartenSpieler1.length) {
           if (kartenSpieler1[zählerListe[2]][7] == undefined == false) {
@@ -1094,377 +1095,377 @@ else {
           }
           zählerListe[2]++;
         }
-      zählerListe[2] = 0;
-      while (zählerListe[2] < KartenAusgewählt.length) { //console.log(0123456789012);
-        if (KartenAusgewählt[zählerListe[2]] == AblageListe[1]) {
-          zählerListe[2] = KartenAusgewählt.length + 2
-          console.log("ignoriert (später: rausnehmen?)");
-        }
-        zählerListe[2]++;
-      }
-      if (zählerListe[2] == KartenAusgewählt.length + 2 == false) {
-        KartenAusgewählt[KartenAusgewählt.length] = AblageListe[1];
-        farbenGebraucht = [];
-        if (NameBleibt[0] == name) {
-          farbenGebraucht[farbenGebraucht.length] = kartenSpieler1[AblageListe[1]][1]
-        } else {
-          farbenGebraucht[farbenGebraucht.length] = kartenSpieler2[AblageListe[1]][1]
-        }
-        while (farbenGebraucht.length > 1) { //console.log(01234567890123);
-          farbenGebraucht[0] += "," + farbenGebraucht[farbenGebraucht.length - 1];
-          farbenGebraucht.pop();
-        }
-        farbenGebraucht[0] = farbenGebraucht.toString().split(',');
-        farbenGebraucht[1] = [];
-        farbenGebraucht[2] = [];
-        farbenGebraucht[3] = [];
-        farbenGebraucht[4] = [];
         zählerListe[2] = 0;
-        while (zählerListe[2] < farbenGebraucht[0].length) { //console.log(012345678901234);
-          if (farbenGebraucht[0][zählerListe[2]] == "red") {
-            farbenGebraucht[1][farbenGebraucht[1].length] = zählerListe[2]
-          }
-          if (farbenGebraucht[0][zählerListe[2]] == "green") {
-            farbenGebraucht[2][farbenGebraucht[2].length] = zählerListe[2]
-          }
-          if (farbenGebraucht[0][zählerListe[2]] == "blue") {
-            farbenGebraucht[3][farbenGebraucht[3].length] = zählerListe[2]
-          }
-          if (farbenGebraucht[0][zählerListe[2]] == "yellow") {
-            farbenGebraucht[4][farbenGebraucht[4].length] = zählerListe[2]
+        while (zählerListe[2] < KartenAusgewählt.length) { //console.log(0123456789012);
+          if (KartenAusgewählt[zählerListe[2]] == AblageListe[1]) {
+            zählerListe[2] = KartenAusgewählt.length + 2
+            console.log("ignoriert (später: rausnehmen?)");
           }
           zählerListe[2]++;
         }
-        console.log(farbenGebraucht);
-
-        farbenVorhanden = [];
-
-        zählerListe[2] = 0;
-        if (NameBleibt[0] == name) {
-
-          while (zählerListe[2] < kartenSpieler1.length) { //console.log(01234567890123457);
-            if (zählerListe[2] == AblageListe[1] == false) {
-              farbenVorhanden[0] += "," + kartenSpieler1[zählerListe[2]][2]
-            } else {
-              farbenVorhanden[0] += "," + "gewählte Karte";
-              AblageListe[3] = kartenSpieler1[zählerListe[2]];
-              kartenSpieler1[zählerListe[2]][7] = "gewählte Karte";
-              //  AblageListe[4] = zählerListe[2];
+        if (zählerListe[2] == KartenAusgewählt.length + 2 == false) {
+          KartenAusgewählt[KartenAusgewählt.length] = AblageListe[1];
+          farbenGebraucht = [];
+          if (NameBleibt[0] == name) {
+            farbenGebraucht[farbenGebraucht.length] = kartenSpieler1[AblageListe[1]][1]
+          } else {
+            farbenGebraucht[farbenGebraucht.length] = kartenSpieler2[AblageListe[1]][1]
+          }
+          while (farbenGebraucht.length > 1) { //console.log(01234567890123);
+            farbenGebraucht[0] += "," + farbenGebraucht[farbenGebraucht.length - 1];
+            farbenGebraucht.pop();
+          }
+          farbenGebraucht[0] = farbenGebraucht.toString().split(',');
+          farbenGebraucht[1] = [];
+          farbenGebraucht[2] = [];
+          farbenGebraucht[3] = [];
+          farbenGebraucht[4] = [];
+          zählerListe[2] = 0;
+          while (zählerListe[2] < farbenGebraucht[0].length) { //console.log(012345678901234);
+            if (farbenGebraucht[0][zählerListe[2]] == "red") {
+              farbenGebraucht[1][farbenGebraucht[1].length] = zählerListe[2]
+            }
+            if (farbenGebraucht[0][zählerListe[2]] == "green") {
+              farbenGebraucht[2][farbenGebraucht[2].length] = zählerListe[2]
+            }
+            if (farbenGebraucht[0][zählerListe[2]] == "blue") {
+              farbenGebraucht[3][farbenGebraucht[3].length] = zählerListe[2]
+            }
+            if (farbenGebraucht[0][zählerListe[2]] == "yellow") {
+              farbenGebraucht[4][farbenGebraucht[4].length] = zählerListe[2]
             }
             zählerListe[2]++;
           }
-          if (kartenSpieler1["red"] == true) {
-            farbenVorhanden[0] += "," + "red";
+          console.log(farbenGebraucht);
+
+          farbenVorhanden = [];
+
+          zählerListe[2] = 0;
+          if (NameBleibt[0] == name) {
+
+            while (zählerListe[2] < kartenSpieler1.length) { //console.log(01234567890123457);
+              if (zählerListe[2] == AblageListe[1] == false) {
+                farbenVorhanden[0] += "," + kartenSpieler1[zählerListe[2]][2]
+              } else {
+                farbenVorhanden[0] += "," + "gewählte Karte";
+                AblageListe[3] = kartenSpieler1[zählerListe[2]];
+                kartenSpieler1[zählerListe[2]][7] = "gewählte Karte";
+                //  AblageListe[4] = zählerListe[2];
+              }
+              zählerListe[2]++;
+            }
+            if (kartenSpieler1["red"] == true) {
+              farbenVorhanden[0] += "," + "red";
+            }
+            if (kartenSpieler1["green"] == true) {
+              farbenVorhanden[0] += "," + "green";
+            }
+            if (kartenSpieler1["yellow"] == true) {
+              farbenVorhanden[0] += "," + "yellow";
+            }
+            if (kartenSpieler1["blue"] == true) {
+              farbenVorhanden[0] += "," + "blue";
+            }
+          } else {
+            while (zählerListe[2] < kartenSpieler2.length) { //console.log(01234567890123457);
+              if (zählerListe[2] == AblageListe[1] == false) {
+                farbenVorhanden[0] += "," + kartenSpieler2[zählerListe[2]][2]
+              } else {
+                farbenVorhanden[0] += "," + "gewählte Karte";
+                AblageListe[3] = kartenSpieler2[zählerListe[2]];
+                //  AblageListe[4] = zählerListe[2];
+                kartenSpieler2[zählerListe[2]][7] = "gewählte Karte";
+              }
+              zählerListe[2]++;
+            }
+            if (kartenSpieler2["red"] == true) {
+              farbenVorhanden[0] += "," + "red";
+            }
+            if (kartenSpieler2["green"] == true) {
+              farbenVorhanden[0] += "," + "green";
+            }
+            if (kartenSpieler2["yellow"] == true) {
+              farbenVorhanden[0] += "," + "yellow";
+            }
+            if (kartenSpieler2["blue"] == true) {
+              farbenVorhanden[0] += "," + "blue";
+            }
           }
-          if (kartenSpieler1["green"] == true) {
-            farbenVorhanden[0] += "," + "green";
-          }
-          if (kartenSpieler1["yellow"] == true) {
-            farbenVorhanden[0] += "," + "yellow";
-          }
-          if (kartenSpieler1["blue"] == true) {
-            farbenVorhanden[0] += "," + "blue";
-          }
-        } else {
-          while (zählerListe[2] < kartenSpieler2.length) { //console.log(01234567890123457);
-            if (zählerListe[2] == AblageListe[1] == false) {
-              farbenVorhanden[0] += "," + kartenSpieler2[zählerListe[2]][2]
-            } else {
-              farbenVorhanden[0] += "," + "gewählte Karte";
-              AblageListe[3] = kartenSpieler2[zählerListe[2]];
-              //  AblageListe[4] = zählerListe[2];
-              kartenSpieler2[zählerListe[2]][7] = "gewählte Karte";
+          /*while (farbenVorhanden.length > 1) {
+            farbenGebraucht[0] += "," + farbenGebraucht[farbenGebraucht.length - 1];
+            farbenGebraucht.pop();
+          }*/
+          farbenVorhanden[0] = farbenVorhanden.toString().split(',');
+          farbenVorhanden[0].shift();
+          farbenVorhanden[1] = [];
+          farbenVorhanden[2] = [];
+          farbenVorhanden[3] = [];
+          farbenVorhanden[4] = [];
+          zählerListe[2] = 0;
+          while (zählerListe[2] < farbenVorhanden[0].length) { //console.log(012345678901234578);
+            if (farbenVorhanden[0][zählerListe[2]] == "red") {
+              farbenVorhanden[1][farbenVorhanden[1].length] = zählerListe[2]
+            }
+            if (farbenVorhanden[0][zählerListe[2]] == "green") {
+              farbenVorhanden[2][farbenVorhanden[2].length] = zählerListe[2]
+            }
+            if (farbenVorhanden[0][zählerListe[2]] == "blue") {
+              farbenVorhanden[3][farbenVorhanden[3].length] = zählerListe[2]
+            }
+            if (farbenVorhanden[0][zählerListe[2]] == "yellow") {
+              farbenVorhanden[4][farbenVorhanden[4].length] = zählerListe[2]
             }
             zählerListe[2]++;
           }
-          if (kartenSpieler2["red"] == true) {
-            farbenVorhanden[0] += "," + "red";
-          }
-          if (kartenSpieler2["green"] == true) {
-            farbenVorhanden[0] += "," + "green";
-          }
-          if (kartenSpieler2["yellow"] == true) {
-            farbenVorhanden[0] += "," + "yellow";
-          }
-          if (kartenSpieler2["blue"] == true) {
-            farbenVorhanden[0] += "," + "blue";
-          }
+          console.log(farbenVorhanden);
         }
-        /*while (farbenVorhanden.length > 1) {
-          farbenGebraucht[0] += "," + farbenGebraucht[farbenGebraucht.length - 1];
-          farbenGebraucht.pop();
-        }*/
-        farbenVorhanden[0] = farbenVorhanden.toString().split(',');
-        farbenVorhanden[0].shift();
-        farbenVorhanden[1] = [];
-        farbenVorhanden[2] = [];
-        farbenVorhanden[3] = [];
-        farbenVorhanden[4] = [];
-        zählerListe[2] = 0;
-        while (zählerListe[2] < farbenVorhanden[0].length) { //console.log(012345678901234578);
-          if (farbenVorhanden[0][zählerListe[2]] == "red") {
-            farbenVorhanden[1][farbenVorhanden[1].length] = zählerListe[2]
-          }
-          if (farbenVorhanden[0][zählerListe[2]] == "green") {
-            farbenVorhanden[2][farbenVorhanden[2].length] = zählerListe[2]
-          }
-          if (farbenVorhanden[0][zählerListe[2]] == "blue") {
-            farbenVorhanden[3][farbenVorhanden[3].length] = zählerListe[2]
-          }
-          if (farbenVorhanden[0][zählerListe[2]] == "yellow") {
-            farbenVorhanden[4][farbenVorhanden[4].length] = zählerListe[2]
-          }
-          zählerListe[2]++;
-        }
-        console.log(farbenVorhanden);
-      }
-      zählerListe[2] = 0;
-      if (NameBleibt[0] == name) {
-        if (farbenVorhanden[1].length < farbenGebraucht[1].length || farbenVorhanden[2].length < farbenGebraucht[2].length || farbenVorhanden[3].length < farbenGebraucht[3].length || farbenVorhanden[4].length < farbenGebraucht[4].length ||
-          kartenSpieler1[KartenAusgewählt[KartenAusgewählt.length - 1]][6] == "Ausrüstung" && MitteSpieler1[0][0] == "z" && MitteSpieler1[1][0] == "z" && MitteSpieler1[2][0] == "z" && MitteSpieler1[3][0] == "z" && MitteSpieler1[4][0] == "z" &&
-          MitteSpieler1[5][0] == "z" == false) {
-          AblageListe[2] = "beendet";
-          zählerListe[2]++;
-        }
-      } else {
-        if (farbenVorhanden[1].length < farbenGebraucht[1].length || farbenVorhanden[2].length < farbenGebraucht[2].length || farbenVorhanden[3].length < farbenGebraucht[3].length || farbenVorhanden[4].length < farbenGebraucht[4].length ||
-          kartenSpieler2[KartenAusgewählt[KartenAusgewählt.length - 1]][6] == "Ausrüstung" && MitteSpieler2[0][0] == "z" && MitteSpieler2[1][0] == "z" && MitteSpieler2[2][0] == "z" && MitteSpieler2[3][0] == "z" && MitteSpieler2[4][0] == "z" &&
-          MitteSpieler2[5][0] == "z" == false) {
-          AblageListe[2] = "beendet";
-          zählerListe[2]++;
-        }
-      }
-      if (zählerListe[2] < 1) {
         zählerListe[2] = 0;
         if (NameBleibt[0] == name) {
-          if (farbenGebraucht[1].length == farbenVorhanden[1].length && farbenGebraucht[1].length == 0 == false) {
-            if ([farbenVorhanden[1][0]] > kartenSpieler1.length - 1) {
-              kartenSpieler1["red"] = false;
-              SteineMitte[0] = "red";
-              SteineIch[0] = "#FF8000"
-            } else {
-              kartenSpieler1[farbenVorhanden[1][0]] = "z";
-              kartenSpieler1[farbenVorhanden[1][1]] = "z";
-            }
-            farbenGebraucht[1] = [];
-          }
-          if (farbenGebraucht[2].length == farbenVorhanden[2].length && farbenGebraucht[2].length == 0 == false) {
-            if ([farbenVorhanden[2][0]] > kartenSpieler1.length - 1) {
-              kartenSpieler1["green"] = false;
-              SteineMitte[1] = "green";
-              SteineIch[1] = "#FF8000"
-            } else {
-              kartenSpieler1[farbenVorhanden[2][0]] = "z";
-              kartenSpieler1[farbenVorhanden[2][1]] = "z";
-            }
-            farbenGebraucht[2] = [];
-          }
-          if (farbenGebraucht[3].length == farbenVorhanden[3].length && farbenGebraucht[3].length == 0 == false) {
-            if ([farbenVorhanden[3][0]] > kartenSpieler1.length - 1) {
-              kartenSpieler1["blue"] = false;
-              SteineMitte[3] = "blue";
-              SteineIch[3] = "#FF8000"
-            } else {
-              kartenSpieler1[farbenVorhanden[3][0]] = "z";
-              kartenSpieler1[farbenVorhanden[3][1]] = "z";
-            }
-            farbenGebraucht[3] = [];
-          }
-          if (farbenGebraucht[4].length == farbenVorhanden[4].length && farbenGebraucht[4].length == 0 == false) {
-            if ([farbenVorhanden[4][0]] > kartenSpieler1.length - 1) {
-              kartenSpieler1["yellow"] = false;
-              SteineMitte[2] = "yellow";
-              SteineIch[2] = "#FF8000";
-            } else {
-              kartenSpieler1[farbenVorhanden[4][0]] = "z";
-              kartenSpieler1[farbenVorhanden[4][1]] = "z";
-
-            }
-            farbenGebraucht[4] = [];
-          }
-          kartenSpieler1.sort();
-          while (kartenSpieler1[kartenSpieler1.length - 1][0] == "z") { //console.log(01234567890123457890);
-            kartenSpieler1.pop();
-            canvas.fillStyle = "white"
-            canvas.fillRect(0, 470, 92000, 9800);
+          if (farbenVorhanden[1].length < farbenGebraucht[1].length || farbenVorhanden[2].length < farbenGebraucht[2].length || farbenVorhanden[3].length < farbenGebraucht[3].length || farbenVorhanden[4].length < farbenGebraucht[4].length ||
+            kartenSpieler1[KartenAusgewählt[KartenAusgewählt.length - 1]][6] == "Ausrüstung" && MitteSpieler1[0][0] == "z" && MitteSpieler1[1][0] == "z" && MitteSpieler1[2][0] == "z" && MitteSpieler1[3][0] == "z" && MitteSpieler1[4][0] == "z" &&
+            MitteSpieler1[5][0] == "z" == false) {
+            AblageListe[2] = "beendet";
+            zählerListe[2]++;
           }
         } else {
-          if (farbenGebraucht[1].length == farbenVorhanden[1].length && farbenGebraucht[1].length == 0 == false) {
-            if ([farbenVorhanden[1][0]] > kartenSpieler2.length - 1) {
-              kartenSpieler2["red"] = false;
-              SteineMitte[0] = "red";
-              SteineIch[0] = "#FF8000"
-            } else {
-              kartenSpieler2[farbenVorhanden[1][0]] = "z";
-              kartenSpieler2[farbenVorhanden[1][1]] = "z";
-            }
-            farbenGebraucht[1] = [];
-          }
-          if (farbenGebraucht[2].length == farbenVorhanden[2].length && farbenGebraucht[2].length == 0 == false) {
-            if ([farbenVorhanden[2][0]] > kartenSpieler2.length - 1) {
-              kartenSpieler2["green"] = false;
-              SteineMitte[1] = "green";
-              SteineIch[1] = "#FF8000"
-            } else {
-              kartenSpieler2[farbenVorhanden[2][0]] = "z";
-              kartenSpieler2[farbenVorhanden[2][1]] = "z";
-            }
-            farbenGebraucht[2] = [];
-          }
-          if (farbenGebraucht[3].length == farbenVorhanden[3].length && farbenGebraucht[3].length == 0 == false) {
-            if ([farbenVorhanden[3][0]] > kartenSpieler2.length - 1) {
-              kartenSpieler2["blue"] = false;
-              SteineMitte[3] = "blue";
-              SteineIch[3] = "#FF8000"
-            } else {
-              kartenSpieler2[farbenVorhanden[3][0]] = "z";
-              kartenSpieler2[farbenVorhanden[3][1]] = "z";
-            }
-            farbenGebraucht[3] = [];
-          }
-          if (farbenGebraucht[4].length == farbenVorhanden[4].length && farbenGebraucht[4].length == 0 == false) {
-            if ([farbenVorhanden[4][0]] > kartenSpieler2.length - 1) {
-              kartenSpieler2["yellow"] = false;
-              SteineMitte[2] = "yellow";
-              SteineIch[2] = "#FF8000";
-            } else {
-              kartenSpieler2[farbenVorhanden[4][0]] = "z";
-              kartenSpieler2[farbenVorhanden[4][1]] = "z";
-
-            }
-            farbenGebraucht[4] = [];
-          }
-          kartenSpieler2.sort();
-          while (kartenSpieler2[kartenSpieler2.length - 1][0] == "z") { //console.log(01234567890123457890);
-            kartenSpieler2.pop();
-            canvas.fillStyle = "white"
-            canvas.fillRect(0, 470, 92000, 9800);
+          if (farbenVorhanden[1].length < farbenGebraucht[1].length || farbenVorhanden[2].length < farbenGebraucht[2].length || farbenVorhanden[3].length < farbenGebraucht[3].length || farbenVorhanden[4].length < farbenGebraucht[4].length ||
+            kartenSpieler2[KartenAusgewählt[KartenAusgewählt.length - 1]][6] == "Ausrüstung" && MitteSpieler2[0][0] == "z" && MitteSpieler2[1][0] == "z" && MitteSpieler2[2][0] == "z" && MitteSpieler2[3][0] == "z" && MitteSpieler2[4][0] == "z" &&
+            MitteSpieler2[5][0] == "z" == false) {
+            AblageListe[2] = "beendet";
+            zählerListe[2]++;
           }
         }
-        setTimeout(function() {
-          AblageListe[2] = "AuswahlManuel"
-        }, 500);
-        if (farbenGebraucht[1].length == 0 && farbenGebraucht[2].length == 0 && farbenGebraucht[3].length == 0 && farbenGebraucht[4].length == 0) {
-          Sperren[1] = false;
+        if (zählerListe[2] < 1) {
+          zählerListe[2] = 0;
+          if (NameBleibt[0] == name) {
+            if (farbenGebraucht[1].length == farbenVorhanden[1].length && farbenGebraucht[1].length == 0 == false) {
+              if ([farbenVorhanden[1][0]] > kartenSpieler1.length - 1) {
+                kartenSpieler1["red"] = false;
+                SteineMitte[0] = "red";
+                SteineIch[0] = "#FF8000"
+              } else {
+                kartenSpieler1[farbenVorhanden[1][0]] = "z";
+                kartenSpieler1[farbenVorhanden[1][1]] = "z";
+              }
+              farbenGebraucht[1] = [];
+            }
+            if (farbenGebraucht[2].length == farbenVorhanden[2].length && farbenGebraucht[2].length == 0 == false) {
+              if ([farbenVorhanden[2][0]] > kartenSpieler1.length - 1) {
+                kartenSpieler1["green"] = false;
+                SteineMitte[1] = "green";
+                SteineIch[1] = "#FF8000"
+              } else {
+                kartenSpieler1[farbenVorhanden[2][0]] = "z";
+                kartenSpieler1[farbenVorhanden[2][1]] = "z";
+              }
+              farbenGebraucht[2] = [];
+            }
+            if (farbenGebraucht[3].length == farbenVorhanden[3].length && farbenGebraucht[3].length == 0 == false) {
+              if ([farbenVorhanden[3][0]] > kartenSpieler1.length - 1) {
+                kartenSpieler1["blue"] = false;
+                SteineMitte[3] = "blue";
+                SteineIch[3] = "#FF8000"
+              } else {
+                kartenSpieler1[farbenVorhanden[3][0]] = "z";
+                kartenSpieler1[farbenVorhanden[3][1]] = "z";
+              }
+              farbenGebraucht[3] = [];
+            }
+            if (farbenGebraucht[4].length == farbenVorhanden[4].length && farbenGebraucht[4].length == 0 == false) {
+              if ([farbenVorhanden[4][0]] > kartenSpieler1.length - 1) {
+                kartenSpieler1["yellow"] = false;
+                SteineMitte[2] = "yellow";
+                SteineIch[2] = "#FF8000";
+              } else {
+                kartenSpieler1[farbenVorhanden[4][0]] = "z";
+                kartenSpieler1[farbenVorhanden[4][1]] = "z";
+
+              }
+              farbenGebraucht[4] = [];
+            }
+            kartenSpieler1.sort();
+            while (kartenSpieler1[kartenSpieler1.length - 1][0] == "z") { //console.log(01234567890123457890);
+              kartenSpieler1.pop();
+              canvas.fillStyle = "white"
+              canvas.fillRect(0, 470, 92000, 9800);
+            }
+          } else {
+            if (farbenGebraucht[1].length == farbenVorhanden[1].length && farbenGebraucht[1].length == 0 == false) {
+              if ([farbenVorhanden[1][0]] > kartenSpieler2.length - 1) {
+                kartenSpieler2["red"] = false;
+                SteineMitte[0] = "red";
+                SteineIch[0] = "#FF8000"
+              } else {
+                kartenSpieler2[farbenVorhanden[1][0]] = "z";
+                kartenSpieler2[farbenVorhanden[1][1]] = "z";
+              }
+              farbenGebraucht[1] = [];
+            }
+            if (farbenGebraucht[2].length == farbenVorhanden[2].length && farbenGebraucht[2].length == 0 == false) {
+              if ([farbenVorhanden[2][0]] > kartenSpieler2.length - 1) {
+                kartenSpieler2["green"] = false;
+                SteineMitte[1] = "green";
+                SteineIch[1] = "#FF8000"
+              } else {
+                kartenSpieler2[farbenVorhanden[2][0]] = "z";
+                kartenSpieler2[farbenVorhanden[2][1]] = "z";
+              }
+              farbenGebraucht[2] = [];
+            }
+            if (farbenGebraucht[3].length == farbenVorhanden[3].length && farbenGebraucht[3].length == 0 == false) {
+              if ([farbenVorhanden[3][0]] > kartenSpieler2.length - 1) {
+                kartenSpieler2["blue"] = false;
+                SteineMitte[3] = "blue";
+                SteineIch[3] = "#FF8000"
+              } else {
+                kartenSpieler2[farbenVorhanden[3][0]] = "z";
+                kartenSpieler2[farbenVorhanden[3][1]] = "z";
+              }
+              farbenGebraucht[3] = [];
+            }
+            if (farbenGebraucht[4].length == farbenVorhanden[4].length && farbenGebraucht[4].length == 0 == false) {
+              if ([farbenVorhanden[4][0]] > kartenSpieler2.length - 1) {
+                kartenSpieler2["yellow"] = false;
+                SteineMitte[2] = "yellow";
+                SteineIch[2] = "#FF8000";
+              } else {
+                kartenSpieler2[farbenVorhanden[4][0]] = "z";
+                kartenSpieler2[farbenVorhanden[4][1]] = "z";
+
+              }
+              farbenGebraucht[4] = [];
+            }
+            kartenSpieler2.sort();
+            while (kartenSpieler2[kartenSpieler2.length - 1][0] == "z") { //console.log(01234567890123457890);
+              kartenSpieler2.pop();
+              canvas.fillStyle = "white"
+              canvas.fillRect(0, 470, 92000, 9800);
+            }
+          }
           setTimeout(function() {
-            AblageListe[2] = "AuswahlKarteAblegen";
+            AblageListe[2] = "AuswahlManuel"
           }, 500);
+          if (farbenGebraucht[1].length == 0 && farbenGebraucht[2].length == 0 && farbenGebraucht[3].length == 0 && farbenGebraucht[4].length == 0) {
+            Sperren[1] = false;
+            setTimeout(function() {
+              AblageListe[2] = "AuswahlKarteAblegen";
+            }, 500);
+          }
         }
       }
     }
-  }
     if (AblageListe[2] == "AuswahlManuel") {
       zählerListe[9] = 4;
       FarbsteineKlickCheck();
       if (NameBleibt[0] == name) {
         if (kartenSpieler1[AblageListe[1]] == undefined || kartenSpieler1[AblageListe[1]][7] == undefined) {
-        if (zählerListe[9] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && kartenSpieler1[AblageListe[1]][2] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && kartenSpieler1[AblageListe[1]][2] == "blue" ||
-          farbenGebraucht[2].length < farbenVorhanden[2].length && kartenSpieler1[AblageListe[1]][2] == "green" || farbenGebraucht[1].length < farbenVorhanden[1].length && kartenSpieler1[AblageListe[1]][2] == "red") {
-          if (SteineIch[zählerListe[9]] == "#FF8000" == false || kartenSpieler1[AblageListe[1]][7] == undefined) {
-          if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "yellow") {
-            farbenGebraucht[4].pop();
-          }
-          if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "red") {
-            farbenGebraucht[1].pop();
-          }
-          if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "green") {
-            farbenGebraucht[2].pop();
-          }
-          if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "blue") {
-            farbenGebraucht[3].pop();
-          }
-          if (kartenSpieler1[SteineIch[zählerListe[9]]] == true) {
-            if ([SteineIch[zählerListe[9]]] == "red") {
-              farbenGebraucht[1].pop();
-            }
-            if ([SteineIch[zählerListe[9]]] == "green") {
-              farbenGebraucht[2].pop();
-            }
-            if ([SteineIch[zählerListe[9]]] == "blue") {
-              farbenGebraucht[3].pop();
-            }
-            if ([SteineIch[zählerListe[9]]] == "yellow") {
-              farbenGebraucht[4].pop();
-            }
-            if (zählerListe[9] < 4) {
-              kartenSpieler1[SteineIch[zählerListe[9]]] = false;
-              SteineMitte[zählerListe[9]] = SteineIch[zählerListe[9]];
-              SteineIch[zählerListe[9]] = "#FF8000";
-            }
-          }
+          if (zählerListe[9] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && kartenSpieler1[AblageListe[1]][2] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && kartenSpieler1[AblageListe[1]][2] == "blue" ||
+            farbenGebraucht[2].length < farbenVorhanden[2].length && kartenSpieler1[AblageListe[1]][2] == "green" || farbenGebraucht[1].length < farbenVorhanden[1].length && kartenSpieler1[AblageListe[1]][2] == "red") {
+            if (SteineIch[zählerListe[9]] == "#FF8000" == false || kartenSpieler1[AblageListe[1]][7] == undefined) {
+              if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "yellow") {
+                farbenGebraucht[4].pop();
+              }
+              if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "red") {
+                farbenGebraucht[1].pop();
+              }
+              if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "green") {
+                farbenGebraucht[2].pop();
+              }
+              if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "blue") {
+                farbenGebraucht[3].pop();
+              }
+              if (kartenSpieler1[SteineIch[zählerListe[9]]] == true) {
+                if ([SteineIch[zählerListe[9]]] == "red") {
+                  farbenGebraucht[1].pop();
+                }
+                if ([SteineIch[zählerListe[9]]] == "green") {
+                  farbenGebraucht[2].pop();
+                }
+                if ([SteineIch[zählerListe[9]]] == "blue") {
+                  farbenGebraucht[3].pop();
+                }
+                if ([SteineIch[zählerListe[9]]] == "yellow") {
+                  farbenGebraucht[4].pop();
+                }
+                if (zählerListe[9] < 4) {
+                  kartenSpieler1[SteineIch[zählerListe[9]]] = false;
+                  SteineMitte[zählerListe[9]] = SteineIch[zählerListe[9]];
+                  SteineIch[zählerListe[9]] = "#FF8000";
+                }
+              }
 
-          zählerListe[9] = 0;
-          kartenSpieler1[AblageListe[1]] = "z";
-          kartenSpieler1.sort();
-          while (kartenSpieler1[kartenSpieler1.length - 1][0] == "z") { //console.log(0123456789012345789012);
-            kartenSpieler1.pop();
+              zählerListe[9] = 0;
+              kartenSpieler1[AblageListe[1]] = "z";
+              kartenSpieler1.sort();
+              while (kartenSpieler1[kartenSpieler1.length - 1][0] == "z") { //console.log(0123456789012345789012);
+                kartenSpieler1.pop();
+              }
+              canvas.fillStyle = "white"
+              canvas.fillRect(0, 470, 13000, 9800);
+              if (farbenGebraucht[1].length == 0 && farbenGebraucht[2].length == 0 && farbenGebraucht[3].length == 0 && farbenGebraucht[4].length == 0) {
+                Sperren[1] = false;
+                setTimeout(function() {
+                  AblageListe[2] = "AuswahlKarteAblegen";
+                }, 500);
+              }
+            }
           }
-          canvas.fillStyle = "white"
-          canvas.fillRect(0, 470, 13000, 9800);
-          if (farbenGebraucht[1].length == 0 && farbenGebraucht[2].length == 0 && farbenGebraucht[3].length == 0 && farbenGebraucht[4].length == 0) {
-            Sperren[1] = false;
-            setTimeout(function() {
-              AblageListe[2] = "AuswahlKarteAblegen";
-            }, 500);
+        }
+      } else {
+        if (kartenSpieler2[AblageListe[1]] == undefined || kartenSpieler2[AblageListe[1]][7] == undefined) {
+          if (zählerListe[9] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && kartenSpieler2[AblageListe[1]][2] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && kartenSpieler2[AblageListe[1]][2] == "blue" ||
+            farbenGebraucht[2].length < farbenVorhanden[2].length && kartenSpieler2[AblageListe[1]][2] == "green" || farbenGebraucht[1].length < farbenVorhanden[1].length && kartenSpieler2[AblageListe[1]][2] == "red") {
+            if (SteineIch[zählerListe[9]] == "#FF8000" == false || kartenSpieler2[AblageListe[1]][7] == undefined) {
+              if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "yellow") {
+                farbenGebraucht[4].pop();
+              }
+              if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "red") {
+                farbenGebraucht[1].pop();
+              }
+              if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "green") {
+                farbenGebraucht[2].pop();
+              }
+              if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "blue") {
+                farbenGebraucht[3].pop();
+              }
+              if (kartenSpieler2[SteineIch[zählerListe[9]]] == true) {
+                if ([SteineIch[zählerListe[9]]] == "red") {
+                  farbenGebraucht[1].pop();
+                }
+                if ([SteineIch[zählerListe[9]]] == "green") {
+                  farbenGebraucht[2].pop();
+                }
+                if ([SteineIch[zählerListe[9]]] == "blue") {
+                  farbenGebraucht[3].pop();
+                }
+                if ([SteineIch[zählerListe[9]]] == "yellow") {
+                  farbenGebraucht[4].pop();
+                }
+                if (zählerListe[9] < 4) {
+                  kartenSpieler2[SteineIch[zählerListe[9]]] = false;
+                  SteineMitte[zählerListe[9]] = SteineIch[zählerListe[9]];
+                  SteineIch[zählerListe[9]] = "#FF8000";
+                }
+              }
+
+              zählerListe[9] = 0;
+              kartenSpieler2[AblageListe[1]] = "z";
+              kartenSpieler2.sort();
+              while (kartenSpieler2[kartenSpieler2.length - 1][0] == "z") { //console.log(0123456789012345789012);
+                kartenSpieler2.pop();
+              }
+              canvas.fillStyle = "white"
+              canvas.fillRect(0, 470, 92000, 9800);
+              if (farbenGebraucht[1].length == 0 && farbenGebraucht[2].length == 0 && farbenGebraucht[3].length == 0 && farbenGebraucht[4].length == 0) {
+                Sperren[1] = false;
+                setTimeout(function() {
+                  AblageListe[2] = "AuswahlKarteAblegen";
+                }, 500);
+              }
+            }
           }
         }
       }
-      }
-    } else {
-      if (kartenSpieler2[AblageListe[1]] == undefined || kartenSpieler2[AblageListe[1]][7] == undefined) {
-        if (zählerListe[9] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && kartenSpieler2[AblageListe[1]][2] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && kartenSpieler2[AblageListe[1]][2] == "blue" ||
-          farbenGebraucht[2].length < farbenVorhanden[2].length && kartenSpieler2[AblageListe[1]][2] == "green" || farbenGebraucht[1].length < farbenVorhanden[1].length && kartenSpieler2[AblageListe[1]][2] == "red") {
-          if (SteineIch[zählerListe[9]] == "#FF8000" == false || kartenSpieler2[AblageListe[1]][7] == undefined) {
-          if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "yellow") {
-            farbenGebraucht[4].pop();
-          }
-          if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "red") {
-            farbenGebraucht[1].pop();
-          }
-          if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "green") {
-            farbenGebraucht[2].pop();
-          }
-          if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "blue") {
-            farbenGebraucht[3].pop();
-          }
-          if (kartenSpieler2[SteineIch[zählerListe[9]]] == true) {
-            if ([SteineIch[zählerListe[9]]] == "red") {
-              farbenGebraucht[1].pop();
-            }
-            if ([SteineIch[zählerListe[9]]] == "green") {
-              farbenGebraucht[2].pop();
-            }
-            if ([SteineIch[zählerListe[9]]] == "blue") {
-              farbenGebraucht[3].pop();
-            }
-            if ([SteineIch[zählerListe[9]]] == "yellow") {
-              farbenGebraucht[4].pop();
-            }
-            if (zählerListe[9] < 4) {
-              kartenSpieler2[SteineIch[zählerListe[9]]] = false;
-              SteineMitte[zählerListe[9]] = SteineIch[zählerListe[9]];
-              SteineIch[zählerListe[9]] = "#FF8000";
-            }
-          }
-
-          zählerListe[9] = 0;
-          kartenSpieler2[AblageListe[1]] = "z";
-          kartenSpieler2.sort();
-          while (kartenSpieler2[kartenSpieler2.length - 1][0] == "z") { //console.log(0123456789012345789012);
-            kartenSpieler2.pop();
-          }
-          canvas.fillStyle = "white"
-          canvas.fillRect(0, 470, 92000, 9800);
-          if (farbenGebraucht[1].length == 0 && farbenGebraucht[2].length == 0 && farbenGebraucht[3].length == 0 && farbenGebraucht[4].length == 0) {
-            Sperren[1] = false;
-            setTimeout(function() {
-              AblageListe[2] = "AuswahlKarteAblegen";
-            }, 500);
-          }
-        }
-      }
-      }
-    }
     }
     if (AblageListe[2] == "AuswahlKarteAblegen" && AblageListe[1] > -1) {
       zählerListe[2] = 0;
@@ -1520,15 +1521,8 @@ else {
           MitteSpieler2[AblageListe[1]][4] += AblageListe[3][4];
           AblageListe[2] = "beendet";
           textButton = "Meine Karten";
-            FähigkeitenKartenAusgespielt();
+          FähigkeitenKartenAusgespielt();
         }
-      }
-
-      if (AblageListe[3][5] == "Wenn Hylas ins Spiel kommt, ziehe 2 Karten. ") {
-        zweiKartenZiehen();
-      }
-      if (AblageListe[3][5] == "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. ") {
-        SiegpunktePlus();
       }
     }
     if (AblageListe[2] == "Spieler2AuswahlHeld1SchadenZufügen") {
@@ -1543,6 +1537,38 @@ else {
         AblageListe[2] = "beendet";
       }
     }
+
+    if (kartenSpieler1[AblageListe[1]] == undefined == false && AblageListe[2] == "Spieler1Auswahl1Auswahl1KarteAblegen") {
+      kartenSpieler1[AblageListe[1]] = "z";
+      kartenSpieler1.sort();
+      kartenSpieler1.pop();
+      Sperren[1] = false;
+      setTimeout(function () {
+        AblageListe[2] = "Spieler1Auswahl2SchadenZufügen";
+      }, 500);
+    }
+    if (kartenSpieler2[AblageListe[1]] == undefined == false && AblageListe[2] == "Spieler2Auswahl1Auswahl1KarteAblegen") {
+      kartenSpieler2[AblageListe[1]] = "z";
+      kartenSpieler2.sort();
+      kartenSpieler2.pop();
+      Sperren[1] = false;
+      setTimeout(function () {
+        AblageListe[2] = "Spieler2Auswahl2SchadenZufügen";
+      }, 500);
+    }
+
+    if (AblageListe[2] == "Spieler1Auswahl2SchadenZufügen" && MitteSpieler2[AblageListe[1]] == undefined == false) {
+      MitteSpieler2[AblageListe[1]][4] -= 2;
+      AblageListe[2] = "beendet";
+      MitteSpieler2[AblageListe[1]][4] -= 2;
+      VorAngriffBeenden();
+    }
+    if (AblageListe[2] == "Spieler2Auswahl2SchadenZufügen" && MitteSpieler1[AblageListe[1]] == undefined == false) {
+      AblageListe[2] = "beendet";
+      MitteSpieler1[AblageListe[1]][4] -= 2;
+      VorAngriffBeenden();
+      }
+
     if (xMaus > 1210 && xMaus < 1355 && yMaus > 427 && yMaus < 473 && NameSpieler[0] == name && AblageListe[2] == "Angriff" == false && AblageListe[2] == "VorAngriffDurch0" == false && AblageListe[2] == "VorAngriffDurch1" == false && AblageListe[
         2] == "VorAngriffDurch2" == false && AblageListe[2] == "VorAngriffDurch3" == false && AblageListe[2] == "VorAngriffDurch4" == false && AblageListe[2] == "VorAngriffDurch5" == false && AblageListe[2] == "VorAngriffDurch6" == false) {
       zählerListe[8] = 0;
@@ -1694,8 +1720,8 @@ else {
               //  if (SteineMitte.length > 1) {
               setTimeout(function() {
                 if (SteineMitte.length > 0) {
-                AblageListe[4] = "wartenFarbauswahlSpieler2";
-              }
+                  AblageListe[4] = "wartenFarbauswahlSpieler2";
+                }
               }, 500);
               zählerListe[6]++;
 
@@ -1733,7 +1759,7 @@ else {
             MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
           }
         }
-    //    zweiKartenZiehen();
+        //    zweiKartenZiehen();
         zählerListe[8]++;
         nachAngriff();
       }
@@ -1750,39 +1776,65 @@ else {
       zählerListe[9] = zählerListe[8]
       zählerListe[8] = 6;
       if (NameBleibt[0] == name) {
+        if (MitteSpieler1[zählerListe[9]][5] == "Im- mer wenn Heabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. " && kartenSpieler1.length > 0) {
+          Sperren[1] = true;
+          if (confirm('Möchten sie 1 Handkarte abwerfen, um einer gegnerischen Einheit 2 Schaden zu können?')) {
+            AblageListe[2] = "Spieler1Auswahl1Auswahl1KarteAblegen";
+          } else {
+            VorAngriffBeenden();
+          }
+        } else if (MitteSpieler1[zählerListe[9]][5] == "") {
+
+        } else {
+          VorAngriffBeenden();
+        }
+      }
+      else {
+        if (MitteSpieler2[zählerListe[9]][5] == "Im- mer wenn Heabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. " && kartenSpieler2.length > 0) {
+          Sperren[1] = true;
+          if (confirm('Möchten sie 1 Handkarte abwerfen, um einer gegnerischen Einheit 2 Schaden zu können?')) {
+            AblageListe[2] = "Spieler2Auswahl1Auswahl1KarteAblegen";
+          } else {
+            VorAngriffBeenden();
+          }
+        } else if (MitteSpieler2[zählerListe[9]][5] == "") {
+
+        } else {
+          VorAngriffBeenden();
+        }
+      }
+    }
+  }
+
+  function VorAngriffBeenden() {
+    LayoutMitte();
+    AblageListe[2] = "VorAngriffDurch" + zählerListe[9];
+    zählerListe[8] = zählerListe[9];
+    angreifen();
+  }
+
+
+  function nachAngriff() {
+    if (zählerListe[8] < 6) {
+      zählerListe[9] = zählerListe[8]
+      zählerListe[8] = 6;
+      if (NameBleibt[0] == name) {
         if (MitteSpieler1[zählerListe[9]][5] == "") {
 
         } else if (MitteSpieler1[zählerListe[9]][5] == "") {
 
         }
       }
-      AblageListe[2] = "VorAngriffDurch" + zählerListe[9];
       zählerListe[8] = zählerListe[9];
       angreifen();
-    }
-  }
-
-  function nachAngriff() {
-    if (zählerListe[8] < 6) {
-    zählerListe[9] = zählerListe[8]
-    zählerListe[8] = 6;
-    if (NameBleibt[0] == name) {
-      if (MitteSpieler1[zählerListe[9]][5] == "") {
-
-      } else if (MitteSpieler1[zählerListe[9]][5] == "") {
-
-      }
-    }
-    zählerListe[8] = zählerListe[9];
-    angreifen();
-  }  else if(zählerListe[8] == 6) {
+    } else if (zählerListe[8] == 6) {
       zweiKartenZiehen();
-     setTimeout(function() {
-       if (AblageListe[4] == "beendet") {
-         Spielerwechsel();
-       }
-     }, 700);
-   }
+      setTimeout(function() {
+        if (AblageListe[4] == "beendet") {
+          Spielerwechsel();
+        }
+      }, 700);
+    }
   }
 
   function FarbsteineKlickCheck() {
@@ -1823,19 +1875,17 @@ else {
       kartenZiehen.shift();
     } else {
       console.log("Rundenende");
-    if (Siegpunkte[1] == name) {
+      if (Siegpunkte[1] == name) {
         Zustand[Zustand.length] = name + "gewonnen"
+      } else {
+        Zustand[Zustand.length] = nameGegner + "gewonnen"
       }
-    else {
-      Zustand[Zustand.length] = nameGegner + "gewonnen"
-    }
-    ZustandSpeichern();
+      ZustandSpeichern();
     }
   }
-function ZustandSpeichern() {
-  gewonnenCheck();
-  dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
-  setTimeout(function() {
+
+  function ZustandSpeichern() {
+    gewonnenCheck();
     dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
     setTimeout(function() {
       dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
@@ -1843,16 +1893,24 @@ function ZustandSpeichern() {
         dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
         setTimeout(function() {
           dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
+          setTimeout(function() {
+            dbSet("Olymp", "Zustand" + NameBleibt[0] + NameBleibt[1], Zustand);
+          }, 500);
         }, 500);
       }, 500);
-    }, 500);
     }, 500)
-}
+  }
 
   function FähigkeitenKartenAusgespielt() {
     if (AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ") {
       zählerListe[2] = 0;
       zählerListe[5] = 0;
+      if (AblageListe[3][5] == "Wenn Hylas ins Spiel kommt, ziehe 2 Karten. ") {
+        zweiKartenZiehen();
+      }
+      if (AblageListe[3][5] == "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. ") {
+        SiegpunktePlus();
+      }
       if (NameBleibt[0] == name) {
         while (zählerListe[2] < MitteSpieler2.length) {
           if (MitteSpieler2[zählerListe[2]][0] == "z" == false) {
@@ -1904,24 +1962,24 @@ function ZustandSpeichern() {
       }
     }
     if (AblageListe[3][5] == "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. ") {
-  //    AblageListe[2] = "wartenKarteAufHandZurrückehmen";
-  /*    zählerListe[2] = 0;
-      while (zählerListe[2] < 6) {
-          if (NameBleibt[0] == name) {
-          if (MitteSpieler2[AblageListe[1]][1].length < 3) {
-            kartenSpieler2[kartenSpieler2.length] = MitteSpieler2[AblageListe[1]][1]
-            MitteSpieler2[AblageListe[1]] = ["z", 0, ""];
-            AblageListe[2] = "beendet";
-          }
-        }
-        else if (MitteSpieler1[AblageListe[1]][1].length < 3) {
-          kartenSpieler1[kartenSpieler2.length] = MitteSpieler2[AblageListe[1]][1]
-          MitteSpieler1[AblageListe[1]] = ["z", 0, ""];
-          AblageListe[2] = "beendet";
-        }
-        zählerListe[2]++;
-      } */
-  }
+      //    AblageListe[2] = "wartenKarteAufHandZurrückehmen";
+      /*    zählerListe[2] = 0;
+          while (zählerListe[2] < 6) {
+              if (NameBleibt[0] == name) {
+              if (MitteSpieler2[AblageListe[1]][1].length < 3) {
+                kartenSpieler2[kartenSpieler2.length] = MitteSpieler2[AblageListe[1]][1]
+                MitteSpieler2[AblageListe[1]] = ["z", 0, ""];
+                AblageListe[2] = "beendet";
+              }
+            }
+            else if (MitteSpieler1[AblageListe[1]][1].length < 3) {
+              kartenSpieler1[kartenSpieler2.length] = MitteSpieler2[AblageListe[1]][1]
+              MitteSpieler1[AblageListe[1]] = ["z", 0, ""];
+              AblageListe[2] = "beendet";
+            }
+            zählerListe[2]++;
+          } */
+    }
     /*  if (AblageListe[3][5] == ) {
 
     } */
@@ -1939,9 +1997,8 @@ function ZustandSpeichern() {
     }
     if (Siegpunkte[0] > 6) {
       if (Siegpunkte[1] == name) {
-          Zustand[Zustand.length] = name + "gewonnen"
-        }
-      else {
+        Zustand[Zustand.length] = name + "gewonnen"
+      } else {
         Zustand[Zustand.length] = nameGegner + "gewonnen"
       }
       ZustandSpeichern();
@@ -1998,7 +2055,7 @@ function ZustandSpeichern() {
     } else {
       FarbsteineIch();
     }
-    if (zähler == "Kartegefunden" == false || AblageListe[0][AblageListe[1]] [0] == undefined || AblageListe[0][AblageListe[1]][0] == "z") {
+    if (zähler == "Kartegefunden" == false || AblageListe[0][AblageListe[1]][0] == undefined || AblageListe[0][AblageListe[1]][0] == "z") {
       canvas.fillStyle = "white"; //Farbe
       canvas.fillRect(500, 210 + 88, 130, 147)
       canvas.fillStyle = "#FF8000"; //Farbe
@@ -2011,7 +2068,8 @@ function ZustandSpeichern() {
   }
 
   function Spielerwechsel() {
-    //  dbSet("Olymp", "NameSpieler" , NameSpieler);
+    //  dbSetz("Olymp", "NameSpieler" , NameSpieler);
+    zählerListe[1] = 0;
     NameSpieler[2] = NameSpieler[0];
     NameSpieler[0] = NameSpieler[1];
     NameSpieler[1] = NameSpieler[2];
@@ -2019,25 +2077,23 @@ function ZustandSpeichern() {
     zählerListe[8] = 0;
     Sperren[2] = false
     Sperren[3] = false;
-    if (MitteSpieler1[0][0] == "z" && MitteSpieler1[1][0] == "z" && MitteSpieler1[2][0] == "z" && MitteSpieler1[3][0] == "z" && MitteSpieler1[4][0] == "z" && MitteSpieler1[5][0] == "z" && MitteSpieler2[1][0] == "z" == false && MitteSpieler2[2][0] == "z" == false &&  MitteSpieler2[2][0] == "z" == false &&  MitteSpieler2[3][0] == "z" == false &&  MitteSpieler2[4][0] == "z" == false &&  MitteSpieler2[5][0] == "z" == false && MitteSpieler2[0][0] == "z" == false) {
-        if (NameBleibt[0] == name) {
-          Zustand[Zustand.length] = "Von " + nameGegner + "überrollt";
-        }
-        else {
-          Zustand[Zustand.length] = "Von " + name + "überrollt";
-        }
-        gewonnenCheck();
-    }
-  else if (MitteSpieler2[0][0] == "z" && MitteSpieler2[1][0] == "z" && MitteSpieler2[2][0] == "z" && MitteSpieler2[3][0] == "z" && MitteSpieler2[4][0] == "z" && MitteSpieler2[5][0] == "z" && MitteSpieler1[1][0] == "z" == false && MitteSpieler1[2][0] == "z" == false &&  MitteSpieler1[2][0] == "z" == false &&  MitteSpieler1[3][0] == "z" == false &&  MitteSpieler1[4][0] == "z" == false &&  MitteSpieler1[5][0] == "z" == false && MitteSpieler1[0][0] == "z" == false) {
-        if (NameBleibt[0] == name) {
-          Zustand[Zustand.length] = "Von " + name + "überrollt";
-        }
-        else {
-          Zustand[Zustand.length] = "Von " + nameGegner + "überrollt";
-        }
-        gewonnenCheck();
-    }
-  else if (Zustand[Zustand.length - 1] == name + "gewonnen" == false && Zustand[Zustand.length - 1] == nameGegner + "gewonnen" == false) {
+    if (MitteSpieler1[0][0] == "z" && MitteSpieler1[1][0] == "z" && MitteSpieler1[2][0] == "z" && MitteSpieler1[3][0] == "z" && MitteSpieler1[4][0] == "z" && MitteSpieler1[5][0] == "z" && MitteSpieler2[1][0] == "z" == false && MitteSpieler2[2][0] ==
+      "z" == false && MitteSpieler2[2][0] == "z" == false && MitteSpieler2[3][0] == "z" == false && MitteSpieler2[4][0] == "z" == false && MitteSpieler2[5][0] == "z" == false && MitteSpieler2[0][0] == "z" == false) {
+      if (NameBleibt[0] == name) {
+        Zustand[Zustand.length] = "Von " + nameGegner + "überrollt";
+      } else {
+        Zustand[Zustand.length] = "Von " + name + "überrollt";
+      }
+      gewonnenCheck();
+    } else if (MitteSpieler2[0][0] == "z" && MitteSpieler2[1][0] == "z" && MitteSpieler2[2][0] == "z" && MitteSpieler2[3][0] == "z" && MitteSpieler2[4][0] == "z" && MitteSpieler2[5][0] == "z" && MitteSpieler1[1][0] == "z" == false && MitteSpieler1[2]
+      [0] == "z" == false && MitteSpieler1[2][0] == "z" == false && MitteSpieler1[3][0] == "z" == false && MitteSpieler1[4][0] == "z" == false && MitteSpieler1[5][0] == "z" == false && MitteSpieler1[0][0] == "z" == false) {
+      if (NameBleibt[0] == name) {
+        Zustand[Zustand.length] = "Von " + name + "überrollt";
+      } else {
+        Zustand[Zustand.length] = "Von " + nameGegner + "überrollt";
+      }
+      gewonnenCheck();
+    } else if (Zustand[Zustand.length - 1] == name + "gewonnen" == false && Zustand[Zustand.length - 1] == nameGegner + "gewonnen" == false) {
       Zustand[Zustand.length] = "Spielerwechsel";
     }
     SpielerwechselSet();
@@ -2055,8 +2111,8 @@ function ZustandSpeichern() {
     dbSet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
     //    dbSet("Olymp", "NameSpieler" , NameSpieler);
     dbGet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], function(result) {
-      if (result == "" == false) {
-        if (kartenZiehen[0] == result.toString().split(';')[0] == false) {
+      if (Zustand.length > 1) {
+        if (kartenZiehen.length == result.toString().split(';').length == false) {
           zählerListe[1]++;
         }
       }
@@ -2074,7 +2130,7 @@ function ZustandSpeichern() {
           AblageListe[2].pop();
           zählerListe[7] = 0
           while (zählerListe[7] < MitteSpieler1.length) {
-            if (result == "NOPE" == false && MitteSpieler1[zählerListe[7]][4] == undefined == false && AblageListe[2].toString().split('?')[zählerListe[7]][4] == undefined == false) {
+            if (result == "NOPE" == false && MitteSpieler1[zählerListe[7]][4] == undefined == false /* && AblageListe[2].toString().split('?')[zählerListe[7]][4] == undefined == false*/ ) {
 
               if (MitteSpieler1[zählerListe[7]][4] == AblageListe[2].toString().split('?')[zählerListe[7]][4] == false || MitteSpieler1[zählerListe[7]][3] == AblageListe[2].toString().split('?')[zählerListe[7]][3] == false) {
                 zählerListe[1]++;
@@ -2094,7 +2150,7 @@ function ZustandSpeichern() {
             AblageListe[2].pop();
             zählerListe[7] = 0
             while (zählerListe[7] < MitteSpieler2.length) {
-              if (result == "NOPE" == false && MitteSpieler2[zählerListe[7]][4] == undefined == false && AblageListe[2].toString().split('?')[zählerListe[7]][4] == undefined == false) {
+              if (result == "NOPE" == false && MitteSpieler2[zählerListe[7]][4] == undefined == false /* && AblageListe[2].toString().split('?')[zählerListe[7]][4] == undefined == false*/ ) {
                 if (MitteSpieler2[zählerListe[7]][4] == AblageListe[2].toString().split('?')[zählerListe[7]][4] == false || MitteSpieler2[zählerListe[7]][3] == AblageListe[2].toString().split('?')[zählerListe[7]][3] == false) {
                   zählerListe[1]++;
                 }
@@ -2108,21 +2164,21 @@ function ZustandSpeichern() {
             if (result == "NOPE") {
               zählerListe[1]++;
             }
-            if (zählerListe[1] > 0 && zählerListe[8] < 25) {
+            if (zählerListe[1] > 0 && zählerListe[8] < 7) {
               console.log(zählerListe[8]);
               zählerListe[1] = 0;
               Sperren[3] = true;
               zählerListe[8]++;
               //      SpielerwechselSet();
             }
-          /*  else if (zählerListe[8] == 25) {
-              SpielerwechselSet();
-              zählerListe[8]++;
-              setTimeout(function () {
-                Sperren[2] = true;
-                Sperren[3] = false;
-              }, 3000);
-            }  */
+            /*  else if (zählerListe[8] == 25) {
+                SpielerwechselSet();
+                zählerListe[8]++;
+                setTimeout(function () {
+                  Sperren[2] = true;
+                  Sperren[3] = false;
+                }, 3000);
+              }  */
             /*  dbGet("Olymp", "SteineMitte" + NameBleibt[0] + NameBleibt[1], function(result) {
                 AblageListe[6] = result.toString().split(',')
                 zählerListe[7] = 0;
