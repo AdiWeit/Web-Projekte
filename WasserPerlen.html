@@ -1,0 +1,65 @@
+<canvas id="textur" width="1584" height="700"></canvas>
+<meta charset="utf-8">
+<script>
+
+var zähler = 0;
+var textur = document.getElementById('textur');
+var canvas = textur.getContext('2d');//Dimension
+var ring;
+var colors = ['green', 'springGreen', 'yellow', 'gold', 'blue', 'steelBlue', '#09F', 'cyan', 'plum', 'purple', 'brown', 'tomato', 'silver'];
+var cycle = [];
+var Anzahl = 0;
+
+class cyrcle {
+constructor(xMaus, yMaus, colors) {
+this.x = xMaus;
+this.y = yMaus;
+this.start = 4.72
+this.RingGröße = 10;
+this.Radius = 55;
+this.colors = colors;
+this.zähler = 0;
+}
+
+AnimationRingGroß() {
+//canvas.fillStyle = "white";
+//canvas.fillRect(0,0,1900, 700);
+
+this.diff = ((1)*Math.PI*2*10).toFixed(2)
+canvas.lineWidth = this.RingGröße;
+canvas.fillStyle = '#09F'
+canvas.strokeStyle = this.colors
+canvas.textAlign = 'center'
+canvas.beginPath();
+canvas.arc(this.x, this.y, this.Radius, this.start, this.diff / 10 + this.start, false)
+canvas.stroke()
+this.zähler++;
+this.Radius++;
+this.RingGröße--;
+}
+}
+
+function Animation() {
+  zähler = 0;
+  canvas.fillStyle = "white";
+  canvas.fillRect(0,0,1900, 700);
+  while (zähler < Anzahl) {
+    if (cyrcle[zähler].zähler < 18) {
+      cyrcle[zähler].AnimationRingGroß();
+    }
+    zähler++;
+  }
+}
+function RingErstellen() {
+  cyrcle[Anzahl] = new cyrcle(Math.floor(Math.random() * textur.width), Math.floor(Math.random() * textur.height), colors[Math.floor(Math.random() * colors.length - 1)]);
+  Anzahl++;
+}
+
+
+setInterval(RingErstellen, 573)
+setInterval(RingErstellen, 753)
+setInterval(RingErstellen, 1035)
+setInterval(Animation, 50)
+
+
+</script>
