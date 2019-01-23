@@ -57,9 +57,9 @@
     [3, ["yellow", "blue", "green"], "green", 2, 3, "Wenn Diomedes ins Spiel kommt, kannst du bei al- len dei- nen Hel- den 1 Scha- den hei- len. ", "Held/-in"],
     [0, [], "green", 1, 1, "keine besonderheit ", "Soldat/-in"],
     [0, [], "green", 1, 1, "keine besonderheit ", "Ausrüstung"],
-    [1, ["green"], "green", 1, 2, "Wenn Idmon ins Spiel kommt, kannst du 1 ei- ge- ne Ein- heit auf einen ei- ge- nen frei- en Platz ver- schie- ben ", "Held/-in"],
+    [1, ["green"], "green", 1, 2, "Wenn Idmon ins Spiel kommt, kannst du 1 ei- ge- ne Ein- heit auf einen ei- ge- nen frei- en Platz ver- schie- ben. ", "Held/-in"],
     [0, [], "yellow", 1, 1, "keine besonderheit ", "Soldat/-in"],
-    [2, ["red", "green"], "green", 1, 3, "Im- mer wenn Iphigenie an- greift und eine rote Ein- heit als Geg- ner hat, fügt sie 2 Scha- den zu. ", "Held/-in"],
+    [2, ["red", "green"], "green", 1, 3, "Im- mer wenn Iphigenie an- greift und eine rote Ein- heit als Geg- ner hat, fügt sie 1 Scha- den mehr zu. ", "Held/-in"],
     [2, ["green", "green"], "green", 2, 2, "Wenn Penelope ins Spiel kommt, kannst du 1 geg- ne- ri- sche Ein- heit auf einen frei- en Platz des Geg- ners ver- schie- ben. ", "Held/-in"],
     [0, [], "red", 1, 1, "keine besonderheit ", "Ausrüstung"],
     [1, ["red"], "red", 1, 2, "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ", "Held/-in"],
@@ -1568,6 +1568,55 @@ else {
       MitteSpieler1[AblageListe[1]][4] -= 2;
       VorAngriffBeenden();
       }
+      if (AblageListe[2] == "gegnerischeKarteZumVerschiebenWählen" && NameBleibt[0] == name && AblageListe[2][0] == "z" == false) {
+        AblageListe[4] = MitteSpieler2[AblageListe[1]];
+        MitteSpieler2[AblageListe[1]] = ["z", 0, ""];
+        setTimeout(function () {
+          AblageListe[2] = "Spieler1gegnerischeEinheitNeuHinlegen";
+        }, 300);
+
+      }
+      else if (AblageListe[2] == "gegnerischeKarteZumVerschiebenWählen" && NameBleibt[1] == name && AblageListe[2][0] == "z" == false) {
+        AblageListe[4] = MitteSpieler1[AblageListe[1]];
+        MitteSpieler1[AblageListe[1]] = ["z", 0, ""];
+        setTimeout(function () {
+          AblageListe[2] = "Spieler2gegnerischeEinheitNeuHinlegen";
+        }, 300);
+      }
+
+      if (AblageListe[2] == "eigeneKarteZumVerschiebenWählen" && NameBleibt[0] == name && AblageListe[2][0] == "z" == false) {
+        AblageListe[4] = MitteSpieler1[AblageListe[1]];
+        MitteSpieler1[AblageListe[1]] = ["z", 0, ""];
+        setTimeout(function () {
+          AblageListe[2] = "Spieler1eigeneEinheitNeuHinlegen";
+        }, 300);
+      }
+      else if (AblageListe[2] == "eigeneKarteZumVerschiebenWählen" && NameBleibt[1] == name && AblageListe[2][0] == "z" == false) {
+        AblageListe[4] = MitteSpieler2[AblageListe[1]];
+        MitteSpieler2[AblageListe[1]] = ["z", 0, ""];
+        setTimeout(function () {
+          AblageListe[2] = "Spieler2eigeneEinheitNeuHinlegen";
+        }, 300);
+      }
+
+      if (AblageListe[2] == "Spieler1gegnerischeEinheitNeuHinlegen" && MitteSpieler2[AblageListe[1]][0] == "z") {
+        MitteSpieler2[AblageListe[1]] = AblageListe[4];
+        AblageListe[2] = "beendet";
+      }
+      if (AblageListe[2] == "Spieler2gegnerischeEinheitNeuHinlegen" && MitteSpieler1[AblageListe[1]][0] == "z") {
+        MitteSpieler1[AblageListe[1]] = AblageListe[4];
+        AblageListe[2] = "beendet";
+      }
+
+      if (AblageListe[2] == "Spieler1eigeneEinheitNeuHinlegen" && MitteSpieler2[AblageListe[1]][0] == "z") {
+        MitteSpieler1[AblageListe[1]] = AblageListe[4];
+        AblageListe[2] = "beendet";
+      }
+      if (AblageListe[2] == "Spieler2eigeneEinheitNeuHinlegen" && MitteSpieler1[AblageListe[1]][0] == "z") {
+        MitteSpieler2[AblageListe[1]] = AblageListe[4];
+        AblageListe[2] = "beendet";
+      }
+
 
     if (xMaus > 1210 && xMaus < 1355 && yMaus > 427 && yMaus < 473 && NameSpieler[0] == name && AblageListe[2] == "Angriff" == false && AblageListe[2] == "VorAngriffDurch0" == false && AblageListe[2] == "VorAngriffDurch1" == false && AblageListe[
         2] == "VorAngriffDurch2" == false && AblageListe[2] == "VorAngriffDurch3" == false && AblageListe[2] == "VorAngriffDurch4" == false && AblageListe[2] == "VorAngriffDurch5" == false && AblageListe[2] == "VorAngriffDurch6" == false) {
@@ -1905,12 +1954,6 @@ else {
     if (AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ") {
       zählerListe[2] = 0;
       zählerListe[5] = 0;
-      if (AblageListe[3][5] == "Wenn Hylas ins Spiel kommt, ziehe 2 Karten. ") {
-        zweiKartenZiehen();
-      }
-      if (AblageListe[3][5] == "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. ") {
-        SiegpunktePlus();
-      }
       if (NameBleibt[0] == name) {
         while (zählerListe[2] < MitteSpieler2.length) {
           if (MitteSpieler2[zählerListe[2]][0] == "z" == false) {
@@ -1959,6 +2002,31 @@ else {
             AblageListe[2] = "Spieler2AuswahlHeld1SchadenZufügen";
           }, 500);
         }
+      }
+    }
+    if (AblageListe[3][5] == "Wenn Hylas ins Spiel kommt, ziehe 2 Karten. ") {
+      zweiKartenZiehen();
+    }
+    if (AblageListe[3][5] == "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. ") {
+      SiegpunktePlus();
+    }
+
+    if (AblageListe[3][5] == "Wenn der Helm ins Spiel kommt, kann er der ge- gen- ü- ber- lie- gen- den Ein- heit 1 Scha- den zu- fü- gen. " && MitteSpieler2[AblageListe[1]][0] == "z" == false && NameBleibt[0] == name) {
+      MitteSpieler2[AblageListe[1]][4]--;
+    }
+    if (AblageListe[3][5] == "Wenn der Helm ins Spiel kommt, kann er der ge- gen- ü- ber- lie- gen- den Ein- heit 1 Scha- den zu- fü- gen. " && MitteSpieler2[AblageListe[1]][0] == "z" == false && NameBleibt[1] == name) {
+      MitteSpieler2[AblageListe[1]][4]--;
+    }
+    if (AblageListe[3][5] == "Wenn Penelope ins Spiel kommt, kannst du 1 geg- ne- ri- sche Ein- heit auf einen frei- en Platz des Geg- ners ver- schie- ben. ") {
+      if (confirm('Möchtest du 1 gegnerische Karte verschieben?')) {
+        AblageListe[1] = -1;
+        AblageListe[2] = "gegnerischeKarteZumVerschiebenWählen";
+      }
+    }
+    if (AblageListe[3][5] == "Wenn Idmon ins Spiel kommt, kannst du 1 ei- ge- ne Ein- heit auf einen ei- ge- nen frei- en Platz ver- schie- ben. ") {
+      if (confirm('Möchtest du 1 eigene Karte verschieben?')) {
+        AblageListe[1] = -1;
+        AblageListe[2] = "eigeneKarteZumVerschiebenWählen";
       }
     }
     if (AblageListe[3][5] == "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. ") {
