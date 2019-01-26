@@ -1969,7 +1969,7 @@ else {
   function FähigkeitenKartenAusgespielt() {
     KartenAusgewählt = [];
       zählerListe[2] = 0;
-      zählerListe[5] = 0;
+      zählerListe[5] = [];
       if (NameBleibt[0] == name) {
         while (zählerListe[2] < MitteSpieler2.length) {
             Spieler1BesonderheitCheck();
@@ -1981,7 +1981,7 @@ else {
         }
         zählerListe[2] -= 2;
         if (AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ") {
-        if (zählerListe[5] == 1) {
+        if (zählerListe[5].length == 1) {
           MitteSpieler2[AblageListe[6]][4] -= 1;
         }
         if (zählerListe[5] > 1) {
@@ -1991,7 +1991,7 @@ else {
         }
       }
       if (AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. ") {
-      if (zählerListe[5] == 1) {
+      if (zählerListe[5].length == 1) {
         MitteSpieler1[AblageListe[6]][4] += 2;
       }
       if (zählerListe[5] > 1) {
@@ -2012,7 +2012,7 @@ else {
         }
         zählerListe[2] -= 2;
         if (AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ") {
-        if (zählerListe[5] == 1) {
+        if (zählerListe[5].length == 1) {
           MitteSpieler1[AblageListe[6]][4] -= 1;
         }
         if (zählerListe[5] > 1) {
@@ -2022,7 +2022,7 @@ else {
         }
       }
       if (AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. ") {
-      if (zählerListe[5] == 1) {
+      if (zählerListe[5].length == 1) {
         MitteSpieler2[AblageListe[6]][4] += 2;
       }
       if (zählerListe[5] > 1) {
@@ -2061,30 +2061,30 @@ else {
   }
 function Spieler1BesonderheitCheck () {
   if (MitteSpieler2[zählerListe[2]][6] == "Held/-in" && AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. " && MitteSpieler2[zählerListe[2]][0] == "z" == false) {
-    zählerListe[5]++;
+    zählerListe[5][zählerListe[5].length] = zählerListe[2];
     AblageListe[6] = zählerListe[2]
   }
   if (AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. " && MitteSpieler1[zählerListe[2]][0] == "z" == false) {
-    zählerListe[5]++;
+    zählerListe[5][zählerListe[5].length] = zählerListe[2];
     AblageListe[6] = zählerListe[2]
   }
   if (MitteSpieler1[zählerListe[2]][0] < 3 && "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. " && MitteSpieler2[zählerListe[2]][0] == "z" == false) {
-    zählerListe[5]++;
+    zählerListe[5][zählerListe[5].length] = zählerListe[2];
     AblageListe[6] = zählerListe[2]
   }
 }
 
 function Spieler2BesonderheitCheck () {
   if (MitteSpieler1[zählerListe[2]][6] == "Held/-in" && AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. " && MitteSpieler1[zählerListe[2]][0] == "z" == false) {
-    zählerListe[5]++;
+    zählerListe[5][zählerListe[5].length] = zählerListe[2];
     AblageListe[6] = zählerListe[2]
   }
   if (AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. " && MitteSpieler2[zählerListe[2]][0] == "z" == false) {
-    zählerListe[5]++;
+    zählerListe[5][zählerListe[5].length] = zählerListe[2];
     AblageListe[6] = zählerListe[2]
   }
   if (MitteSpieler2[zählerListe[2]][0] < 3 && "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. " && MitteSpieler1[zählerListe[2]][0] == "z" == false) {
-    zählerListe[5]++;
+    zählerListe[5][zählerListe[5].length] = zählerListe[2];
     AblageListe[6] = zählerListe[2]
   }
 }
