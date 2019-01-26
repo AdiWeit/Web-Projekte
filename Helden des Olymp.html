@@ -1558,7 +1558,6 @@ else {
     }
 
     if (AblageListe[2] == "Spieler1Auswahl2SchadenZufügen" && MitteSpieler2[AblageListe[1]] == undefined == false) {
-      MitteSpieler2[AblageListe[1]][4] -= 2;
       AblageListe[2] = "beendet";
       MitteSpieler2[AblageListe[1]][4] -= 2;
       VorAngriffBeenden();
@@ -1602,24 +1601,29 @@ else {
       if (AblageListe[2] == "Spieler1gegnerischeEinheitNeuHinlegen" && MitteSpieler2[AblageListe[1]][0] == "z") {
         MitteSpieler2[AblageListe[1]] = AblageListe[4];
         AblageListe[2] = "beendet";
+        AblageListe[4] = "beendet";
       }
       if (AblageListe[2] == "Spieler2gegnerischeEinheitNeuHinlegen" && MitteSpieler1[AblageListe[1]][0] == "z") {
         MitteSpieler1[AblageListe[1]] = AblageListe[4];
         AblageListe[2] = "beendet";
+        AblageListe[4] = "beendet";
       }
 
-      if (AblageListe[2] == "Spieler1eigeneEinheitNeuHinlegen" && MitteSpieler2[AblageListe[1]][0] == "z") {
+      if (AblageListe[2] == "Spieler1eigeneEinheitNeuHinlegen" && MitteSpieler1[AblageListe[1]][0] == "z") {
         MitteSpieler1[AblageListe[1]] = AblageListe[4];
         AblageListe[2] = "beendet";
+        AblageListe[4] = "beendet";
       }
-      if (AblageListe[2] == "Spieler2eigeneEinheitNeuHinlegen" && MitteSpieler1[AblageListe[1]][0] == "z") {
+      if (AblageListe[2] == "Spieler2eigeneEinheitNeuHinlegen" && MitteSpieler2[AblageListe[1]][0] == "z") {
         MitteSpieler2[AblageListe[1]] = AblageListe[4];
         AblageListe[2] = "beendet";
+        AblageListe[4] = "beendet";
       }
 
 
     if (xMaus > 1210 && xMaus < 1355 && yMaus > 427 && yMaus < 473 && NameSpieler[0] == name && AblageListe[2] == "Angriff" == false && AblageListe[2] == "VorAngriffDurch0" == false && AblageListe[2] == "VorAngriffDurch1" == false && AblageListe[
         2] == "VorAngriffDurch2" == false && AblageListe[2] == "VorAngriffDurch3" == false && AblageListe[2] == "VorAngriffDurch4" == false && AblageListe[2] == "VorAngriffDurch5" == false && AblageListe[2] == "VorAngriffDurch6" == false) {
+      Sperren[4] = false;
       zählerListe[8] = 0;
       zählerListe[6] = 0;
       AblageListe[2] = "Angriff";
@@ -1684,8 +1688,10 @@ else {
             }
           }
         }
-        zählerListe[8]++;
-        nachAngriff();
+        if (zählerListe[8] < 6) {
+          zählerListe[8]++;
+          nachAngriff();
+        }
       }
       while (zählerListe[8] < 5) {
         if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
@@ -1717,8 +1723,10 @@ else {
             }
           }
         }
-        zählerListe[8]++;
-        nachAngriff();
+        if (zählerListe[8] < 6) {
+          zählerListe[8]++;
+          nachAngriff();
+        }
       }
       if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
         VorAngriff();
@@ -1735,8 +1743,10 @@ else {
           }
         }
       }
-      zählerListe[8]++;
-      nachAngriff();
+      if (zählerListe[8] < 6) {
+        zählerListe[8]++;
+        nachAngriff();
+      }
 
     } else {
       //  zählerListe[8] = 0;
@@ -1756,8 +1766,10 @@ else {
             }
           }
         }
-        zählerListe[8]++;
-        nachAngriff();
+        if (zählerListe[8] < 6) {
+          zählerListe[8]++;
+          nachAngriff();
+        }
       }
       //  zählerListe[6] = 0;
       while (zählerListe[8] < 5) {
@@ -1783,16 +1795,17 @@ else {
                   }
                   */
             } else if (MitteSpieler1[zählerListe[8]][5] == "rot resistent" && MitteSpieler2[zählerListe[8]][2] == "red" || MitteSpieler1[zählerListe[8]][5] == "grün resistent" && MitteSpieler2[zählerListe[8]][2] == "green" || MitteSpieler1[
-                zählerListe[
-                  8]][5] == "blau resistent" && MitteSpieler2[zählerListe[8]][2] == "blue" || MitteSpieler1[zählerListe[8]][5] == "gelb resistent" && MitteSpieler2[zählerListe[8]][2] == "yellow") {
+                zählerListe[8]][5] == "blau resistent" && MitteSpieler2[zählerListe[8]][2] == "blue" || MitteSpieler1[zählerListe[8]][5] == "gelb resistent" && MitteSpieler2[zählerListe[8]][2] == "yellow") {
               console.log("resistent");
             } else {
               MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
             }
           }
         }
-        zählerListe[8]++;
-        nachAngriff();
+        if (zählerListe[8] < 6) {
+          zählerListe[8]++;
+          nachAngriff();
+        }
       }
       if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
         VorAngriff();
@@ -1809,8 +1822,10 @@ else {
           }
         }
         //    zweiKartenZiehen();
-        zählerListe[8]++;
-        nachAngriff();
+        if (zählerListe[8] < 6) {
+          zählerListe[8]++;
+          nachAngriff();
+        }
       }
     }
     /*  setTimeout(function () {
@@ -1826,8 +1841,8 @@ else {
       zählerListe[8] = 6;
       if (NameBleibt[0] == name) {
         if (MitteSpieler1[zählerListe[9]][5] == "Im- mer wenn Heabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. " && kartenSpieler1.length > 0) {
-          Sperren[1] = true;
           if (confirm('Möchten sie 1 Handkarte abwerfen, um einer gegnerischen Einheit 2 Schaden zu können?')) {
+            Sperren[1] = true;
             AblageListe[2] = "Spieler1Auswahl1Auswahl1KarteAblegen";
           } else {
             VorAngriffBeenden();
@@ -1840,8 +1855,8 @@ else {
       }
       else {
         if (MitteSpieler2[zählerListe[9]][5] == "Im- mer wenn Heabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. " && kartenSpieler2.length > 0) {
-          Sperren[1] = true;
           if (confirm('Möchten sie 1 Handkarte abwerfen, um einer gegnerischen Einheit 2 Schaden zu können?')) {
+            Sperren[1] = true;
             AblageListe[2] = "Spieler2Auswahl1Auswahl1KarteAblegen";
           } else {
             VorAngriffBeenden();
@@ -1876,7 +1891,8 @@ else {
       }
       zählerListe[8] = zählerListe[9];
       angreifen();
-    } else if (zählerListe[8] == 6) {
+    } else if (zählerListe[8] > 5 && Sperren[4] == false) {
+      Sperren[4] = true;
       zweiKartenZiehen();
       setTimeout(function() {
         if (AblageListe[4] == "beendet") {
@@ -2168,13 +2184,16 @@ else {
   }
 
   function SpielerwechselSet() {
+    LayoutMitte();
     Sperren[3] = false;
     dbSet("Olymp", "Siegpunkte" + NameBleibt[0] + NameBleibt[1], Siegpunkte);
     //  dbSet("Olymp", "SteineMitte" + NameBleibt[0] + NameBleibt[1], SteineMitte[0] + "," + SteineMitte[1] + "," + SteineMitte[2] + "," + SteineMitte[3]);
     ZuVarMitteSpieler1();
     dbSet("Olymp", "MitteSpieler1" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
+    setTimeout(function () {
     ZuVarMitteSpieler2();
     dbSet("Olymp", "MitteSpieler2" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
+    setTimeout(function () {
     zuVarKartenZiehen();
     dbSet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
     //    dbSet("Olymp", "NameSpieler" , NameSpieler);
@@ -2257,6 +2276,7 @@ else {
                   zählerListe[7]++;
                 }
                 zählerListe[7] = 0;  */
+                Sperren[3] = false;
             if (Sperren[3] == false /* && AblageListe[6][0] == SteineMitte[0] || SteineMitte[0] == "#FF8000" && AblageListe[6][1] == SteineMitte[1] || SteineMitte[1] == "#FF8000"  && AblageListe[6][2] == SteineMitte[2] && AblageListe[6][2] == SteineMitte[2] || SteineMitte[2] == "#FF8000" && AblageListe[6][3] == SteineMitte[3] && AblageListe[6][3] == SteineMitte[3] || SteineMitte[3] == "#FF8000" */ ) {
               console.log("Spielerwechsel eingeleitet");
               setTimeout(function() {
@@ -2285,5 +2305,7 @@ else {
         });
       });
     });
+  }, 1053);
+}, 1053);
   }
 </script>
