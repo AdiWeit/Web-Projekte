@@ -43,7 +43,7 @@
         "Im- mer wenn du Eu- ry- di- ke wegen ih- rer Scha- dens- mar- ker ab- le- gen müs- stest, kannst du 1 Hand- karte ab- wer- fen, um alle Marker von ihr zu ent- fernen und sie auf einen freien Platz zu ver- schie- ben. ", "Held/-in"
       ], */
     [2, ["blue", "blue"], "blue", 1, 3, "Wenn Hylas ins Spiel kommt, ziehe 2 Karten. ", "Held/-in"],
-    [2, ["green", "green"], "green", 1, 3, "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. ", "Held/-in"],
+    [2, ["red", "green", "green"], "green", 1, 3, "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. ", "Held/-in"],
     [1, ["yellow"], "yellow", 2, 2, "Wenn Alkemene ins Spiel kommt, zieht dein Gegner 1 Karte. ", "Held/-in"],
     [2, ["red", "blue"], "red", 0, 3, "1 Ein- heit auf ei- nem zu Kyknos be- nach- bar- ten Platz kann bis zu 2X pro Runde an- grei- fen. ", "Held/-in"],
     [2, ["blue", "yellow"], "blue", 2, 1, "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. ", "Held/-in"],
@@ -1484,17 +1484,17 @@ else {
           kartenSpieler1.pop();
         }
         if (MitteSpieler1[AblageListe[1]][0] == "z" && AblageListe[3][6] == "Ausrüstung" == false) {
+          FähigkeitenKartenAusgespielt();
           MitteSpieler1[AblageListe[1]] = AblageListe[3];
           AblageListe[2] = "beendet";
           textButton = "Meine Karten";
-          FähigkeitenKartenAusgespielt();
         }
         if (MitteSpieler1[AblageListe[1]][0] == "z" == false && AblageListe[3][6] == "Ausrüstung") {
+          FähigkeitenKartenAusgespielt();
           MitteSpieler1[AblageListe[1]][3] += AblageListe[3][3];
           MitteSpieler1[AblageListe[1]][4] += AblageListe[3][4];
           AblageListe[2] = "beendet";
           textButton = "Meine Karten";
-          FähigkeitenKartenAusgespielt();
         }
       } else {
         while (zählerListe[2] < kartenSpieler2.length) {
@@ -1511,17 +1511,17 @@ else {
           kartenSpieler2.pop();
         }
         if (MitteSpieler2[AblageListe[1]][0] == "z" && AblageListe[3][6] == "Ausrüstung" == false) {
+          FähigkeitenKartenAusgespielt();
           MitteSpieler2[AblageListe[1]] = AblageListe[3];
           AblageListe[2] = "beendet";
           textButton = "Meine Karten";
-          FähigkeitenKartenAusgespielt();
         }
         if (MitteSpieler2[AblageListe[1]][0] == "z" == false && AblageListe[3][6] == "Ausrüstung") {
+          FähigkeitenKartenAusgespielt();
           MitteSpieler2[AblageListe[1]][3] += AblageListe[3][3];
           MitteSpieler2[AblageListe[1]][4] += AblageListe[3][4];
           AblageListe[2] = "beendet";
           textButton = "Meine Karten";
-          FähigkeitenKartenAusgespielt();
         }
       }
     }
@@ -1968,18 +1968,11 @@ else {
 
   function FähigkeitenKartenAusgespielt() {
     KartenAusgewählt = [];
-    if (AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ") {
       zählerListe[2] = 0;
       zählerListe[5] = 0;
       if (NameBleibt[0] == name) {
         while (zählerListe[2] < MitteSpieler2.length) {
-          if (MitteSpieler2[zählerListe[2]][0] == "z" == false) {
-
-            if (MitteSpieler2[zählerListe[2]][6] == "Held/-in") {
-              zählerListe[5]++;
-              AblageListe[6] = zählerListe[2]
-            }
-          }
+            Spieler1BesonderheitCheck();
           if (zählerListe[2] + 1 < MitteSpieler2.length) {
             zählerListe[2]++;
           } else {
@@ -1987,6 +1980,7 @@ else {
           }
         }
         zählerListe[2] -= 2;
+        if (AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ") {
         if (zählerListe[5] == 1) {
           MitteSpieler2[AblageListe[6]][4] -= 1;
         }
@@ -1995,15 +1989,21 @@ else {
             AblageListe[2] = "Spieler1AuswahlHeld1SchadenZufügen";
           }, 500);
         }
+      }
+      if (AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. ") {
+      if (zählerListe[5] == 1) {
+        MitteSpieler1[AblageListe[6]][4] += 2;
+      }
+      if (zählerListe[5] > 1) {
+        setTimeout(function() {
+          AblageListe[2] = "Spieler1Auswahl2LebenPlus";
+        }, 500);
+      }
+    }
+      //AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. "
       } else {
         while (zählerListe[2] < MitteSpieler1.length) {
-          if (MitteSpieler1[zählerListe[2]][0] == "z" == false) {
-
-            if (MitteSpieler1[zählerListe[2]][6] == "Held/-in") {
-              zählerListe[5]++;
-              AblageListe[6] = zählerListe[2]
-            }
-          }
+            Spieler2BesonderheitCheck();
           if (zählerListe[2] + 1 < MitteSpieler1.length) {
             zählerListe[2]++;
           } else {
@@ -2011,6 +2011,7 @@ else {
           }
         }
         zählerListe[2] -= 2;
+        if (AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ") {
         if (zählerListe[5] == 1) {
           MitteSpieler1[AblageListe[6]][4] -= 1;
         }
@@ -2020,7 +2021,17 @@ else {
           }, 500);
         }
       }
+      if (AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. ") {
+      if (zählerListe[5] == 1) {
+        MitteSpieler2[AblageListe[6]][4] += 2;
+      }
+      if (zählerListe[5] > 1) {
+        setTimeout(function() {
+          AblageListe[2] = "Spieler2Auswahl2LebenPlus";
+        }, 500);
+      }
     }
+  }
     if (AblageListe[3][5] == "Wenn Hylas ins Spiel kommt, ziehe 2 Karten. ") {
       zweiKartenZiehen();
     }
@@ -2046,30 +2057,37 @@ else {
         AblageListe[2] = "eigeneKarteZumVerschiebenWählen";
       }
     }
-    if (AblageListe[3][5] == "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. ") {
-      //    AblageListe[2] = "wartenKarteAufHandZurrückehmen";
-      /*    zählerListe[2] = 0;
-          while (zählerListe[2] < 6) {
-              if (NameBleibt[0] == name) {
-              if (MitteSpieler2[AblageListe[1]][1].length < 3) {
-                kartenSpieler2[kartenSpieler2.length] = MitteSpieler2[AblageListe[1]][1]
-                MitteSpieler2[AblageListe[1]] = ["z", 0, ""];
-                AblageListe[2] = "beendet";
-              }
-            }
-            else if (MitteSpieler1[AblageListe[1]][1].length < 3) {
-              kartenSpieler1[kartenSpieler2.length] = MitteSpieler2[AblageListe[1]][1]
-              MitteSpieler1[AblageListe[1]] = ["z", 0, ""];
-              AblageListe[2] = "beendet";
-            }
-            zählerListe[2]++;
-          } */
-    }
-    /*  if (AblageListe[3][5] == ) {
-
-    } */
 
   }
+function Spieler1BesonderheitCheck () {
+  if (MitteSpieler2[zählerListe[2]][6] == "Held/-in" && AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. " && MitteSpieler2[zählerListe[2]][0] == "z" == false) {
+    zählerListe[5]++;
+    AblageListe[6] = zählerListe[2]
+  }
+  if (AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. " && MitteSpieler1[zählerListe[2]][0] == "z" == false) {
+    zählerListe[5]++;
+    AblageListe[6] = zählerListe[2]
+  }
+  if (MitteSpieler1[zählerListe[2]][0] < 3 && "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. " && MitteSpieler2[zählerListe[2]][0] == "z" == false) {
+    zählerListe[5]++;
+    AblageListe[6] = zählerListe[2]
+  }
+}
+
+function Spieler2BesonderheitCheck () {
+  if (MitteSpieler1[zählerListe[2]][6] == "Held/-in" && AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. " && MitteSpieler1[zählerListe[2]][0] == "z" == false) {
+    zählerListe[5]++;
+    AblageListe[6] = zählerListe[2]
+  }
+  if (AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. " && MitteSpieler2[zählerListe[2]][0] == "z" == false) {
+    zählerListe[5]++;
+    AblageListe[6] = zählerListe[2]
+  }
+  if (MitteSpieler2[zählerListe[2]][0] < 3 && "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. " && MitteSpieler1[zählerListe[2]][0] == "z" == false) {
+    zählerListe[5]++;
+    AblageListe[6] = zählerListe[2]
+  }
+}
 
   function SiegpunktePlus() {
     if (Siegpunkte[0] == 0) {
