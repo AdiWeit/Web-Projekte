@@ -65,7 +65,7 @@
     [1, ["red"], "red", 1, 2, "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ", "Held/-in"],
     [3, ["yellow", "green", "green"], "green", 0, 4, "Alle Ein- hei- ten auf ei- nem zu Nestor be- nach- bar- ten Platz grei- fen 2X pro Runde an. ", "Held/-in"],
     [0, [], "green", 0, 1, "Wenn der Helm ins Spiel kommt, kann er der ge- gen- ü- ber- lie- gen- den Ein- heit 1 Scha- den zu- fü- gen. ", "Ausrüstung"],
-    [3, ["yellow", "green", "red"], "red", 0, 3, "Im- mer wenn Heabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. ", "Held/-in"] //,
+    [3, ["yellow", "green", "red"], "red", 0, 3, "Im- mer wenn Hekabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. ", "Held/-in"] //,
     /*  [],
       [], */
 
@@ -1840,7 +1840,7 @@ else {
       zählerListe[9] = zählerListe[8]
       zählerListe[8] = 6;
       if (NameBleibt[0] == name) {
-        if (MitteSpieler1[zählerListe[9]][5] == "Im- mer wenn Heabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. " && kartenSpieler1.length > 0) {
+        if (MitteSpieler1[zählerListe[9]][5] == "Im- mer wenn Hekabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. " && kartenSpieler1.length > 0) {
           if (confirm('Möchten sie 1 Handkarte abwerfen, um einer gegnerischen Einheit 2 Schaden zu können?')) {
             Sperren[1] = true;
             AblageListe[2] = "Spieler1Auswahl1Auswahl1KarteAblegen";
@@ -1854,7 +1854,7 @@ else {
         }
       }
       else {
-        if (MitteSpieler2[zählerListe[9]][5] == "Im- mer wenn Heabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. " && kartenSpieler2.length > 0) {
+        if (MitteSpieler2[zählerListe[9]][5] == "Im- mer wenn Hekabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. " && kartenSpieler2.length > 0) {
           if (confirm('Möchten sie 1 Handkarte abwerfen, um einer gegnerischen Einheit 2 Schaden zu können?')) {
             Sperren[1] = true;
             AblageListe[2] = "Spieler2Auswahl1Auswahl1KarteAblegen";
@@ -1967,6 +1967,7 @@ else {
   }
 
   function FähigkeitenKartenAusgespielt() {
+    KartenAusgewählt = [];
     if (AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ") {
       zählerListe[2] = 0;
       zählerListe[5] = 0;
@@ -2188,6 +2189,7 @@ else {
     Sperren[3] = false;
     dbSet("Olymp", "Siegpunkte" + NameBleibt[0] + NameBleibt[1], Siegpunkte);
     //  dbSet("Olymp", "SteineMitte" + NameBleibt[0] + NameBleibt[1], SteineMitte[0] + "," + SteineMitte[1] + "," + SteineMitte[2] + "," + SteineMitte[3]);
+    setTimeout(function () {
     ZuVarMitteSpieler1();
     dbSet("Olymp", "MitteSpieler1" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
     setTimeout(function () {
@@ -2197,6 +2199,7 @@ else {
     zuVarKartenZiehen();
     dbSet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], AblageListe[0]);
     //    dbSet("Olymp", "NameSpieler" , NameSpieler);
+    dbSet("Olymp", "Siegpunkte" + NameBleibt[0] + NameBleibt[1], Siegpunkte);
     dbGet("Olymp", "KartenZiehen" + NameBleibt[0] + NameBleibt[1], function(result) {
       if (Zustand.length > 1) {
         if (kartenZiehen.length == result.toString().split(';').length == false) {
@@ -2307,5 +2310,6 @@ else {
     });
   }, 1053);
 }, 1053);
+  }, 1375);
   }
 </script>
