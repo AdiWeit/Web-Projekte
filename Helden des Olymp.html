@@ -48,10 +48,13 @@
     [2, ["red", "blue"], "red", 0, 3, "1 Ein- heit auf ei- nem zu Kyknos be- nach- bar- ten Platz kann bis zu 2X pro Runde an- grei- fen. ", "Held/-in"],
     [2, ["blue", "yellow"], "blue", 2, 1, "Wenn Orpheus ins Spiel kommt, kannst du eine geg- ne- ri- sche Ein- heit be- stim- men, die ma- xi- mal 2 Kar- ten kos- tet. Dein Geg- ner muss sie auf die Hand zur- rück- neh- men. ", "Held/-in"],
     [3, ["red", "green", "blue"], "red", 1, 4, "Wenn Kassandra ins Spiel kommt, fügt sie al- len Ein- hei- ten 1 Scha- den zu (auch ei- ge- nen). ", "Held/-in"],
+    [3, ["yellow", "blue", "red"], "red", 1, 4, "Wenn Dolon angreift, fügt er je- der grünen Ein- heit 1 Scha- den zu (auch ei- ge- nen). ", "Held/-in"],
     [1, ["red"], "red", 1, 0, "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. ", "Ausrüstung"],
     [1, ["yellow"], "yellow", 1, 0, "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. ", "Ausrüstung"],
     [1, ["green"], "green", 1, 0, "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. ", "Ausrüstung"],
     [1, ["blue"], "blue", 1, 0, "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. ", "Ausrüstung"],
+    [1,["blue"], "blue", 1, 2, "Wenn die Atlantiden ins Spiel kommen, ziehe 1 Karte. ", "Soldat/-in" ],
+    [1,["blue"], "blue", 1, 2, "Wenn die Atlantiden ins Spiel kommen, ziehe 1 Karte. ", "Soldat/-in" ],
     [0, [], "green", 0, 2, "keine besonderheit. ", "Soldat/-in"],
     [0, [], "yellow", 0, 2, "keine besonderheit. ", "Soldat/-in"],
     [0, [], "blue", 0, 2, "keine besonderheit. ", "Soldat/-in"],
@@ -71,6 +74,10 @@
     [0, [], "green", 1, 1, "keine besonderheit ", "Ausrüstung"],
     [2, ["yellow", "green"], "green", 2, 2, "Wenn Idmon ins Spiel kommt, kannst du 1 ei- ge- ne Ein- heit auf einen ei- ge- nen frei- en Platz ver- schie- ben. ", "Held/-in"],
     [2, ["green"], "green", 1, 2, "Wenn Idmon ins Spiel kommt, kannst du 1 ei- ge- ne Ein- heit auf einen ei- ge- nen frei- en Platz ver- schie- ben. ", "Held/-in"],
+    [1, ["yellow"], "yellow", 1, 2, "Wenn die Myrmidonen ins Spiel kom- men, er- hältst du 1 Sieg- punkt da- zu. ", "Held/-in"],
+    [1, ["yellow"], "yellow", 1, 2, "Wenn die Myrmidonen ins Spiel kom- men, er- hältst du 1 Sieg- punkt da- zu. ", "Held/-in"],
+    [2, ["yellow", "green"], "green", 1, 2, "Wenn die Danaer ins Spiel kom- men, kannst du 1 Scha- den auf ei- ner ei- ge- nen Ein- heit hei- len. ", "Held/-in"],
+    [2, ["yellow", "green"], "green", 1, 2, "Wenn die Danaer ins Spiel kom- men, kannst du 1 Scha- den auf ei- ner ei- ge- nen Ein- heit hei- len. ", "Held/-in"],
     [0, [], "yellow", 1, 1, "keine besonderheit ", "Soldat/-in"],
     [0, [], "yellow", 1, 1, "keine besonderheit ", "Soldat/-in"],
     [2, ["red", "green"], "green", 1, 3, "Im- mer wenn Iphigenie an- greift und eine rote Ein- heit als Geg- ner hat, fügt sie 1 Scha- den mehr zu. ", "Held/-in"],
@@ -82,6 +89,8 @@
     [1, ["red"], "red", 1, 2, "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ", "Held/-in"],
     [1, ["red"], "red", 1, 2, "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ", "Held/-in"],
     [1, ["red"], "red", 1, 2, "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. ", "Held/-in"],
+    [2, ["red", "red"], "red", 1, 2, "Wenn Euphorbos ins Spiel kommt, kann er ei- nem geg- ne- ri- schen Helden 2 Schaden zufügen. ", "Held/-in" ],
+    [2, ["red", "red"], "red", 1, 2, "Wenn Euphorbos ins Spiel kommt, kann er ei- nem geg- ne- ri- schen Helden 2 Schaden zufügen. ", "Held/-in" ],
     [3, ["yellow", "green", "green"], "green", 0, 4, "Alle Ein- hei- ten auf ei- nem zu Nestor be- nach- bar- ten Platz grei- fen 2X pro Runde an. ", "Held/-in"],
     [0, [], "green", 0, 1, "Wenn der Helm ins Spiel kommt, kann er der ge- gen- ü- ber- lie- gen- den Ein- heit 1 Scha- den zu- fü- gen. ", "Ausrüstung"],
     [0, [], "yellow", 0, 1, "Wenn der Helm ins Spiel kommt, kann er der ge- gen- ü- ber- lie- gen- den Ein- heit 1 Scha- den zu- fü- gen. ", "Ausrüstung"],
@@ -1549,20 +1558,31 @@ else {
     }
     if (AblageListe[2] == "Spieler2AuswahlHeldSchadenZufügen") {
       if (MitteSpieler1[AblageListe[1]][6] == "Held/-in") {
-        MitteSpieler1[AblageListe[1]][4] -= AblageListe[4];
-        AblageListe[4] = "beendet";
+        MitteSpieler1[AblageListe[1]][4] -= AblageListe[5];
+        AblageListe[5] = "beendet";
         AblageListe[2] = "beendet";
       }
     }
     if (AblageListe[2] == "Spieler1AuswahlHeldSchadenZufügen") {
       if (MitteSpieler2[AblageListe[1]][6] == "Held/-in") {
-        MitteSpieler2[AblageListe[1]][4] -= AblageListe[4];
+        MitteSpieler2[AblageListe[1]][4] -= AblageListe[5];
         AblageListe[2] = "beendet";
-        AblageListe[4] = "beendet";
+        AblageListe[5] = "beendet";
       }
     }
 
-    if (kartenSpieler1[AblageListe[1]] == undefined == false && AblageListe[2] == "Spieler1Auswahl1Auswahl1KarteAblegen") {
+    if (AblageListe[2] == "Spieler1AuswahlLebenPlus") {
+        MitteSpieler1[AblageListe[1]][4] += AblageListe[5];
+        AblageListe[5] = "beendet";
+        AblageListe[2] = "beendet";
+    }
+    if (AblageListe[2] == "Spieler2AuswahlLebenPlus") {
+        MitteSpieler2[AblageListe[1]][4] += AblageListe[5];
+        AblageListe[2] = "beendet";
+        AblageListe[5] = "beendet";
+    }
+//Spieler2Auswahl2LebenPlus
+    if (kartenSpieler1[AblageListe[1]] == undefined == false && AblageListe[2] == "Spieler1Auswahl1KarteAblegen") {
       kartenSpieler1[AblageListe[1]] = "z";
       kartenSpieler1.sort();
       kartenSpieler1.pop();
@@ -1571,7 +1591,7 @@ else {
         AblageListe[2] = "Spieler1Auswahl2SchadenZufügen";
       }, 500);
     }
-    if (kartenSpieler2[AblageListe[1]] == undefined == false && AblageListe[2] == "Spieler2Auswahl1Auswahl1KarteAblegen") {
+    if (kartenSpieler2[AblageListe[1]] == undefined == false && AblageListe[2] == "Spieler2Auswahl1KarteAblegen") {
       kartenSpieler2[AblageListe[1]] = "z";
       kartenSpieler2.sort();
       kartenSpieler2.pop();
@@ -1867,10 +1887,15 @@ else {
         if (MitteSpieler1[zählerListe[9]][5] == "Im- mer wenn Hekabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. " && kartenSpieler1.length > 0) {
           if (confirm('Möchten sie 1 Handkarte abwerfen, um einer gegnerischen Einheit 2 Schaden zu können?')) {
             Sperren[1] = true;
-            AblageListe[2] = "Spieler1Auswahl1Auswahl1KarteAblegen";
+            AblageListe[2] = "Spieler1Auswahl1KarteAblegen";
           } else {
             VorAngriffBeenden();
           }
+          }
+            else if (MitteSpieler1[zählerListe[9]][5] == "Wenn Dolon angreift, fügt er je- der grünen Ein- heit 1 Scha- den zu (auch ei- ge- nen). ") {
+              AblageListe[5] = "green";
+              FarbenMitteCheck();
+              VorAngriffBeenden();
         } else if (MitteSpieler1[zählerListe[9]][5] == "") {
 
         } else {
@@ -1881,12 +1906,14 @@ else {
         if (MitteSpieler2[zählerListe[9]][5] == "Im- mer wenn Hekabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. " && kartenSpieler2.length > 0) {
           if (confirm('Möchten sie 1 Handkarte abwerfen, um einer gegnerischen Einheit 2 Schaden zu können?')) {
             Sperren[1] = true;
-            AblageListe[2] = "Spieler2Auswahl1Auswahl1KarteAblegen";
+            AblageListe[2] = "Spieler2Auswahl1KarteAblegen";
           } else {
             VorAngriffBeenden();
           }
-        } else if (MitteSpieler2[zählerListe[9]][5] == "") {
-
+        } else if (MitteSpieler2[zählerListe[9]][5] == "Wenn Dolon angreift, fügt er je- der grünen Ein- heit 1 Scha- den zu (auch ei- ge- nen). ") {
+          AblageListe[5] = "green";
+          FarbenMitteCheck();
+          VorAngriffBeenden();
         } else {
           VorAngriffBeenden();
         }
@@ -2010,28 +2037,55 @@ else {
         }
         if (zählerListe[5].length > 1) {
           setTimeout(function() {
-            AblageListe[4] = 1;
+            AblageListe[5] = 1;
             AblageListe[2] = "Spieler1AuswahlHeldSchadenZufügen";
           }, 500);
         }
       }
-
+      if (AblageListe[3][5] == "Wenn Euphorbos ins Spiel kommt, kann er ei- nem geg- ne- ri- schen Helden 2 Schaden zufügen. ") {
+      if (zählerListe[5].length == 1) {
+        MitteSpieler2[AblageListe[6]][4] -= 2;
+      }
+      if (zählerListe[5].length > 1) {
+        setTimeout(function() {
+          AblageListe[5] = 2;
+          AblageListe[2] = "Spieler1AuswahlHeldSchadenZufügen";
+        }, 500);
+      }
+    }
       if (AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. ") {
       if (zählerListe[5].length == 1) {
         MitteSpieler1[AblageListe[6]][4] += 2;
       }
       if (zählerListe[5].length > 1) {
         setTimeout(function() {
-          AblageListe[2] = "Spieler1Auswahl2LebenPlus";
+          AblageListe[5] = 2;
+          AblageListe[2] = "Spieler1AuswahlLebenPlus";
         }, 500);
       }
     }
+    if (AblageListe[3][5] == "Wenn die Danaer ins Spiel kom- men, kannst du 1 Scha- den auf ei- ner ei- ge- nen Ein- heit hei- len. ") {
+    if (zählerListe[5].length == 1) {
+      MitteSpieler1[AblageListe[6]][4] += 1;
+    }
+    if (zählerListe[5].length > 1) {
+      setTimeout(function() {
+        AblageListe[5] = 1;
+        AblageListe[2] = "Spieler1AuswahlLebenPlus";
+      }, 500);
+    }
+  }
 
       if (AblageListe[3][5] == "Wenn Diomedes ins Spiel kommt, kannst du bei al- len dei- nen Hel- den 1 Scha- den hei- len. ") {
         while (zählerListe[5].length > 0) {
           MitteSpieler1[zählerListe[5][0]][4]++;
           zählerListe[5].shift();
         }
+    }
+
+    if (AblageListe[3][5] == "Wenn die Atlantiden ins Spiel kommen, ziehe 1 Karte. ") {
+      kartenSpieler1[kartenSpieler1.length] = kartenZiehen[0];
+      kartenZiehen.shift();
     }
       } else {
         while (zählerListe[2] < MitteSpieler1.length) {
@@ -2049,11 +2103,22 @@ else {
         }
         if (zählerListe[5].length > 1) {
           setTimeout(function() {
-            AblageListe[4] = 1;
+            AblageListe[5] = 1;
             AblageListe[2] = "Spieler2AuswahlHeldSchadenZufügen";
           }, 500);
         }
       }
+      if (AblageListe[3][5] == "Wenn Euphorbos ins Spiel kommt, kann er ei- nem geg- ne- ri- schen Helden 2 Schaden zufügen. ") {
+      if (zählerListe[5].length == 1) {
+        MitteSpieler1[AblageListe[6]][4] -= 2;
+      }
+      if (zählerListe[5].length > 1) {
+        setTimeout(function() {
+          AblageListe[5] = 2;
+          AblageListe[2] = "Spieler2AuswahlHeldSchadenZufügen";
+        }, 500);
+      }
+    }
       if (AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. ") {
       if (zählerListe[5].length == 1) {
         MitteSpieler2[AblageListe[6]][4] += 2;
@@ -2064,15 +2129,20 @@ else {
         }, 500);
       }
     }
+    if (AblageListe[3][5] == "Wenn die Atlantiden ins Spiel kommen, ziehe 1 Karte. ") {
+      kartenSpieler2[kartenSpieler2.length] = kartenZiehen[0];
+      kartenZiehen.shift();
+    }
   }
+
   if (AblageListe[3][5] == "Wenn Kassandra ins Spiel kommt, fügt sie al- len Ein- hei- ten 1 Scha- den zu (auch ei- ge- nen). ") {
-    AblageListe[4] = "Alle";
+    AblageListe[5] = "Alle";
     FarbenMitteCheck();
   }
     if (AblageListe[3][5] == "Wenn Hylas ins Spiel kommt, ziehe 2 Karten. ") {
       zweiKartenZiehen();
     }
-    if (AblageListe[3][5] == "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. ") {
+    if (AblageListe[3][5] == "Wenn das Schwert ins Spiel kommt, er- hältst du 1 Sieg- punkt. " || AblageListe[3][5] == "Wenn die Myrmidonen ins Spiel kom- men, er- hältst du 1 Sieg- punkt da- zu. ") {
       SiegpunktePlus();
     }
 
@@ -2097,12 +2167,12 @@ else {
 
   }
 
-function Spieler1BesonderheitCheck () {
-  if (MitteSpieler2[zählerListe[2]][6] == "Held/-in" && AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. " && MitteSpieler2[zählerListe[2]][0] == "z" == false) {
+function Spieler1BesonderheitCheck() {
+  if (MitteSpieler2[zählerListe[2]][6] == "Held/-in" && AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. " || AblageListe[3][5] == "Wenn Euphorbos ins Spiel kommt, kann er ei- nem geg- ne- ri- schen Helden 2 Schaden zufügen. "  && MitteSpieler2[zählerListe[2]][0] == "z" == false) {
     zählerListe[5][zählerListe[5].length] = zählerListe[2];
     AblageListe[6] = zählerListe[2]
   }
-  if (AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. " && MitteSpieler1[zählerListe[2]][0] == "z" == false) {
+  if (AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. " || AblageListe[3][5] == "Wenn die Danaer ins Spiel kom- men, kannst du 1 Scha- den auf ei- ner ei- ge- nen Ein- heit hei- len. " && MitteSpieler1[zählerListe[2]][0] == "z" == false) {
     zählerListe[5][zählerListe[5].length] = zählerListe[2];
     AblageListe[6] = zählerListe[2]
   }
@@ -2116,12 +2186,12 @@ function Spieler1BesonderheitCheck () {
   }
 }
 
-function Spieler2BesonderheitCheck () {
-  if (MitteSpieler1[zählerListe[2]][6] == "Held/-in" && AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. " && MitteSpieler1[zählerListe[2]][0] == "z" == false) {
+function Spieler2BesonderheitCheck() {
+  if (MitteSpieler1[zählerListe[2]][6] == "Held/-in" && AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. " || AblageListe[3][5] == "Wenn Euphorbos ins Spiel kommt, kann er ei- nem geg- ne- ri- schen Helden 2 Schaden zufügen. "  && MitteSpieler1[zählerListe[2]][0] == "z" == false) {
     zählerListe[5][zählerListe[5].length] = zählerListe[2];
     AblageListe[6] = zählerListe[2]
   }
-  if (AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. " && MitteSpieler2[zählerListe[2]][0] == "z" == false) {
+  if (AblageListe[3][5] == "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. " || AblageListe[3][5] == "Wenn die Danaer ins Spiel kom- men, kannst du 1 Scha- den auf ei- ner ei- ge- nen Ein- heit hei- len. " && MitteSpieler2[zählerListe[2]][0] == "z" == false) {
     zählerListe[5][zählerListe[5].length] = zählerListe[2];
     AblageListe[6] = zählerListe[2]
   }
@@ -2135,7 +2205,7 @@ function FarbenMitteCheck() {
   zählerListe[2] = 0;
   while (zählerListe[2] < 6) {
     if (MitteSpieler1[zählerListe[2]][0] == "z" == false) {
-    if (MitteSpieler1[zählerListe[2]][0] == "z" == false && MitteSpieler1[zählerListe[2]][2] == AblageListe[4] || AblageListe[4] == "Alle") {
+    if (MitteSpieler1[zählerListe[2]][2] == AblageListe[5] || AblageListe[5] == "Alle") {
       MitteSpieler1[zählerListe[2]][4]--;
     }
     }
@@ -2144,13 +2214,13 @@ function FarbenMitteCheck() {
   zählerListe[2] = 0;
   while (zählerListe[2] < 6) {
     if (MitteSpieler2[zählerListe[2]][0] == "z" == false) {
-    if (MitteSpieler2[zählerListe[2]][2] == AblageListe[4] || AblageListe[4] == "Alle") {
+    if (MitteSpieler2[zählerListe[2]][2] == AblageListe[5] || AblageListe[5] == "Alle") {
         MitteSpieler2[zählerListe[2]][4]--;
       }
     }
     zählerListe[2]++;
   }
-  AblageListe[4] = "beendet";
+  AblageListe[5] = "beendet";
 }
 
   function SiegpunktePlus() {
