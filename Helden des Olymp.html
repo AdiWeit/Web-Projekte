@@ -41,6 +41,7 @@
     /*  [2, ["yellow", "yellow"], "yellow", 1, 2,
         "Im- mer wenn du Eu- ry- di- ke wegen ih- rer Scha- dens- mar- ker ab- le- gen müs- stest, kannst du 1 Hand- karte ab- wer- fen, um alle Marker von ihr zu ent- fernen und sie auf einen freien Platz zu ver- schie- ben. ", "Held/-in"
       ], */
+    [3, ["green", "red", "yellow"], "yellow", 1, 3, "Immer wenn Bellerophon an- greift, er- hälst du 1 Siegpunkt da- zu. ", "Held/-in"],
     [2, ["blue", "blue"], "blue", 1, 3, "Wenn Hylas ins Spiel kommt, ziehe 2 Karten. ", "Held/-in"],
     [2, ["blue", "blue"], "blue", 1, 3, "Wenn Hylas ins Spiel kommt, ziehe 2 Karten. ", "Held/-in"],
     [3, ["red", "green", "green"], "green", 1, 3, "Wenn Neoptolemos ins Spiel kommt, kannst du bis zu 2 Scha- den auf ein- em ei- ge- nen Hel- den hei- len. ", "Held/-in"],
@@ -72,6 +73,8 @@
     [0, [], "blue", 1, 1, "keine besonderheit ", "Ausrüstung"],
     [0, [], "yellow", 1, 1, "keine besonderheit ", "Ausrüstung"],
     [0, [], "green", 1, 1, "keine besonderheit ", "Ausrüstung"],
+    [1, ["blue"], "blue", 1, 1, "Immer wenn Pandora an- greift und Scha- den zufügt, ziehe 1 Karte. ", "Held/-in"],
+    [1, ["blue"],"blue", 1, 1, "Immer wenn Telemachos an- greift und den Ge- biets- bonus er- hält, zie- he zu- sätz- lich 1 Karte. ", "Held/in"],
     [2, ["yellow", "green"], "green", 2, 2, "Wenn Idmon ins Spiel kommt, kannst du 1 ei- ge- ne Ein- heit auf einen ei- ge- nen frei- en Platz ver- schie- ben. ", "Held/-in"],
     [2, ["green"], "green", 1, 2, "Wenn Idmon ins Spiel kommt, kannst du 1 ei- ge- ne Ein- heit auf einen ei- ge- nen frei- en Platz ver- schie- ben. ", "Held/-in"],
     [1, ["yellow"], "yellow", 1, 2, "Wenn die Myrmidonen ins Spiel kom- men, er- hältst du 1 Sieg- punkt da- zu. ", "Held/-in"],
@@ -615,6 +618,19 @@
           }
           */
       canvas.fillRect(Koordinaten[0] + 20, 410 + 88, 140, 207)
+      if (MitteSpieler1[zähler][2] == "silver") {
+       canvas.fillStyle = "red";
+       canvas.fillRect(Koordinaten[0] + 20, 410 + 88 - Koordinaten[3], 140/2, 207/2)
+       canvas.fillStyle = "yellow";
+       "yellow"
+        canvas.fillRect(Koordinaten[0] + 20 + 140/2, 410 + 88 - Koordinaten[3] + 207/2, 140/2, 207/2)
+       canvas.fillStyle = "blue";
+       "blue"
+        canvas.fillRect(Koordinaten[0] + 20, 410 + 88 - Koordinaten[3] + 207/2, 140/2, 207/2)
+       canvas.fillStyle = "green";
+       "green"
+        canvas.fillRect(Koordinaten[0] + 20 + 140/2, 410 + 88 - Koordinaten[3], 140/2, 207/2)
+      }
       // Werte Karte ich (Angriff/Verteidigung/Einheit)
       canvas.fillStyle = "white";
       canvas.font = "37px Georgia";
@@ -703,6 +719,19 @@
         }
         */
       canvas.fillRect(Koordinaten[0] + 20, 410 - 385, 140, 207)
+      if (MitteSpieler2[zähler][2] == "silver") {
+       canvas.fillStyle = "red";
+       canvas.fillRect(Koordinaten[0] + 20, 410 + 88 - Koordinaten[3], 140/2, 207/2)
+       canvas.fillStyle = "yellow";
+       "yellow"
+        canvas.fillRect(Koordinaten[0] + 20 + 140/2, 410 + 88 - Koordinaten[3] + 207/2, 140/2, 207/2)
+       canvas.fillStyle = "blue";
+       "blue"
+        canvas.fillRect(Koordinaten[0] + 20, 410 + 88 - Koordinaten[3] + 207/2, 140/2, 207/2)
+       canvas.fillStyle = "green";
+       "green"
+        canvas.fillRect(Koordinaten[0] + 20 + 140/2, 410 + 88 - Koordinaten[3], 140/2, 207/2)
+      }
       canvas.fillStyle = "white";
       canvas.font = "37px Georgia";
       // Werte Karte Gegner (Angriff/Verteidigung/Einheit)
@@ -782,6 +811,7 @@ else {
       canvas.fillStyle = "white"
       canvas.fillText("Angreifen", 1380 - 170, 430);
     }
+
   }
 
 
@@ -902,6 +932,19 @@ else {
           canvas.fillRect(Koordinaten[0], 390 + 88 - Koordinaten[3], 180, 250)
           canvas.fillStyle = kartenSpieler1[zähler][2]; //Farbe
           canvas.fillRect(Koordinaten[0] + 20, 410 + 88 - Koordinaten[3], 140, 207)
+          if (kartenSpieler1[zähler][2] == "silver") {
+           canvas.fillStyle = "red";
+           canvas.fillRect(Koordinaten[0] + 20, 410 + 88 - Koordinaten[3], 140/2, 207/2)
+           canvas.fillStyle = "yellow";
+           "yellow"
+            canvas.fillRect(Koordinaten[0] + 20 + 140/2, 410 + 88 - Koordinaten[3] + 207/2, 140/2, 207/2)
+           canvas.fillStyle = "blue";
+           "blue"
+            canvas.fillRect(Koordinaten[0] + 20, 410 + 88 - Koordinaten[3] + 207/2, 140/2, 207/2)
+           canvas.fillStyle = "green";
+           "green"
+            canvas.fillRect(Koordinaten[0] + 20 + 140/2, 410 + 88 - Koordinaten[3], 140/2, 207/2)
+          }
           // Werte Karte ich (Angriff/Verteidigung/Einheit)
           canvas.fillStyle = "white";
           canvas.font = "37px Georgia";
@@ -956,6 +999,19 @@ else {
         canvas.fillRect(Koordinaten[0], 390 + 88 - Koordinaten[3], 180, 250)
         canvas.fillStyle = kartenSpieler2[zähler][2]; //Farbe
         canvas.fillRect(Koordinaten[0] + 20, 410 + 88 - Koordinaten[3], 140, 207)
+        if (kartenSpieler1[zähler][2] == "silver") {
+          canvas.fillStyle = "red";
+          canvas.fillRect(Koordinaten[0] + 20, 410 + 88 - Koordinaten[3], 140/2, 207/2)
+         canvas.fillStyle = "yellow";
+         "yellow"
+          canvas.fillRect(Koordinaten[0] + 20 + 140/2, 410 + 88 - Koordinaten[3] + 207/2, 140/2, 207/2)
+         canvas.fillStyle = "blue";
+         "blue"
+          canvas.fillRect(Koordinaten[0] + 20, 410 + 88 - Koordinaten[3] + 207/2, 140/2, 207/2)
+         canvas.fillStyle = "green";
+         "green"
+          canvas.fillRect(Koordinaten[0] + 20 + 140/2, 410 + 88 - Koordinaten[3], 140/2, 207/2)
+        }
         // Werte Karte ich (Angriff/Verteidigung/Einheit)
         canvas.fillStyle = "white";
         canvas.font = "37px Georgia";
@@ -1232,6 +1288,7 @@ else {
           farbenVorhanden[2] = [];
           farbenVorhanden[3] = [];
           farbenVorhanden[4] = [];
+          farbenVorhanden[5] = [];
           zählerListe[2] = 0;
           while (zählerListe[2] < farbenVorhanden[0].length) { //console.log(012345678901234578);
             if (farbenVorhanden[0][zählerListe[2]] == "red") {
@@ -1245,6 +1302,9 @@ else {
             }
             if (farbenVorhanden[0][zählerListe[2]] == "yellow") {
               farbenVorhanden[4][farbenVorhanden[4].length] = zählerListe[2]
+            }
+            if (farbenVorhanden[0][zählerListe[2]] == "silver") {
+              farbenVorhanden[5][farbenVorhanden[5].length] = zählerListe[2]
             }
             zählerListe[2]++;
           }
@@ -1498,64 +1558,6 @@ else {
         }
       }
     }
-    if (AblageListe[2] == "AuswahlKarteAblegen" && AblageListe[1] > -1) {
-      zählerListe[2] = 0;
-      if (NameBleibt[0] == name) {
-        while (zählerListe[2] < kartenSpieler1.length) {
-          if (kartenSpieler1[zählerListe[2]][0] == AblageListe[3][0] && kartenSpieler1[zählerListe[2]][1] == AblageListe[3][1] && kartenSpieler1[zählerListe[2]][2] == AblageListe[3][2] && kartenSpieler1[zählerListe[2]][3] == AblageListe[3][3] &&
-            kartenSpieler1[zählerListe[2]][4] == AblageListe[3][4] && kartenSpieler1[zählerListe[2]][5] == AblageListe[3][5] && kartenSpieler1[zählerListe[2]][6] == AblageListe[3][6]) {
-            kartenSpieler1[zählerListe[2]] = "z";
-          }
-          zählerListe[2]++;
-        }
-        //  kartenSpieler1[AblageListe[4]] = "z";
-        kartenSpieler1.sort();
-        zählerListe[2] = 1;
-        while (kartenSpieler1.length > 0 && kartenSpieler1[kartenSpieler1.length - 1][0] == "z") { //console.log(0123456789012345789012);
-          kartenSpieler1.pop();
-        }
-        if (MitteSpieler1[AblageListe[1]][0] == "z" && AblageListe[3][6] == "Ausrüstung" == false) {
-          FähigkeitenKartenAusgespielt();
-          MitteSpieler1[AblageListe[1]] = AblageListe[3];
-          AblageListe[2] = "beendet";
-          textButton = "Meine Karten";
-        }
-        if (MitteSpieler1[AblageListe[1]][0] == "z" == false && AblageListe[3][6] == "Ausrüstung") {
-          FähigkeitenKartenAusgespielt();
-          MitteSpieler1[AblageListe[1]][3] += AblageListe[3][3];
-          MitteSpieler1[AblageListe[1]][4] += AblageListe[3][4];
-          AblageListe[2] = "beendet";
-          textButton = "Meine Karten";
-        }
-      } else {
-        while (zählerListe[2] < kartenSpieler2.length) {
-          if (kartenSpieler2[zählerListe[2]][0] == AblageListe[3][0] && kartenSpieler2[zählerListe[2]][1] == AblageListe[3][1] && kartenSpieler2[zählerListe[2]][2] == AblageListe[3][2] && kartenSpieler2[zählerListe[2]][3] == AblageListe[3][3] &&
-            kartenSpieler2[zählerListe[2]][4] == AblageListe[3][4] && kartenSpieler2[zählerListe[2]][5] == AblageListe[3][5] && kartenSpieler2[zählerListe[2]][6] == AblageListe[3][6]) {
-            kartenSpieler2[zählerListe[2]] = "z";
-          }
-          zählerListe[2]++;
-        }
-        //  kartenSpieler2[AblageListe[4]] = "z";
-        kartenSpieler2.sort();
-        zählerListe[2] = 1;
-        while (kartenSpieler2.length > 0 && kartenSpieler2[kartenSpieler2.length - 1][0] == "z") { //console.log(0123456789012345789012);
-          kartenSpieler2.pop();
-        }
-        if (MitteSpieler2[AblageListe[1]][0] == "z" && AblageListe[3][6] == "Ausrüstung" == false) {
-          FähigkeitenKartenAusgespielt();
-          MitteSpieler2[AblageListe[1]] = AblageListe[3];
-          AblageListe[2] = "beendet";
-          textButton = "Meine Karten";
-        }
-        if (MitteSpieler2[AblageListe[1]][0] == "z" == false && AblageListe[3][6] == "Ausrüstung") {
-          FähigkeitenKartenAusgespielt();
-          MitteSpieler2[AblageListe[1]][3] += AblageListe[3][3];
-          MitteSpieler2[AblageListe[1]][4] += AblageListe[3][4];
-          AblageListe[2] = "beendet";
-          textButton = "Meine Karten";
-        }
-      }
-    }
     if (AblageListe[2] == "Spieler2AuswahlHeldSchadenZufügen") {
       if (MitteSpieler1[AblageListe[1]][6] == "Held/-in") {
         MitteSpieler1[AblageListe[1]][4] -= AblageListe[5];
@@ -1611,7 +1613,7 @@ else {
       MitteSpieler1[AblageListe[1]][4] -= 2;
       VorAngriffBeenden();
       }
-      if (AblageListe[2] == "gegnerischeKarteZumVerschiebenWählen" && NameBleibt[0] == name && AblageListe[2][0] == "z" == false) {
+      if (AblageListe[2] == "gegnerischeKarteZumVerschiebenWählen" && NameBleibt[0] == name && AblageListe[0][AblageListe[1]][5] == "Wenn Penelope ins Spiel kommt, kannst du 1 geg- ne- ri- sche Ein- heit auf einen frei- en Platz des Geg- ners ver- schie- ben. " == false && AblageListe[0][AblageListe[1]][0] == "z" == false) {
         AblageListe[4] = MitteSpieler2[AblageListe[1]];
         MitteSpieler2[AblageListe[1]] = ["z", 0, ""];
         setTimeout(function () {
@@ -1619,22 +1621,21 @@ else {
         }, 300);
 
       }
-      else if (AblageListe[2] == "gegnerischeKarteZumVerschiebenWählen" && NameBleibt[1] == name && AblageListe[2][0] == "z" == false) {
+      else if (AblageListe[2] == "gegnerischeKarteZumVerschiebenWählen" && NameBleibt[1] == name && AblageListe[0][AblageListe[1]][5] == "Wenn Penelope ins Spiel kommt, kannst du 1 geg- ne- ri- sche Ein- heit auf einen frei- en Platz des Geg- ners ver- schie- ben. " == false && AblageListe[0][AblageListe[1]][0] == "z" == false) {
         AblageListe[4] = MitteSpieler1[AblageListe[1]];
         MitteSpieler1[AblageListe[1]] = ["z", 0, ""];
-        setTimeout(function () {
+        setTimeout(function () { [2, ["yellow", "green"], "green", 2, 2, "Wenn Idmon ins Spiel kommt, kannst du 1 ei- ge- ne Ein- heit auf einen ei- ge- nen frei- en Platz ver- schie- ben. ", "Held/-in"]
           AblageListe[2] = "Spieler2gegnerischeEinheitNeuHinlegen";
         }, 300);
       }
-
-      if (AblageListe[2] == "eigeneKarteZumVerschiebenWählen" && NameBleibt[0] == name && AblageListe[2][0] == "z" == false) {
+      if (AblageListe[2] == "eigeneKarteZumVerschiebenWählen" && NameBleibt[0] == name && AblageListe[0][AblageListe[1]][5] == "Wenn Idmon ins Spiel kommt, kannst du 1 ei- ge- ne Ein- heit auf einen ei- ge- nen frei- en Platz ver- schie- ben. " == false && AblageListe[0][AblageListe[1]][0] == "z" == false) {
         AblageListe[4] = MitteSpieler1[AblageListe[1]];
         MitteSpieler1[AblageListe[1]] = ["z", 0, ""];
         setTimeout(function () {
           AblageListe[2] = "Spieler1eigeneEinheitNeuHinlegen";
         }, 300);
       }
-      else if (AblageListe[2] == "eigeneKarteZumVerschiebenWählen" && NameBleibt[1] == name && AblageListe[2][0] == "z" == false) {
+      else if (AblageListe[2] == "eigeneKarteZumVerschiebenWählen" && NameBleibt[1] == name && AblageListe[0][AblageListe[1]][5] == "Wenn Idmon ins Spiel kommt, kannst du 1 ei- ge- ne Ein- heit auf einen ei- ge- nen frei- en Platz ver- schie- ben. " == false && AblageListe[0][AblageListe[1]][0] == "z" == false) {
         AblageListe[4] = MitteSpieler2[AblageListe[1]];
         MitteSpieler2[AblageListe[1]] = ["z", 0, ""];
         setTimeout(function () {
@@ -1711,6 +1712,68 @@ else {
         }
       }
     }
+    if (AblageListe[2] == "AuswahlKarteAblegen" && AblageListe[1] > -1) {
+      zählerListe[2] = 0;
+      if (NameBleibt[0] == name) {
+        while (zählerListe[2] < kartenSpieler1.length) {
+          if (kartenSpieler1[zählerListe[2]][0] == AblageListe[3][0] && kartenSpieler1[zählerListe[2]][1] == AblageListe[3][1] && kartenSpieler1[zählerListe[2]][2] == AblageListe[3][2] && kartenSpieler1[zählerListe[2]][3] == AblageListe[3][3] &&
+            kartenSpieler1[zählerListe[2]][4] == AblageListe[3][4] && kartenSpieler1[zählerListe[2]][5] == AblageListe[3][5] && kartenSpieler1[zählerListe[2]][6] == AblageListe[3][6]) {
+            kartenSpieler1[zählerListe[2]] = "z";
+          }
+          zählerListe[2]++;
+        }
+        //  kartenSpieler1[AblageListe[4]] = "z";
+        kartenSpieler1.sort();
+        zählerListe[2] = 1;
+        while (kartenSpieler1.length > 0 && kartenSpieler1[kartenSpieler1.length - 1][0] == "z") { //console.log(0123456789012345789012);
+          kartenSpieler1.pop();
+        }
+        if (MitteSpieler1[AblageListe[1]][0] == "z" && AblageListe[3][6] == "Ausrüstung" == false) {
+          AblageListe[2] = "beendet";
+          AblageListe[7] = AblageListe[1];
+          FähigkeitenKartenAusgespielt();
+          MitteSpieler1[AblageListe[7]] = AblageListe[3];
+          textButton = "Meine Karten";
+        }
+        if (MitteSpieler1[AblageListe[1]][0] == "z" == false && AblageListe[3][6] == "Ausrüstung") {
+          AblageListe[2] = "beendet";
+          AblageListe[7] = AblageListe[1];
+          FähigkeitenKartenAusgespielt();
+          MitteSpieler1[AblageListe[7]][3] += AblageListe[3][3];
+          MitteSpieler1[AblageListe[7]][4] += AblageListe[3][4];
+          textButton = "Meine Karten";
+        }
+      } else {
+        while (zählerListe[2] < kartenSpieler2.length) {
+          if (kartenSpieler2[zählerListe[2]][0] == AblageListe[3][0] && kartenSpieler2[zählerListe[2]][1] == AblageListe[3][1] && kartenSpieler2[zählerListe[2]][2] == AblageListe[3][2] && kartenSpieler2[zählerListe[2]][3] == AblageListe[3][3] &&
+            kartenSpieler2[zählerListe[2]][4] == AblageListe[3][4] && kartenSpieler2[zählerListe[2]][5] == AblageListe[3][5] && kartenSpieler2[zählerListe[2]][6] == AblageListe[3][6]) {
+            kartenSpieler2[zählerListe[2]] = "z";
+          }
+          zählerListe[2]++;
+        }
+        //  kartenSpieler2[AblageListe[4]] = "z";
+        kartenSpieler2.sort();
+        zählerListe[2] = 1;
+        while (kartenSpieler2.length > 0 && kartenSpieler2[kartenSpieler2.length - 1][0] == "z") { //console.log(0123456789012345789012);
+          kartenSpieler2.pop();
+        }
+        if (MitteSpieler2[AblageListe[1]][0] == "z" && AblageListe[3][6] == "Ausrüstung" == false) {
+          AblageListe[2] = "beendet";
+          AblageListe[7] = AblageListe[1];
+          FähigkeitenKartenAusgespielt();
+          MitteSpieler2[AblageListe[7]] = AblageListe[3];
+          textButton = "Meine Karten";
+        }
+        if (MitteSpieler2[AblageListe[1]][0] == "z" == false && AblageListe[3][6] == "Ausrüstung") {
+          AblageListe[2] = "beendet";
+          AblageListe[7] = AblageListe[1];
+          FähigkeitenKartenAusgespielt();
+          MitteSpieler2[AblageListe[7]][3] += AblageListe[3][3];
+          MitteSpieler2[AblageListe[7]][4] += AblageListe[3][4];
+          textButton = "Meine Karten";
+        }
+      }
+    }
   });
 
   function angreifen() {
@@ -1724,11 +1787,19 @@ else {
           if (MitteSpieler1[zählerListe[8]][0] == "z" == false) {
             if (MitteSpieler2[zählerListe[8]][0] == "z" || MitteSpieler1[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
               SiegpunktePlus();
+              if (MitteSpieler1[zählerListe[9]][5] == "Immer wenn Telemachos an- greift und den Ge- biets- bonus er- hält, zie- he zu- sätz- lich 1 Karte. ") {
+                kartenSpieler1[kartenSpieler1.length] = kartenZiehen[0];
+                kartenZiehen.shift();
+              }
             } else if (MitteSpieler2[zählerListe[8]][5] == "rot resistent" && MitteSpieler1[zählerListe[8]][2] == "red" || MitteSpieler2[zählerListe[8]][5] == "grün resistent" && MitteSpieler1[zählerListe[8]][2] == "green" || MitteSpieler2[
                 zählerListe[8]][5] == "blau resistent" && MitteSpieler1[zählerListe[8]][2] == "blue" || MitteSpieler2[zählerListe[8]][5] == "gelb resistent" && MitteSpieler1[zählerListe[8]][2] == "yellow") {
               console.log("resistent");
             } else {
-              MitteSpieler2[zählerListe[8]][4] -= MitteSpieler1[zählerListe[8]][3]
+              MitteSpieler2[zählerListe[8]][4] -= MitteSpieler1[zählerListe[8]][3];
+              if (MitteSpieler2[zählerListe[8]][5] == "Immer wenn Pandora an- greift und Scha- den zufügt, ziehe 1 Karte. ") {
+                kartenSpieler1[kartenSpieler1.length] = kartenZiehen[0];
+                kartenZiehen.shift();
+              }
             }
           }
         }
@@ -1742,9 +1813,17 @@ else {
           VorAngriff();
         } else {
           console.log("Farbsteine");
+          if (MitteSpieler1[zählerListe[9]][5] == "Immer wenn Telemachos an- greift und den Ge- biets- bonus er- hält, zie- he zu- sätz- lich 1 Karte. ") {
+            kartenSpieler1[kartenSpieler1.length] = kartenZiehen[0];
+            kartenZiehen.shift();
+          }
           if (MitteSpieler1[zählerListe[8]][0] == "z" == false) {
             if (MitteSpieler2[zählerListe[8]][0] == "z" || MitteSpieler1[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
               //    if (SteineMitte.length > 1) {
+              if (MitteSpieler1[zählerListe[9]][5] == "Immer wenn Telemachos an- greift und den Ge- biets- bonus er- hält, zie- he zu- sätz- lich 1 Karte. ") {
+                kartenSpieler1[kartenSpieler1.length] = kartenZiehen[0];
+                kartenZiehen.shift();
+              }
               setTimeout(function() {
                 if (SteineMitte.length > 0) {
                   AblageListe[4] = "wartenFarbauswahlSpieler1";
@@ -1764,6 +1843,10 @@ else {
               console.log("resistent");
             } else {
               MitteSpieler2[zählerListe[8]][4] -= MitteSpieler1[zählerListe[8]][3]
+              if (MitteSpieler2[zählerListe[8]][5] == "Immer wenn Pandora an- greift und Scha- den zufügt, ziehe 1 Karte. ") {
+                kartenSpieler1[kartenSpieler1.length] = kartenZiehen[0];
+                kartenZiehen.shift();
+              }
             }
           }
         }
@@ -1778,12 +1861,20 @@ else {
         console.log("Nachziehen");
         if (MitteSpieler1[zählerListe[8]][0] == "z" == false) {
           if (MitteSpieler2[zählerListe[8]][0] == "z" || MitteSpieler1[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
+            if (MitteSpieler1[zählerListe[9]][5] == "Immer wenn Telemachos an- greift und den Ge- biets- bonus er- hält, zie- he zu- sätz- lich 1 Karte. ") {
+              kartenSpieler1[kartenSpieler1.length] = kartenZiehen[0];
+              kartenZiehen.shift();
+            }
             zweiKartenZiehen();
           } else if (MitteSpieler2[zählerListe[8]][5] == "rot resistent" && MitteSpieler1[zählerListe[8]][2] == "red" || MitteSpieler2[zählerListe[8]][5] == "grün resistent" && MitteSpieler1[zählerListe[8]][2] == "green" || MitteSpieler2[zählerListe[
               8]][5] == "blau resistent" && MitteSpieler1[zählerListe[8]][2] == "blue" || MitteSpieler2[zählerListe[8]][5] == "gelb resistent" && MitteSpieler1[zählerListe[8]][2] == "yellow") {
             console.log("resistent");
           } else {
             MitteSpieler2[zählerListe[8]][4] -= MitteSpieler1[zählerListe[8]][3]
+            if (MitteSpieler2[zählerListe[8]][5] == "Immer wenn Pandora an- greift und Scha- den zufügt, ziehe 1 Karte. ") {
+              kartenSpieler1[kartenSpieler1.length] = kartenZiehen[0];
+              kartenZiehen.shift();
+            }
           }
         }
       }
@@ -1794,6 +1885,7 @@ else {
 
     } else {
       //  zählerListe[8] = 0;
+
       while (zählerListe[8] < 3) {
         if (AblageListe[2] == "VorAngriffDurch" + zählerListe[8] == false) {
           VorAngriff();
@@ -1801,12 +1893,24 @@ else {
           if (MitteSpieler2[zählerListe[8]][0] == "z" == false) {
             if (MitteSpieler1[zählerListe[8]][0] == "z" || MitteSpieler2[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
               SiegpunktePlus();
+              if (MitteSpieler2[zählerListe[9]][5] == "Immer wenn Telemachos an- greift und den Ge- biets- bonus er- hält, zie- he zu- sätz- lich 1 Karte. ") {
+               kartenSpieler2[kartenSpieler2.length] = kartenZiehen[0];
+               kartenZiehen.shift();
+               }
+              if (MitteSpieler2[zählerListe[9]][5] == "Immer wenn Telemachos an- greift und den Ge- biets- bonus er- hält, zie- he zu- sätz- lich 1 Karte. ") {
+                kartenSpieler2[kartenSpieler2.length] = kartenZiehen[0];
+                kartenZiehen.shift();
+              }
             } else if (MitteSpieler1[zählerListe[8]][5] == "rot resistent" && MitteSpieler2[zählerListe[8]][2] == "red" || MitteSpieler1[zählerListe[8]][5] == "grün resistent" && MitteSpieler2[zählerListe[8]][2] == "green" || MitteSpieler1[
                 zählerListe[
                   8]][5] == "blau resistent" && MitteSpieler2[zählerListe[8]][2] == "blue" || MitteSpieler1[zählerListe[8]][5] == "gelb resistent" && MitteSpieler2[zählerListe[8]][2] == "yellow") {
               console.log("resistent");
             } else {
               MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
+              if (MitteSpieler2[zählerListe[8]][5] == "Immer wenn Pandora an- greift und Scha- den zufügt, ziehe 1 Karte. ") {
+                kartenSpieler1[kartenSpieler1.length] = kartenZiehen[0];
+                kartenZiehen.shift();
+              }
             }
           }
         }
@@ -1823,6 +1927,10 @@ else {
           if (MitteSpieler2[zählerListe[8]][0] == "z" == false) {
             if (MitteSpieler1[zählerListe[8]][0] == "z" || MitteSpieler2[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
               //  if (SteineMitte.length > 1) {
+              if (MitteSpieler2[zählerListe[9]][5] == "Immer wenn Telemachos an- greift und den Ge- biets- bonus er- hält, zie- he zu- sätz- lich 1 Karte. ") {
+                kartenSpieler2[kartenSpieler2.length] = kartenZiehen[0];
+                kartenZiehen.shift();
+              }
               setTimeout(function() {
                 if (SteineMitte.length > 0) {
                   AblageListe[4] = "wartenFarbauswahlSpieler2";
@@ -1843,6 +1951,10 @@ else {
               console.log("resistent");
             } else {
               MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
+              if (MitteSpieler2[zählerListe[8]][5] == "Immer wenn Pandora an- greift und Scha- den zufügt, ziehe 1 Karte. ") {
+                kartenSpieler1[kartenSpieler1.length] = kartenZiehen[0];
+                kartenZiehen.shift();
+              }
             }
           }
         }
@@ -1857,12 +1969,20 @@ else {
         if (MitteSpieler2[zählerListe[8]][0] == "z" == false) {
           if (MitteSpieler1[zählerListe[8]][0] == "z" || MitteSpieler2[zählerListe[8]][5] == "Im- mer wenn Kassiopeia an- greift, fügt sie kei- nen Scha- den zu, son- dern er- hält den Ge- biets- bon- nus. ") {
             zweiKartenZiehen();
+            if (MitteSpieler2[zählerListe[9]][5] == "Immer wenn Telemachos an- greift und den Ge- biets- bonus er- hält, zie- he zu- sätz- lich 1 Karte. ") {
+             kartenSpieler2[kartenSpieler2.length] = kartenZiehen[0];
+             kartenZiehen.shift();
+             }
           } else if (MitteSpieler1[zählerListe[8]][5] == "rot resistent" && MitteSpieler2[zählerListe[8]][2] == "red" || MitteSpieler1[zählerListe[8]][5] == "grün resistent" && MitteSpieler2[zählerListe[8]][2] == "green" || MitteSpieler1[zählerListe[
               8]]
             [5] == "blau resistent" && MitteSpieler2[zählerListe[8]][2] == "blue" || MitteSpieler1[zählerListe[8]][5] == "gelb resistent" && MitteSpieler2[zählerListe[8]][2] == "yellow") {
             console.log("resistent");
           } else {
             MitteSpieler1[zählerListe[8]][4] -= MitteSpieler2[zählerListe[8]][3]
+            if (MitteSpieler2[zählerListe[8]][5] == "Immer wenn Pandora an- greift und Scha- den zufügt, ziehe 1 Karte. ") {
+              kartenSpieler1[kartenSpieler1.length] = kartenZiehen[0];
+              kartenZiehen.shift();
+            }
           }
         }
         //    zweiKartenZiehen();
@@ -1896,11 +2016,13 @@ else {
               AblageListe[5] = "green";
               FarbenMitteCheck();
               VorAngriffBeenden();
-        } else if (MitteSpieler1[zählerListe[9]][5] == "") {
-
+        } else if (MitteSpieler1[zählerListe[9]][5] == "Immer wenn Bellerophon an- greift, er- hälst du 1 Siegpunkt da- zu. ") {
+          SiegpunktePlus();
+          VorAngriffBeenden();
         } else {
           VorAngriffBeenden();
         }
+
       }
       else {
         if (MitteSpieler2[zählerListe[9]][5] == "Im- mer wenn Hekabe an- greift, kannst du vo- her 1 Hand- kar- te ab- wer- fen, damit sie einer geg- ne- ri- schen Ein- heit 2 Scha- den zufügt. " && kartenSpieler2.length > 0) {
@@ -1913,6 +2035,9 @@ else {
         } else if (MitteSpieler2[zählerListe[9]][5] == "Wenn Dolon angreift, fügt er je- der grünen Ein- heit 1 Scha- den zu (auch ei- ge- nen). ") {
           AblageListe[5] = "green";
           FarbenMitteCheck();
+          VorAngriffBeenden();
+        } else if (MitteSpieler2[zählerListe[9]][5] == "Immer wenn Bellerophon an- greift, er- hälst du 1 Siegpunkt da- zu. ") {
+          SiegpunktePlus();
           VorAngriffBeenden();
         } else {
           VorAngriffBeenden();
@@ -2168,7 +2293,7 @@ else {
   }
 
 function Spieler1BesonderheitCheck() {
-  if (MitteSpieler2[zählerListe[2]][6] == "Held/-in" && AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. " || AblageListe[3][5] == "Wenn Euphorbos ins Spiel kommt, kann er ei- nem geg- ne- ri- schen Helden 2 Schaden zufügen. "  && MitteSpieler2[zählerListe[2]][0] == "z" == false) {
+  if (MitteSpieler2[zählerListe[2]][6] == "Held/-in" && AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. " || AblageListe[3][5] == "Wenn Euphorbos ins Spiel kommt, kann er ei- nem geg- ne- ri- schen Helden 2 Schaden zufügen. "  && MitteSpieler2[zählerListe[2]][6] == "Held/-in") {
     zählerListe[5][zählerListe[5].length] = zählerListe[2];
     AblageListe[6] = zählerListe[2]
   }
@@ -2187,7 +2312,7 @@ function Spieler1BesonderheitCheck() {
 }
 
 function Spieler2BesonderheitCheck() {
-  if (MitteSpieler1[zählerListe[2]][6] == "Held/-in" && AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. " || AblageListe[3][5] == "Wenn Euphorbos ins Spiel kommt, kann er ei- nem geg- ne- ri- schen Helden 2 Schaden zufügen. "  && MitteSpieler1[zählerListe[2]][0] == "z" == false) {
+  if (MitteSpieler1[zählerListe[2]][6] == "Held/-in" && AblageListe[3][5] == "Wenn Rhesos ins Spiel kommt, kann er ei- nem geg- ne- rischen Hel- den 1 Scha- den zu- fü- gen. " || AblageListe[3][5] == "Wenn Euphorbos ins Spiel kommt, kann er ei- nem geg- ne- ri- schen Helden 2 Schaden zufügen. "  && MitteSpieler1[zählerListe[2]][6] == "Held/-in") {
     zählerListe[5][zählerListe[5].length] = zählerListe[2];
     AblageListe[6] = zählerListe[2]
   }
@@ -2244,7 +2369,7 @@ function FarbenMitteCheck() {
 
   function KoordinatenCheck() {
     if (SteineMitte.length == 0) {
-      AblageListe[2] = "beendet"
+      AblageListe[4] = "beendet"
     }
     kartenSpieler1.sort();
     kartenSpieler2.sort();
@@ -2300,6 +2425,49 @@ function FarbenMitteCheck() {
       canvas.fillStyle = "white"
       canvas.font = "50px Georgia";
       canvas.fillText(kartenZiehen.length, 538, 290 + 98);
+      canvas.font = "27px Georgia";
+      zählerListe[2] = "";
+      if (NameSpieler[0] == nameGegner) {
+        zählerListe[2] = "warten auf Gegner"
+      }
+      if (NameSpieler[0] == name) {
+        zählerListe[2] = "Du bist dran!"
+      }
+      if (AblageListe[2] == "AuswahlManuel") {
+        zählerListe[2] = "Farbe zum Bezahlen auswählen";
+      }
+      if (AblageListe[2] == "AuswahlKarteAblegen") {
+        zählerListe[2] =  "Karte auf Spielfeld ablegen";
+      }
+      if (AblageListe[2] == "Spieler2AuswahlHeldSchadenZufügen" || AblageListe[2] == "Spieler1AuswahlHeldSchadenZufügen") {
+        zählerListe[2] = "Auswahl Held " + AblageListe[5] +  " Schaden zufügen";
+      }
+      if (AblageListe[2] == "Spieler1AuswahlLebenPlus" || AblageListe[2] == "Spieler2AuswahlLebenPlus") {
+        zählerListe[2] =  "Auswahl Leben heilen";
+      }
+      if (AblageListe[2] == "Spieler1Auswahl1KarteAblegen" || AblageListe[2] == "Spieler2Auswahl1KarteAblegen") {
+        zählerListe[2] = "Auswahl Karte abwerfen";
+      }
+      if (AblageListe[2] == "Spieler1Auswahl2SchadenZufügen" || AblageListe[2] == "Spieler2Auswahl2SchadenZufügen") {
+        zählerListe[2] = "Auswahl Karte 2 Schaden zufügen";
+      }
+      if (AblageListe[2] == "gegnerischeKarteZumVerschiebenWählen") {
+        zählerListe[2] = "wählen gegnerischer Karte Verschieben";
+        canvas.font = "23px Georgia";
+      }
+      if (AblageListe[2] == "Spieler1gegnerischeEinheitNeuHinlegen" || AblageListe[2] == "Spieler2gegnerischeEinheitNeuHinlegen" || AblageListe[2] == "Spieler1eigeneEinheitNeuHinlegen" || AblageListe[2] == "Spieler2eigeneEinheitNeuHinlegen") {
+        zählerListe[2] = "Position zu verschiebener Karte wählen";
+        canvas.font = "23px Georgia";
+      }
+      if (AblageListe[2] == "eigeneKarteZumVerschiebenWählen") {
+        zählerListe[2] = "wählen eigener Karte Verschieben";
+        canvas.font = "25px Georgia";
+      }
+      if (AblageListe[4] == "wartenFarbauswahlSpieler2" || AblageListe[4] == "wartenFarbauswahlSpieler1") {
+        zählerListe[2] = "Farbsteine auswählen";
+        canvas.font = "25px Georgia";
+      }
+      canvas.fillText(zählerListe[2],1370 - 175 , 370);
     }
     zähler = 0;
   }
