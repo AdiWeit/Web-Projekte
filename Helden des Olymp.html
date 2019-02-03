@@ -244,6 +244,8 @@
       result = result.toString().split(',');
       if (Sperren[2] == true) {
         if (result.length > Zustand.length) {
+          ttsOut = new Audio("http://soundbible.com/mp3/front-desk-bells-daniel_simon.mp3");
+          ttsOut.play();
           Sperren[2] = false;
           setTimeout(function() {
             console.log("Bin dran!!!");
@@ -294,11 +296,11 @@
       }, 500);
       Sperren[2] = true;
     }
-    if (Zustand[Zustand.length - 1] + Zustand[Zustand.length - 1] == "Von" + name + "überrollt" + "Von" + name + "überrollt") {
+    if (Zustand[Zustand.length - 1] + Zustand[Zustand.length - 2] == "Von " + name + "überrollt" + "Von " + name + "überrollt") {
       Zustand[Zustand.length] = name + "gewonnen";
       ZustandSpeichern();
       gewonnenCheck();
-    } else if (Zustand[Zustand.length - 1] + Zustand[Zustand.length - 1] == "Von" + nameGegner + "überrollt" + "Von" + nameGegner + "überrollt") {
+    } else if (Zustand[Zustand.length - 1] + Zustand[Zustand.length - 2] == "Von " + nameGegner + "überrollt" + "Von " + nameGegner + "überrollt") {
       Zustand[Zustand.length] = nameGegner + "gewonnen";
       ZustandSpeichern();
       gewonnenCheck();
@@ -999,7 +1001,7 @@ else {
         canvas.fillRect(Koordinaten[0], 390 + 88 - Koordinaten[3], 180, 250)
         canvas.fillStyle = kartenSpieler2[zähler][2]; //Farbe
         canvas.fillRect(Koordinaten[0] + 20, 410 + 88 - Koordinaten[3], 140, 207)
-        if (kartenSpieler1[zähler][2] == "silver") {
+        if (kartenSpieler2[zähler][2] == "silver") {
           canvas.fillStyle = "red";
           canvas.fillRect(Koordinaten[0] + 20, 410 + 88 - Koordinaten[3], 140/2, 207/2)
          canvas.fillStyle = "yellow";
@@ -1450,19 +1452,19 @@ else {
       FarbsteineKlickCheck();
       if (NameBleibt[0] == name) {
         if (kartenSpieler1[AblageListe[1]] == undefined || kartenSpieler1[AblageListe[1]][7] == undefined) {
-          if (zählerListe[9] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && kartenSpieler1[AblageListe[1]][2] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && kartenSpieler1[AblageListe[1]][2] == "blue" ||
-            farbenGebraucht[2].length < farbenVorhanden[2].length && kartenSpieler1[AblageListe[1]][2] == "green" || farbenGebraucht[1].length < farbenVorhanden[1].length && kartenSpieler1[AblageListe[1]][2] == "red") {
+          if (zählerListe[9] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && AblageListe[7] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && AblageListe[7] == "blue" ||
+            farbenGebraucht[2].length < farbenVorhanden[2].length && AblageListe[7] == "green" || farbenGebraucht[1].length < farbenVorhanden[1].length && AblageListe[7] == "red") {
             if (SteineIch[zählerListe[9]] == "#FF8000" == false || kartenSpieler1[AblageListe[1]][7] == undefined) {
-              if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "yellow") {
+              if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "yellow" || AblageListe[7] == "yellow") {
                 farbenGebraucht[4].pop();
               }
-              if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "red") {
+              if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "red" || AblageListe[7] == "red") {
                 farbenGebraucht[1].pop();
               }
-              if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "green") {
+              if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "green" || AblageListe[7] == "green") {
                 farbenGebraucht[2].pop();
               }
-              if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "blue") {
+              if (zählerListe[9] < 4 == false && kartenSpieler1[AblageListe[1]][2] == "blue" || AblageListe[7] == "blue") {
                 farbenGebraucht[3].pop();
               }
               if (kartenSpieler1[SteineIch[zählerListe[9]]] == true) {
@@ -1504,19 +1506,19 @@ else {
         }
       } else {
         if (kartenSpieler2[AblageListe[1]] == undefined || kartenSpieler2[AblageListe[1]][7] == undefined) {
-          if (zählerListe[9] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && kartenSpieler2[AblageListe[1]][2] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && kartenSpieler2[AblageListe[1]][2] == "blue" ||
-            farbenGebraucht[2].length < farbenVorhanden[2].length && kartenSpieler2[AblageListe[1]][2] == "green" || farbenGebraucht[1].length < farbenVorhanden[1].length && kartenSpieler2[AblageListe[1]][2] == "red") {
+          if (zählerListe[9] < 4 || farbenGebraucht[4].length < farbenVorhanden[4].length && AblageListe[7] == "yellow" || farbenGebraucht[3].length < farbenVorhanden[3].length && AblageListe[7] == "blue" ||
+            farbenGebraucht[2].length < farbenVorhanden[2].length && AblageListe[7] == "green" || farbenGebraucht[1].length < farbenVorhanden[1].length && AblageListe[7] == "red") {
             if (SteineIch[zählerListe[9]] == "#FF8000" == false || kartenSpieler2[AblageListe[1]][7] == undefined) {
-              if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "yellow") {
+              if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "yellow" || AblageListe[7] == "yellow") {
                 farbenGebraucht[4].pop();
               }
-              if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "red") {
+              if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "red" || AblageListe[7] == "red") {
                 farbenGebraucht[1].pop();
               }
-              if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "green") {
+              if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "green" || AblageListe[7] == "green") {
                 farbenGebraucht[2].pop();
               }
-              if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "blue") {
+              if (zählerListe[9] < 4 == false && kartenSpieler2[AblageListe[1]][2] == "blue" || AblageListe[7] == "blue") {
                 farbenGebraucht[3].pop();
               }
               if (kartenSpieler2[SteineIch[zählerListe[9]]] == true) {
@@ -2388,7 +2390,48 @@ function FarbenMitteCheck() {
     } else {
       AblageListe[0] = kartenSpieler2
     }
-
+    if (AblageListe[0][AblageListe[1]] == undefined == false && AblageListe[0][AblageListe[1]][2] == "" == false) {
+    if (AblageListe[0][AblageListe[1]][2] == "silver") {
+      AblageListe[7] = "";
+      if (xMaus > 95 + 250*(AblageListe[1]) && xMaus < 95 + 250*(AblageListe[1]) + 200/2) {
+        AblageListe[7] += "links";
+      }
+      if (xMaus > 95 + 250*(AblageListe[1]) + 200/2 && xMaus < 95 + 250*(AblageListe[1]) + 200) {
+        AblageListe[7] += "rechts";
+      }
+      if (yMaus > 500) {
+        if (yMaus > 530 && yMaus < 530 + 200/2) {
+          AblageListe[7] += "oben";
+        }
+        if (yMaus > 530 + 200/2 && yMaus < 530 + 200) {
+          AblageListe[7] += "unten";
+        }
+      }
+      else {
+        if (yMaus > 530 - 475 && yMaus < 530 - 475 + 200/2) {
+          AblageListe[7] += "oben";
+        }
+        if (yMaus > 530 - 475 + 200/2 && yMaus < 530 - 475 + 200) {
+          AblageListe[7] += "unten";
+        }
+      }
+    }
+    else {
+      AblageListe[7] = AblageListe[0][AblageListe[1]][2];
+    }
+    if (AblageListe[7] == "linksoben") {
+      AblageListe[7] = "red";
+    }
+    if (AblageListe[7] == "linksunten") {
+      AblageListe[7] = "blue";
+    }
+    if (AblageListe[7] == "rechtsoben") {
+      AblageListe[7] = "green";
+    }
+    if (AblageListe[7] == "rechtsunten") {
+      AblageListe[7] = "red";
+    }
+  }
     if (Sperren[1] == false) {
       LayoutMitte();
     } else {
