@@ -1,0 +1,78 @@
+<canvas id="textur" width="1582" height="700"></canvas>
+<meta charset="utf-8">
+<script>
+
+var zähler = 0;
+var textur = document.getElementById('textur');
+var canvas = textur.getContext('2d');//Dimension
+var x = 30;
+var y = 30;
+var colors = ['green', 'springGreen', 'yellow', 'gold', 'blue', 'steelBlue', '#09F', 'cyan', 'plum', 'purple', 'brown', 'tomato', 'silver'];
+var cycle = [];
+var Anzahl = 0;
+var IntervalRinge = [];
+var SchnelligkeitPunkte = prompt("Bitte geben sie ein, wie schnell die Punkte erscheinen sollen. (je höher die Zahl, desto langsamer)")
+var PunkteProSekunde = prompt("Bitte geben sie ein, wie viele Punkte pro Sekunde erscheinen sollen.")
+
+class cyrcle {
+constructor(colors) {
+this.x = x;
+this.y = y;
+this.colors = colors;
+this.zähler = 0;
+}
+
+AnimationRingGroß() {
+  canvas.fillStyle = this.colors;
+  canvas.beginPath();
+  canvas.arc(this.x,this.y,this.zähler,250,100,Math.PI*2, true);
+  canvas.fill();
+  this.zähler++;
+}
+}
+
+function Animation() {
+  zähler = 0;
+  /*canvas.fillStyle = "white";
+  canvas.fillRect(0,0,1900, 700); */
+  while (zähler < Anzahl) {
+    if (cyrcle[zähler].zähler < 20) {
+      cyrcle[zähler].AnimationRingGroß();
+    }
+    zähler++;
+  }
+}
+function RingErstellen() {
+  cyrcle[Anzahl] = new cyrcle(colors[Math.floor(Math.random() * colors.length - 1)]);
+  if (x > 1500) {
+    y += 50;
+    x = -20;
+  }
+  x += 50;
+  Anzahl++;
+  if (y > 680) {
+    setTimeout(function () {
+      clearInterval(IntervalRinge)
+    }, 1000);
+  }
+}
+
+while (zähler < PunkteProSekunde) {
+  IntervalRinge[0] = setInterval(RingErstellen, SchnelligkeitPunkte);
+  zähler++;
+}
+IntervalRinge[0] = setInterval(Animation, 50);
+/*
+IntervalRinge[0] = setInterval(RingErstellen, 400);
+IntervalRinge[0] = setInterval(RingErstellen, 800);
+IntervalRinge[0] = setInterval(RingErstellen, 200);
+IntervalRinge[0] = setInterval(RingErstellen, 1000);
+
+IntervalRinge[0] = setInterval(RingErstellen, 400);
+IntervalRinge[0] = setInterval(RingErstellen, 800);
+IntervalRinge[0] = setInterval(RingErstellen, 200);
+IntervalRinge[0] = setInterval(RingErstellen, 1000);
+IntervalRinge[0] = setInterval(Animation, 50);
+*/
+
+</script>
