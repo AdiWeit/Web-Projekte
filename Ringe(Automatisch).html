@@ -1,0 +1,77 @@
+﻿ <canvas id="textur" width="1584" height="700"></canvas>
+<meta charset="utf-8">
+<script>
+
+var zähler = 0;
+var textur = document.getElementById('textur');
+var canvas = textur.getContext('2d');//Dimension
+var ring;
+var colors = ['green', 'springGreen', 'yellow', 'gold', 'blue', 'steelBlue', '#09F', 'cyan', 'plum', 'purple', 'brown', 'tomato', 'silver'];
+var cycle = [];
+var xMaus = Math.floor(Math.random() * 1500) + 84;
+var yMaus = Math.floor(Math.random() * 600) + 100;
+var Anzahl = 0;
+var Ablage = 0;
+
+class cyrcle {
+constructor(colors) {
+this.x = xMaus;
+this.y = yMaus;
+this.start = 4.72
+this.RingGröße = 10;
+this.Radius = 55;
+this.colors = colors;
+this.zähler = 0;
+}
+
+AnimationRingGroß() {
+//canvas.fillStyle = "white";
+//canvas.fillRect(0,0,1900, 700);
+
+this.diff = ((1)*Math.PI*2*10).toFixed(2)
+canvas.lineWidth = this.RingGröße;
+canvas.fillStyle = '#09F'
+canvas.strokeStyle = this.colors
+canvas.textAlign = 'center'
+canvas.beginPath();
+canvas.arc(this.x, this.y, this.Radius, this.start, this.diff / 10 + this.start, false)
+canvas.stroke()
+this.zähler++;
+this.Radius++;
+this.RingGröße--;
+}
+}
+function mouseMove() {
+  Ablage = Math.floor(Math.random() * 9000);
+  if (Ablage < 3000) {
+      xMaus += Math.floor(Math.random() * 5) + 1;
+  }
+  else if (Ablage < 6000) {
+      yMaus += Math.floor(Math.random() * 5) + 1;
+  }
+  else {
+    yMaus -= Math.floor(Math.random() * 5) + 1;
+    xMaus -= Math.floor(Math.random() * 5) + 1;
+  }
+
+
+//    console.log(xMaus + " - " + yMaus);
+cyrcle[Anzahl] = new cyrcle(colors[Math.floor(Math.random() * colors.length - 1)]);
+Anzahl++;
+}
+
+function Animation() {
+  zähler = 0;
+  canvas.fillStyle = "white";
+  canvas.fillRect(0,0,1900, 700);
+  while (zähler < Anzahl) {
+    if (cyrcle[zähler].zähler < 18) {
+      cyrcle[zähler].AnimationRingGroß();
+    }
+    zähler++;
+  }
+}
+setInterval(Animation, 20)
+setInterval(mouseMove, 20)
+
+</script>
