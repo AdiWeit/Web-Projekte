@@ -1,0 +1,70 @@
+<canvas id="textur" width="1582" height="700"></canvas>
+<meta charset="utf-8">
+<script>
+  var zähler = 0;
+  var textur = document.getElementById('textur');
+  var canvas = textur.getContext('2d'); //Dimension
+  var colors = ['green', 'springGreen', 'yellow', 'gold', 'blue', 'steelBlue', '#09F', 'cyan', 'plum', 'purple', 'brown', 'tomato', 'silver'];
+  var cycle = [];
+  var Anzahl = 0;
+  var IntervalRinge = [];
+  var PunkteProSekunde = prompt("Bitte geben sie ein, wie viele Millisekunden zwischen dem erscheinen eines Punktes erscheinen sollen.")
+  var SchnelligkeitVergrößerung = prompt("Bitte geben sie ein, wie viele Millisekunden zwischen dem Vergrößern eines Punktes erscheinen sollen.")
+  var Pause = false;
+  if (isNaN(PunkteProSekunde) || PunkteProSekunde == null) {
+    PunkteProSekunde = 15;
+  }
+
+  class cyrcle {
+    constructor(x, y, Radius, colors) {
+      this.x = x;
+      this.y = y;
+      this.colors = colors;
+      this.zähler = 0;
+      this.Radius = Radius
+    }
+
+    AnimationRingGroß() {
+      canvas.fillStyle = this.colors;
+      canvas.beginPath();
+      canvas.arc(this.x, this.y, this.Radius, 250, 100, Math.PI * 2, true);
+      canvas.fill();
+      this.zähler++;
+      this.Radius++;
+    }
+  }
+
+  function Animation() {
+    if (Pause == false) {
+    zähler = 0;
+    /*canvas.fillStyle = "white";
+    canvas.fillRect(0,0,1900, 700); */
+    while (zähler < Anzahl) {
+      if (cyrcle[zähler].zähler < 18) {
+        cyrcle[zähler].AnimationRingGroß();
+      }
+      zähler++;
+    }
+  }
+  }
+
+  function RingErstellen() {
+    if (Pause == false) {
+      cyrcle[Anzahl] = new cyrcle(Math.floor(Math.random() * textur.width), Math.floor(Math.random() * textur.height), Math.floor(Math.random() * 23), colors[Math.floor(Math.random() * colors.length - 1)]);
+      Anzahl++;
+    }
+  }
+
+  IntervalRinge[0] = setInterval(RingErstellen, PunkteProSekunde);
+  IntervalRinge[0] = setInterval(Animation, SchnelligkeitVergrößerung);
+
+  document.onkeydown = function(event) {
+    if (event.keyCode == 80) {
+      if (Pause == false) {
+        Pause = true;
+      } else {
+        Pause = false;
+      }
+    }
+  }
+</script>
