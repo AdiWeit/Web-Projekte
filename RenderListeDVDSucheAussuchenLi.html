@@ -6,15 +6,16 @@
   <div v-for="genre in genres">
     <h2>{{ genre }}</h2>
 <ul>
-  <li v-for="abc in Vorschläge"> {{ abc }} </li>
+  <li v-for="abc in db[genre]"> {{ abc }} </li>
 </ul>
-  <h2 id="TP"></h2>
 </div>
 </div>
 
 <script>
   var zählerListe = [0];
   var AblageListe = [];
+  var Vorschläge = {};
+
   document.onkeydown = function(event) {
     if (event.keyCode == 16 == false && event.keyCode == 20 == false) {
   //  document.getElementById('boxP').value += event.key;
@@ -23,20 +24,27 @@
       AblageListe[0] = [];
     zählerListe[0] = 0;
     zählerListe[1] = 0;
+    Vorschläge = {};
+    app.genres = [];
     while (zählerListe[0] < Object.keys(Bibliothek).length) {
       if (Bibliothek[Object.keys(Bibliothek)[zählerListe[0]]][zählerListe[1]] == undefined) {
         zählerListe[1] = 0;
         zählerListe[0]++;
+        Vorschläge[Object.keys(Bibliothek)[zählerListe[0]]] = AblageListe[0];
+        if (AblageListe[0] == "" == false) {
+          app.genres[zählerListe[0]] = Object.keys(Bibliothek)[zählerListe[0]];
+        }
+        AblageListe[0] = [];
       }
       if (zählerListe[0] < Object.keys(Bibliothek).length) {
       if (Bibliothek[Object.keys(Bibliothek)[zählerListe[0]]][zählerListe[1]].includes(document.getElementById('boxP').value)) {
-      AblageListe[0][AblageListe[0].length] = Bibliothek[Object.keys(Bibliothek)[zählerListe[0]]][zählerListe[1]]
-         app.Vorschläge = AblageListe[0]
+        AblageListe[0][AblageListe[0].length] = Bibliothek[Object.keys(Bibliothek)[zählerListe[0]]][zählerListe[1]];
       }
       zählerListe[1]++;
 }
 }
-app.Vorschläge = AblageListe[0]
+Vorschläge[Object.keys(Bibliothek)[zählerListe[0]]] = AblageListe[0];
+app.db = Vorschläge;
 }, 1);
 }
 }
@@ -46,7 +54,6 @@ app.Vorschläge = AblageListe[0]
       db: Bibliothek,
       genres: Object.keys(Bibliothek),
       input: '',
-      Vorschläge: AblageListe[0]
     }
   })
 
@@ -68,7 +75,5 @@ app.Vorschläge = AblageListe[0]
    document.getElementById('boxP').select();
 
  });
-
-  AblageListe[0] = ["TEST", "TEST1", 2, 3];
 
 </script>
