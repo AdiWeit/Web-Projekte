@@ -1,0 +1,74 @@
+<meta charset="utf-8">
+<script src="bibliothek-sorted.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<div id="app">
+  <input v-model="input" id="boxP">
+  <div v-for="genre in genres">
+    <h2>{{ genre }}</h2>
+<ul>
+  <li v-for="abc in Vorschläge"> {{ abc }} </li>
+</ul>
+  <h2 id="TP"></h2>
+</div>
+</div>
+
+<script>
+  var zählerListe = [0];
+  var AblageListe = [];
+  document.onkeydown = function(event) {
+    if (event.keyCode == 16 == false && event.keyCode == 20 == false) {
+  //  document.getElementById('boxP').value += event.key;
+  setTimeout(function () {
+      console.log(document.getElementById('boxP').value);
+      AblageListe[0] = [];
+    zählerListe[0] = 0;
+    zählerListe[1] = 0;
+    while (zählerListe[0] < Object.keys(Bibliothek).length) {
+      if (Bibliothek[Object.keys(Bibliothek)[zählerListe[0]]][zählerListe[1]] == undefined) {
+        zählerListe[1] = 0;
+        zählerListe[0]++;
+      }
+      if (zählerListe[0] < Object.keys(Bibliothek).length) {
+      if (Bibliothek[Object.keys(Bibliothek)[zählerListe[0]]][zählerListe[1]].includes(document.getElementById('boxP').value)) {
+      AblageListe[0][AblageListe[0].length] = Bibliothek[Object.keys(Bibliothek)[zählerListe[0]]][zählerListe[1]]
+         app.Vorschläge = AblageListe[0]
+      }
+      zählerListe[1]++;
+}
+}
+app.Vorschläge = AblageListe[0]
+}, 1);
+}
+}
+  var app = new Vue({
+    el: '#app',
+    data: {
+      db: Bibliothek,
+      genres: Object.keys(Bibliothek),
+      input: '',
+      Vorschläge: AblageListe[0]
+    }
+  })
+
+  document.getElementById('boxP').addEventListener('change', function (e) {
+    zählerListe[0] = 0;
+    zählerListe[1] = -1;
+    while (zählerListe[0] < Object.keys(Bibliothek).length) {
+      if (Bibliothek[Object.keys(Bibliothek)[zählerListe[0]]].includes(e.srcElement.value)) {
+        zählerListe[1] = zählerListe[0]
+      }
+      zählerListe[0]++;
+    }
+    if (zählerListe[1] == -1) {
+      document.getElementById('TP').innerHTML = "Nicht vorhanden";
+    }
+    else {
+     document.getElementById('TP').innerHTML = Object.keys(Bibliothek)[zählerListe[1]];
+    }
+   document.getElementById('boxP').select();
+
+ });
+
+  AblageListe[0] = ["TEST", "TEST1", 2, 3];
+
+</script>
